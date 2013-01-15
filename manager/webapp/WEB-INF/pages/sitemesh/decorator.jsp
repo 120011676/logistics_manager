@@ -62,7 +62,9 @@
 	</div>
 	<div class="clear"></div>
 	<div id="content-outer">
-		<sitemesh:write property='body' />
+		<div id="content">
+			<sitemesh:write property='body' />
+		</div>
 		<div class="clear">&nbsp;</div>
 	</div>
 	<div class="clear">&nbsp;</div>

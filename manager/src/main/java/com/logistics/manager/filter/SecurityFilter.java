@@ -35,11 +35,11 @@ public class SecurityFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		System.out.println(request.getRequestURI());
 		if (request.getSession().getAttribute(BaseAction.LOGIN_USER) != null
-				|| request.getRequestURI().equals("/login.htm")) {
+				|| request.getRequestURI().startsWith("/noSecurity")) {
 			filterChain.doFilter(servletRequest, servletResponse);
 		} else {
 			HttpServletResponse response = (HttpServletResponse) servletResponse;
-			response.sendRedirect("/login.htm");
+			response.sendRedirect("/noSecurity/login.htm");
 		}
 	}
 

@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
-<link rel="stylesheet" href="${path }css/screen.css" type="text/css"
+<link rel="stylesheet" href="${path }/css/screen.css" type="text/css"
 	media="screen" title="default" />
-<script src="${path }js/jquery/custom_jquery.js" type="text/javascript"></script>
-<script src="${path }js/jquery/jquery.pngFix.pack.js"
+<script src="${path }/js/jquery/custom_jquery.js" type="text/javascript"></script>
+<script src="${path }/js/jquery/jquery.pngFix.pack.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -25,47 +25,31 @@
 		<div class="clear"></div>
 		<div id="loginbox">
 			<div id="login-inner">
-				<table border="0" cellpadding="0" cellspacing="0">
-					<tr>
-						<th>Username</th>
-						<td><input type="text" class="login-inp" /></td>
-					</tr>
-					<tr>
-						<th>Password</th>
-						<td><input type="password" value="************"
-							onfocus="this.value=''" class="login-inp" /></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td valign="top"><input type="checkbox" class="checkbox-size"
-							id="login-check" /><label for="login-check">Remember me</label></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td><input type="button" class="submit-login" /></td>
-					</tr>
-				</table>
+				<form action="${path }/noSecurity/toLogin.htm" method="post">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<th>用户名：</th>
+							<td><input name="username" type="text" class="login-inp" /></td>
+						</tr>
+						<tr>
+							<th>密&nbsp;&nbsp;&nbsp;码：</th>
+							<td><input name="password" type="password" class="login-inp" /></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td valign="top"><input type="checkbox"
+								class="checkbox-size" id="login-check" /><label
+								for="login-check">记住我</label></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td><input type="submit" class="submit-login" value="登录" /></td>
+						</tr>
+					</table>
+				</form>
 			</div>
 			<div class="clear"></div>
 			<a href="" class="forgot-pwd">Forgot Password?</a>
-		</div>
-		<div id="forgotbox">
-			<div id="forgotbox-text">Please send us your email and we'll
-				reset your password.</div>
-			<div id="forgot-inner">
-				<table border="0" cellpadding="0" cellspacing="0">
-					<tr>
-						<th>Email address:</th>
-						<td><input type="text" value="" class="login-inp" /></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td><input type="button" class="submit-login" /></td>
-					</tr>
-				</table>
-			</div>
-			<div class="clear"></div>
-			<a href="" class="back-login">Back to login</a>
 		</div>
 	</div>
 </body>

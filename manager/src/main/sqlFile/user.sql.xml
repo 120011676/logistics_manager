@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sql name="queryGoods" >
-        select * from goods where state = 1</sql>
+<sql name="querUser" >
+       select * from user where enable = true
+       <parameter name="username">
+           and username = :username
+       </parameter></sql>

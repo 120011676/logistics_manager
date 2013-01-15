@@ -51,6 +51,13 @@ public class LoginAction {
 					.setAttribute(BaseAction.LOGIN_USER, user);
 			return "redirect:/";
 		}
-		return "redirect:/login.htm?error=true";
+		return "redirect:/noSecurity/login.htm?error=true";
+	}
+
+	@RequestMapping("logout")
+	public String logout() {
+		BaseAction.getHttpServletRequest().getSession()
+				.removeAttribute(BaseAction.LOGIN_USER);
+		return "redirect:/noSecurity/login.htm";
 	}
 }

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="${path }/consignment/update.htm">update</a>
 </body>
 </html>

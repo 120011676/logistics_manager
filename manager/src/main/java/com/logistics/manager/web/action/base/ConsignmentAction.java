@@ -9,9 +9,17 @@ public class ConsignmentAction {
 
 	@RequestMapping("list")
 	public String list() {
-		BaseAction.getHttpServletRequest().setAttribute("current", "consignment");
-		BaseAction.getHttpServletRequest().setAttribute("show", "consignment_show");
-		BaseAction.getHttpServletRequest().setAttribute("subShow", "consignment_show_acceptance");
+		BaseAction.getHttpServletRequest().setAttribute("current",
+				"consignment");
+		BaseAction.getHttpServletRequest().setAttribute("show",
+				"consignment_show");
+		BaseAction.getHttpServletRequest().setAttribute("subShow",
+				"consignment_show_acceptance");
 		return "consignment/list";
+	}
+
+	@RequestMapping("update")
+	public String update() {
+		return "consignment/update";
 	}
 }

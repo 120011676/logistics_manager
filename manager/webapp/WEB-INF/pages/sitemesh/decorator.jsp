@@ -15,7 +15,7 @@
 	<div id="page-top-outer">
 		<div id="page-top">
 			<div id="logo">
-				<a href="/"><img src="${path }/images/shared/logo.png"
+				<a href="${path }/"><img src="${path }/images/shared/logo.png"
 					width="156" height="40" alt="" /></a>
 			</div>
 		</div>

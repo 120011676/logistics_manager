@@ -19,7 +19,7 @@
 <body id="login-bg">
 	<div id="login-holder">
 		<div id="logo-login">
-			<a href="index.html"><img src="images/shared/logo.png"
+			<a href="${path }/"><img src="${path }/images/shared/logo.png"
 				width="156" height="40" alt="" /></a>
 		</div>
 		<div class="clear"></div>

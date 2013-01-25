@@ -1,4 +1,4 @@
-package com.logistics.manager.web.action.base;
+package com.logistics.manager.web.action;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

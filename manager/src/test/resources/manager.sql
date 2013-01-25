@@ -35,7 +35,7 @@ create table consignment(
 	carry_cargo_price double not null comment '送货费',
 	insurance_price double not null comment '保险费',
 	pack_price double not null comment '包装费',
-	Load_unload_price double not null comment '装卸费',
+	load_unload_price double not null comment '装卸费',
 	other_price double not null comment '其他费',
 	collection_money double not null comment '代收款',
 	collection_money_charge double not null comment '代收款手续费',
@@ -50,12 +50,12 @@ drop table if exists cargo;
 create table cargo(
 	id int primary key auto_increment,
 	consignment_id int not null,
-	commodity_name varchar(255) not null,
-	pack varchar(255) not null,
-	number_of_packages int not null,
-	weight double not null,
-	volume double not null,
-	statement_value double not null,
+	commodity_name varchar(255),
+	pack varchar(255),
+	number_of_packages int,
+	weight double,
+	volume double,
+	statement_value double,
 	create_datetime timestamp not null default now(),
 	foreign key(consignment_id) references consignment(id)
 );

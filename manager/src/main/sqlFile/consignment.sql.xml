@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sql name="saveConsignment">
+    insert consignment(datetime,start_city,arrival_city,mode_of_transportation,service_mode,payment,consignor_id,consignee_id,charging_ways,unit_price,transport_price,take_cargo_price,carry_cargo_price,insurance_price,pack_price,load_unload_price,other_price,collection_money,collection_money_charge,return_price,create_user_id)
+     value(:datetime,:startCity,:arrivalCity,:modeOfTransportation,:serviceMode,:payment,:consignorId,:consigneeId,:chargingWays,:unitPrice,:transportPrice,:takeCargoPrice,:carryCargoPrice,:insurancePrice,:packPrice,:loadUnloadPrice,:otherPrice,:collectionMoney,:collectionMoneyCharge,:returnPrice,:createUserId)
+</sql>
+           

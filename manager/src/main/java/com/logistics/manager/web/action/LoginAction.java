@@ -1,4 +1,4 @@
-package com.logistics.manager.web.action.base;
+package com.logistics.manager.web.action;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IUserService;
+import com.logistics.manager.web.action.base.BaseAction;
 
 @Controller
 @RequestMapping("noSecurity")

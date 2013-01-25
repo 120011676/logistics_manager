@@ -79,7 +79,7 @@
 		<div class="clear">&nbsp;</div>
 	</div>
 	<div class="clear">&nbsp;</div>
-	<div id="footer">
+	<div id="footer" style="margin-top: 0px;">
 		<div id="footer-left">版权信息</div>
 		<div class="clear">&nbsp;</div>
 	</div>

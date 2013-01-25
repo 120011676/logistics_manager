@@ -6,11 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>受理单管理</title>
-<script type="text/javascript">
-	$(function(){
-		alert("s");
-	});
-</script>
 </head>
 <body>
 	<div id="page-heading">
@@ -31,10 +26,11 @@
 		</tr>
 		<tr>
 			<td id="tbl-border-left"></td>
-			<td>
+			<td valign="top">
 				<div id="content-table-inner">
 					<a href="${path }/consignment/toUpdate.htm">update</a>
-					<form id="myForm" action="${path }/consignment/list.htm" method="post">
+					<form id="myForm" action="${path }/consignment/list.htm"
+						method="post">
 						<table border="0" width="100%" cellpadding="0" cellspacing="0"
 							id="product-table">
 							<tr style="color: white;">
@@ -64,9 +60,7 @@
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
 									<td><a class="icon-1 info-tooltip" href=""></a> <a
 										class="icon-2 info-tooltip" href=""></a> <a
-										class="icon-3 info-tooltip" href=""></a> <a
-										class="icon-4 info-tooltip" href=""></a> <a
-										class="icon-5 info-tooltip" href=""></a></td>
+										class="icon-3 info-tooltip" href=""></a></td>
 								</tr>
 							</c:forEach>
 						</table>

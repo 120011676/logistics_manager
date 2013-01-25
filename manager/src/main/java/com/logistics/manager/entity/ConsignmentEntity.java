@@ -5,6 +5,8 @@ import java.util.List;
 
 public class ConsignmentEntity {
 
+	private Integer id;
+	
 	private Date datetime;// 日期
 
 	private String startCity;
@@ -44,10 +46,28 @@ public class ConsignmentEntity {
 	private Double collectionMoneyCharge;// 代收款手续费
 
 	private Double returnPrice;// 返单手续费
+	
+	private Date createDatetime;
 
 	private UserEntity createUser;
-
+	
 	private List<CargoEntity> cargos;
+
+	public Date getCreateDatetime() {
+		return createDatetime;
+	}
+
+	public void setCreateDatetime(Date createDatetime) {
+		this.createDatetime = createDatetime;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public List<CargoEntity> getCargos() {
 		return cargos;

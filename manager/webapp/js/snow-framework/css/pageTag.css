@@ -1,0 +1,10 @@
+@charset "utf-8";
+.pageTagCss{
+	font-size: 12px;
+}
+
+.pageTagCss a{
+	color:black;
+	font-size: 12px;
+	text-decoration: none;
+}

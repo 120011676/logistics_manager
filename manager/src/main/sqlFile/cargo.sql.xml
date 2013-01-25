@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sql name="saveCargo">
-    insert cargo(consignment_id,commodity_name,pack,number_of_packages,weight,volume,statement_value) value(:consignmentId,:commodityName,:pack,:numberOfPackages,:weight,:volume,:statementValue)
-</sql>
+<sqls>
+ <sql name="saveCargo">
+  insert
+  cargo(consignment_id,commodity_name,pack,number_of_packages,weight,volume,statement_value)
+  value(:consignmentId,:commodityName,:pack,:numberOfPackages,:weight,:volume,:statementValue)
+ </sql>
+</sqls>

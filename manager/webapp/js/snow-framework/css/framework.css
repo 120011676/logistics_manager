@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+.titleCss {
+	font-size: 14px;
+	height: 45px;
+}
+
+.messageCss {
+	font-size: 12px;
+}
+
+.snow_framework_btn {
+	color: #777;
+	font-size: 12px;
+	background: url(../images/btn.gif) repeat-x bottom;
+	height: 30px;
+	width: 40px; border : 1px solid #abafb0;
+	cursor: pointer;
+	border: 1px solid #abafb0;
+}

@@ -9,9 +9,20 @@
 	src="${path }/js/jquery/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" href="${path }/css/screen.css" type="text/css"
 	media="screen" title="default" />
+	<script src="${path }/js/fancyapps-fancyBox/jquery.fancybox.js" type="text/javascript"></script>
+<link media="screen" href="${path }/js/fancyapps-fancyBox/jquery.fancybox.css" type="text/css" rel="stylesheet"></link>
+<link href="${path }/js/fancyapps-fancyBox/helpers/jquery.fancybox-buttons.css" type="text/css" rel="stylesheet"></link>
+<script src="${path }/js/fancyapps-fancyBox/helpers/jquery.fancybox-buttons.js" type="text/javascript"></script>
+<link href="${path }/js/fancyapps-fancyBox/helpers/jquery.fancybox-thumbs.css" type="text/css" rel="stylesheet"></link>
+<script src="${path }/js/fancyapps-fancyBox/helpers/jquery.fancybox-thumbs.js" type="text/javascript"></script>
+<script src="${path }/js/fancyapps-fancyBox/helpers/jquery.fancybox-media.js" type="text/javascript"></script>
+<script type="text/javascript" src="${path }/js/snow-framework/snow.framework.js"></script>
+<link type="text/css" rel="stylesheet" href="${path }/js/snow-framework/css/framework.css">
+<link type="text/css" rel="stylesheet" href="${path }/js/snow-framework/css/pageTag.css">
 <sitemesh:write property='head' />
 </head>
 <body>
+<input id="contextPath" type="hidden" value="${path }">
 	<div id="page-top-outer">
 		<div id="page-top">
 			<div id="logo">

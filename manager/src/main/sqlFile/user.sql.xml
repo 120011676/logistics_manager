@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sql name="querUser" >
-       select * from user where enable = true
-       <parameter name="username">
-           and username = :username
-       </parameter></sql>
+<sqls>
+ <sql name="querUser">
+  select * from user where enable = true
+  <parameter name="username">
+   and username = :username
+  </parameter> </sql>
+</sqls>

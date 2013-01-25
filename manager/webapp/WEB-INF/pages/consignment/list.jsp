@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/pages/utils/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>受理单管理</title>
+<script type="text/javascript">
+	$(function(){
+		alert("s");
+	});
+</script>
 </head>
 <body>
 	<div id="page-heading">
@@ -27,11 +33,45 @@
 			<td id="tbl-border-left"></td>
 			<td>
 				<div id="content-table-inner">
-				<a href="${path }/consignment/toUpdate.htm">update</a>
-					<div id="table-content">
-						<h3>欢迎使用物流管理系统</h3>
-					</div>
-					<div class="clear"></div>
+					<a href="${path }/consignment/toUpdate.htm">update</a>
+					<form id="myForm" action="${path }/consignment/list.htm" method="post">
+						<table border="0" width="100%" cellpadding="0" cellspacing="0"
+							id="product-table">
+							<tr style="color: white;">
+								<th class="table-header-repeat line-left"><a href="#">序号</a></th>
+								<th class="table-header-repeat line-left"><a href="#">id</a></th>
+								<th class="table-header-repeat line-left"><a href="#">订单时间</a></th>
+								<th class="table-header-repeat line-left"><a href="#">发货人</a></th>
+								<th class="table-header-repeat line-left"><a href="#">发货人电话</a></th>
+								<th class="table-header-repeat line-left"><a href="#">收货人</a></th>
+								<th class="table-header-repeat line-left"><a href="#">收货人电话</a></th>
+								<th class="table-header-options line-left"><a href="#">创建人</a></th>
+								<th class="table-header-options line-left"><a href="#">创建时间</a></th>
+								<th class="table-header-options line-left"><a href="#">操作</a></th>
+							</tr>
+							<c:forEach items="${page.results }" var="c" varStatus="in">
+								<tr>
+									<td>${in.index + 1 }</td>
+									<td>${c.id }</td>
+									<td><fmt:formatDate value="${c.datetime }"
+											pattern="yyyy-MM-dd" /></td>
+									<td>${c.consignor.personalName }</td>
+									<td>${c.consignor.phone }</td>
+									<td>${c.consignee.personalName }</td>
+									<td>${c.consignee.phone }</td>
+									<td>${c.createUser.name }</td>
+									<td><fmt:formatDate value="${c.createDatetime }"
+											pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td><a class="icon-1 info-tooltip" href=""></a> <a
+										class="icon-2 info-tooltip" href=""></a> <a
+										class="icon-3 info-tooltip" href=""></a> <a
+										class="icon-4 info-tooltip" href=""></a> <a
+										class="icon-5 info-tooltip" href=""></a></td>
+								</tr>
+							</c:forEach>
+						</table>
+						<pageTag:pageTag pageEntity="${page }" formId="myForm" />
+					</form>
 				</div>
 			</td>
 			<td id="tbl-border-right"></td>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sql name="saveConsignment">
-    insert consignment(datetime,start_city,arrival_city,mode_of_transportation,service_mode,payment,consignor_id,consignee_id,charging_ways,unit_price,transport_price,take_cargo_price,carry_cargo_price,insurance_price,pack_price,load_unload_price,other_price,collection_money,collection_money_charge,return_price,create_user_id)
-     value(:datetime,:startCity,:arrivalCity,:modeOfTransportation,:serviceMode,:payment,:consignorId,:consigneeId,:chargingWays,:unitPrice,:transportPrice,:takeCargoPrice,:carryCargoPrice,:insurancePrice,:packPrice,:loadUnloadPrice,:otherPrice,:collectionMoney,:collectionMoneyCharge,:returnPrice,:createUserId)
-</sql>
-           
+<sqls>
+ <sql name="saveConsignment">
+  insert
+  consignment(datetime,start_city,arrival_city,mode_of_transportation,service_mode,payment,consignor_id,consignee_id,charging_ways,unit_price,transport_price,take_cargo_price,carry_cargo_price,insurance_price,pack_price,load_unload_price,other_price,collection_money,collection_money_charge,return_price,create_user_id)
+  value(:datetime,:startCity,:arrivalCity,:modeOfTransportation,:serviceMode,:payment,:consignorId,:consigneeId,:chargingWays,:unitPrice,:transportPrice,:takeCargoPrice,:carryCargoPrice,:insurancePrice,:packPrice,:loadUnloadPrice,:otherPrice,:collectionMoney,:collectionMoneyCharge,:returnPrice,:createUserId)
+ </sql>
+
+ <sql name="queryConsignment">
+     select c.*,co.personal_name,co.company_name,co.phone,ce.personal_name ce_personal_name,ce.company_name ce_company_name,ce.phone ce_phone,u.name from consignment c left join company co on c.consignor_id = co.id left join company ce on c.consignee_id = ce.id left join user u on c.create_user_id = u.id
+ </sql>
+</sqls>

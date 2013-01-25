@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sql name="saveCompany">
-    insert company(personal_name,company_name,address,phone) value(:personalName,:companyName,:address,:phone)
-</sql>
+<sqls>
+ <sql name="saveCompany">
+  insert company(personal_name,company_name,address,phone)
+  value(:personalName,:companyName,:address,:phone)
+ </sql>
+</sqls>

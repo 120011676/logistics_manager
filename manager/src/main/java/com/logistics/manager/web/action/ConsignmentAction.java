@@ -1,5 +1,7 @@
 package com.logistics.manager.web.action;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.logistics.manager.entity.CargoEntity;
+import com.logistics.manager.entity.CompanyEntity;
 import com.logistics.manager.entity.ConsignmentEntity;
+import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.ICargoService;
 import com.logistics.manager.service.interfaces.ICompanyService;
 import com.logistics.manager.service.interfaces.IConsignmentService;
@@ -56,6 +61,40 @@ public class ConsignmentAction extends SimpleFormController {
 				"consignment_show");
 		BaseAction.getHttpServletRequest().setAttribute("subShow",
 				"consignment_show_acceptance");
+		Map<String, Object> map = new HashMap<>();
+		BaseAction.getHttpServletRequest().setAttribute(
+				"page",
+				this.consignmentService.queryMySqlPage("queryConsignment", map,
+						new RowMapper<ConsignmentEntity>() {
+							@Override
+							public ConsignmentEntity mapRow(
+									ResultSet resultSet, int arg1)
+									throws SQLException {
+								ConsignmentEntity consignment = new ConsignmentEntity();
+								consignment.setId(resultSet.getInt("id"));
+								consignment.setDatetime(resultSet
+										.getDate("datetime"));
+								consignment.setConsignor(new CompanyEntity());
+								consignment.getConsignor().setPersonalName(
+										resultSet.getString("personal_name"));
+								consignment.getConsignor().setPhone(
+										resultSet.getInt("phone"));
+								consignment.setConsignee(new CompanyEntity());
+								consignment
+										.getConsignee()
+										.setPersonalName(
+												resultSet
+														.getString("ce_personal_name"));
+								consignment.getConsignee().setPhone(
+										resultSet.getInt("ce_phone"));
+								consignment.setCreateUser(new UserEntity());
+								consignment.getCreateUser().setName(
+										resultSet.getString("name"));
+								consignment.setCreateDatetime(resultSet
+										.getTimestamp("create_datetime"));
+								return consignment;
+							}
+						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
 		return "consignment/list";
 	}
 

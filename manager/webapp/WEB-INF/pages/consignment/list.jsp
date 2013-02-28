@@ -48,7 +48,7 @@
 								<th class="table-header-options line-left"><a href="#">创建时间</a></th>
 								<th class="table-header-options line-left"><a href="#">操作</a></th>
 							</tr>
-							<c:forEach items="${page.results }" var="c" varStatus="in">
+							<%-- <c:forEach items="${page.results }" var="c" varStatus="in">
 								<tr>
 									<td>${in.index + 1 }</td>
 									<td>${c.id }</td>
@@ -65,9 +65,9 @@
 										class="icon-2 info-tooltip" href=""></a> <a
 										class="icon-3 info-tooltip" href=""></a></td>
 								</tr>
-							</c:forEach>
+							</c:forEach> --%>
 						</table>
-						<pageTag:pageTag pageEntity="${page }" formId="myForm" />
+						<%-- <pageTag:pageTag pageEntity="${page }" formId="myForm" /> --%>
 					</form>
 				</div>
 			</td>

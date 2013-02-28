@@ -65,47 +65,52 @@
 									size="2" style="font-weight: bold;">货物托运受理单</font>
 							</div>
 							<div style="margin-top: 10px;">
-								<span style="margin-left: 30px;">日期：<input
-									name="datetime" onclick="WdatePicker()" type="text" class="btn"
-									style="width: 70px;"></span> <span style="margin-left: 50px;">发站：<input
-									name="startCity" type="text" class="btn" style="width: 100px;"></span>
-								<span style="margin-left: 50px;">到站：<input name="arrivalCity"
+								<span style="margin-left: 30px;">日期：<input name="datetime"
+									onclick="WdatePicker()" type="text" class="btn"
+									readonly="readonly" style="width: 70px;"></span> <span
+									style="margin-left: 50px;">发站：<input name="startCity"
 									type="text" class="btn" style="width: 100px;"></span> <span
-									style="margin-left: 50px;">运输方式：<input name="modeOfTransportation"
+									style="margin-left: 50px;">到站：<input name="arrivalCity"
 									type="text" class="btn" style="width: 100px;"></span> <span
-									style="margin-left: 50px;">服务方式：<input name="serviceMode"
-									type="text" class="btn" style="width: 100px;"></span> <span
-									style="margin-left: 50px;">付款方式：<input name="payment"
-									type="text" class="btn" style="width: 100px;"></span>
+									style="margin-left: 50px;">运输方式：<input
+									name="modeOfTransportation" type="text" class="btn"
+									style="width: 100px;"></span> <span style="margin-left: 50px;">服务方式：<input
+									name="serviceMode" type="text" class="btn"
+									style="width: 100px;"></span> <span style="margin-left: 50px;">付款方式：<input
+									name="payment" type="text" class="btn" style="width: 100px;"></span>
 							</div>
 							<table class="dataTable" style="margin-top: 5px;">
 								<tr>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>发</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td><span>托&nbsp;&nbsp;运&nbsp;&nbsp;人：</span><input
-										name="consignor.personalName" type="text" class="btn" style="width: 480px;"></td>
+										name="shipper" type="text" class="btn" style="width: 480px;"></td>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>收</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
-									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input name="consignee.personalName" type="text"
+									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input name="consignee"
+										type="text" class="btn" style="width: 480px;"></td>
+								</tr>
+								<tr>
+									<td>托运单位：<input name="shipperUnit" type="text" class="btn"
+										style="width: 480px;"></td>
+									<td>收货单位：<input name="consigneeUnit" type="text"
 										class="btn" style="width: 480px;"></td>
 								</tr>
 								<tr>
-									<td>托运单位：<input name="consignor.companyName" type="text" class="btn"
+									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
+										name="shipperAddress" type="text" class="btn"
 										style="width: 480px;"></td>
-									<td>收货单位：<input name="consignee.companyName" type="text" class="btn"
+									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
+										name="consigneeAddress" type="text" class="btn"
 										style="width: 480px;"></td>
 								</tr>
 								<tr>
-									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
-										name="consignor.address" type="text" class="btn" style="width: 480px;"></td>
-									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
-										name="consignee.address" type="text" class="btn" style="width: 480px;"></td>
-								</tr>
-								<tr>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
-										name="consignor.phone" type="text" class="btn" style="width: 480px;"></td>
+										name="shipperPhone" type="text" class="btn"
+										style="width: 480px;"></td>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
-										name="consignee.phone" type="text" class="btn" style="width: 480px;"></td>
+										name="consigneePhone" type="text" class="btn"
+										style="width: 480px;"></td>
 								</tr>
 							</table>
 							<table class="dataTable">
@@ -117,23 +122,24 @@
 									<td>体积（m³）</td>
 									<td>声明价值（元）</td>
 									<td colspan="3" align="left" width="50px">计费方式：<input
-										name="chargingWays" type="text" class="btn" style="width: 100px;"></td>
+										name="chargingWays" type="text" class="btn"
+										style="width: 100px;"></td>
 									<td align="left" width="200px">单价：<input name="unitPrice"
 										type="text" class="btn" style="width: 100px;"></td>
 								</tr>
 								<tr>
-									<td><input name="cargos[0].commodityName" type="text" class="btn"
+									<td><input name="commodityNameOne" type="text" class="btn"
 										style="width: 100px;"></td>
-									<td><input name="cargos[0].pack" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[0].numberOfPackages" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[0].weight" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[0].volume" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[0].statementValue" type="text" class="btn"
-										style="width: 100px;"></td>
+									<td><input name="commodityPackageOne" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageNumberOne" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWeightOne" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityVolumeOne" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWorthOne" type="text"
+										class="btn" style="width: 100px;"></td>
 									<td>运费</td>
 									<td><input name="transportPrice" type="text" class="btn"
 										style="width: 100px;"></td>
@@ -142,18 +148,18 @@
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
-									<td><input name="cargos[1].commodityName" type="text" class="btn"
+									<td><input name="commodityNameTwo" type="text" class="btn"
 										style="width: 100px;"></td>
-									<td><input name="cargos[1].pack" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[1].numberOfPackages" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[1].weight" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[1].volume" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[1].statementValue" type="text" class="btn"
-										style="width: 100px;"></td>
+									<td><input name="commodityPackageTwo" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageNumberTwo" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWeightTwo" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityVolumeTwo" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWorthTwo" type="text"
+										class="btn" style="width: 100px;"></td>
 									<td>取货费</td>
 									<td><input name="takeCargoPrice" type="text" class="btn"
 										style="width: 100px;"></td>
@@ -162,18 +168,18 @@
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
-									<td><input name="cargos[2].commodityName" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[2].pack" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[2].numberOfPackages" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[2].weight" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[2].volume" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[2].statementValue" type="text" class="btn"
-										style="width: 100px;"></td>
+									<td><input name="commodityNameThree" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageThree" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageNumberThree" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWeightThree" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityVolumeThree" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWorthThree" type="text"
+										class="btn" style="width: 100px;"></td>
 									<td>送货费</td>
 									<td><input name="carryCargoPrice" type="text" class="btn"
 										style="width: 100px;"></td>
@@ -182,39 +188,39 @@
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
-									<td><input name="cargos[3].commodityName" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[3].pack" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[3].numberOfPackages" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[3].weight" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[3].volume" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[3].statementValue" type="text" class="btn"
-										style="width: 100px;"></td>
+									<td><input name="commodityNameFour" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageFour" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageNumberFour" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWeightFour" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityVolumeFour" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWorthFour" type="text"
+										class="btn" style="width: 100px;"></td>
 									<td>保险费</td>
 									<td><input name="insurancePrice" type="text" class="btn"
 										style="width: 100px;"></td>
 									<td>代收款<br> 手续费
 									</td>
-									<td><input name="collectionMoneyCharge" type="text" class="btn"
-										style="width: 100px;"></td>
+									<td><input name="collectionMoneyCharge" type="text"
+										class="btn" style="width: 100px;"></td>
 								</tr>
 								<tr>
-									<td><input name="cargos[4].commodityName" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[4].pack" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[4].numberOfPackages" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[4].weight" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[4].volume" type="text" class="btn"
-										style="width: 100px;"></td>
-									<td><input name="cargos[4].statementValue" type="text" class="btn"
-										style="width: 100px;"></td>
+									<td><input name="commodityNameFive" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageFive" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityPackageNumberFive" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWeightFive" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityVolumeFive" type="text"
+										class="btn" style="width: 100px;"></td>
+									<td><input name="commodityWorthFive" type="text"
+										class="btn" style="width: 100px;"></td>
 									<td>包装费</td>
 									<td><input name="packPrice" type="text" class="btn"
 										style="width: 100px;"></td>

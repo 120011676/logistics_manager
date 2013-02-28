@@ -1,7 +1,5 @@
 package com.logistics.manager.web.action;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,21 +8,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.qq120011676.snow.util.SqlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import com.logistics.manager.entity.CargoEntity;
-import com.logistics.manager.entity.CompanyEntity;
 import com.logistics.manager.entity.ConsignmentEntity;
-import com.logistics.manager.entity.UserEntity;
-import com.logistics.manager.service.interfaces.ICargoService;
-import com.logistics.manager.service.interfaces.ICompanyService;
 import com.logistics.manager.service.interfaces.IConsignmentService;
 import com.logistics.manager.web.action.base.BaseAction;
 
@@ -34,13 +27,7 @@ import com.logistics.manager.web.action.base.BaseAction;
 public class ConsignmentAction extends SimpleFormController {
 
 	@Autowired
-	private ICompanyService companyService;
-
-	@Autowired
 	private IConsignmentService consignmentService;
-
-	@Autowired
-	private ICargoService cargoService;
 
 	@InitBinder
 	@Override
@@ -62,39 +49,40 @@ public class ConsignmentAction extends SimpleFormController {
 		BaseAction.getHttpServletRequest().setAttribute("subShow",
 				"consignment_show_acceptance");
 		Map<String, Object> map = new HashMap<>();
-		BaseAction.getHttpServletRequest().setAttribute(
-				"page",
-				this.consignmentService.queryMySqlPage("queryConsignment", map,
-						new RowMapper<ConsignmentEntity>() {
-							@Override
-							public ConsignmentEntity mapRow(
-									ResultSet resultSet, int arg1)
-									throws SQLException {
-								ConsignmentEntity consignment = new ConsignmentEntity();
-								consignment.setId(resultSet.getInt("id"));
-								consignment.setDatetime(resultSet
-										.getDate("datetime"));
-								consignment.setConsignor(new CompanyEntity());
-								consignment.getConsignor().setPersonalName(
-										resultSet.getString("personal_name"));
-								consignment.getConsignor().setPhone(
-										resultSet.getInt("phone"));
-								consignment.setConsignee(new CompanyEntity());
-								consignment
-										.getConsignee()
-										.setPersonalName(
-												resultSet
-														.getString("ce_personal_name"));
-								consignment.getConsignee().setPhone(
-										resultSet.getInt("ce_phone"));
-								consignment.setCreateUser(new UserEntity());
-								consignment.getCreateUser().setName(
-										resultSet.getString("name"));
-								consignment.setCreateDatetime(resultSet
-										.getTimestamp("create_datetime"));
-								return consignment;
-							}
-						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
+		// BaseAction.getHttpServletRequest().setAttribute(
+		// "page",
+		// this.consignmentService.queryMySqlPage("queryConsignment", map,
+		// new RowMapper<ConsignmentEntity>() {
+		// @Override
+		// public ConsignmentEntity mapRow(
+		// ResultSet resultSet, int arg1)
+		// throws SQLException {
+		// ConsignmentEntity consignment = new ConsignmentEntity();
+		// // consignment.setId(resultSet.getInt("id"));
+		// // consignment.setDate(resultSet.getDate("date"));
+		// // consignment.setConsignor(new
+		// // CompanyEntity());
+		// // consignment.getConsignor().setPersonalName(
+		// // resultSet.getString("personal_name"));
+		// // consignment.getConsignor().setPhone(
+		// // resultSet.getInt("phone"));
+		// // consignment.setConsignee(new
+		// // CompanyEntity());
+		// // consignment
+		// // .getConsignee()
+		// // .setPersonalName(
+		// // resultSet
+		// // .getString("ce_personal_name"));
+		// // consignment.getConsignee().setPhone(
+		// // resultSet.getInt("ce_phone"));
+		// // consignment.setCreateUser(new UserEntity());
+		// // consignment.getCreateUser().setName(
+		// // resultSet.getString("name"));
+		// // consignment.setCreateDatetime(resultSet
+		// // .getTimestamp("create_datetime"));
+		// return consignment;
+		// }
+		// }, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
 		return "consignment/list";
 	}
 
@@ -106,28 +94,60 @@ public class ConsignmentAction extends SimpleFormController {
 	@RequestMapping("update")
 	public String update(ConsignmentEntity consignment) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("personalName", consignment.getConsignor().getPersonalName());
-		map.put("companyName", consignment.getConsignor().getCompanyName());
-		map.put("address", consignment.getConsignor().getAddress());
-		map.put("phone", consignment.getConsignor().getPhone());
-		int consignorId = this.companyService.updateReturnPrimaryKey(
-				"saveCompany", "id", map);
-		map.clear();
-		map.put("personalName", consignment.getConsignee().getPersonalName());
-		map.put("companyName", consignment.getConsignee().getCompanyName());
-		map.put("address", consignment.getConsignee().getAddress());
-		map.put("phone", consignment.getConsignee().getPhone());
-		int consigneeId = this.companyService.updateReturnPrimaryKey(
-				"saveCompany", "id", map);
-		map.clear();
 		map.put("datetime", consignment.getDatetime());
 		map.put("startCity", consignment.getStartCity());
 		map.put("arrivalCity", consignment.getArrivalCity());
 		map.put("modeOfTransportation", consignment.getModeOfTransportation());
 		map.put("serviceMode", consignment.getServiceMode());
 		map.put("payment", consignment.getPayment());
-		map.put("consignorId", consignorId);
-		map.put("consigneeId", consigneeId);
+		map.put("shipper", consignment.getShipper());
+		map.put("shipperUnit", consignment.getShipperUnit());
+		map.put("shipperAddress", consignment.getShipperAddress());
+		map.put("shipperPhone", consignment.getShipperPhone());
+		map.put("consignee", consignment.getConsignee());
+		map.put("consigneeUnit", consignment.getConsigneeUnit());
+		map.put("consigneeAddress", consignment.getConsigneeAddress());
+		map.put("consigneePhone", consignment.getConsigneePhone());
+		map.put("commodityNameOne", consignment.getCommodityNameOne());
+		map.put("commodityNameTwo", consignment.getCommodityNameTwo());
+		map.put("commodityNameThree", consignment.getCommodityNameThree());
+		map.put("commodityNameFour", consignment.getCommodityNameFour());
+		map.put("commodityNameFive", consignment.getCommodityNameFive());
+		map.put("commodityPackageOne", consignment.getCommodityPackageOne());
+		map.put("commodityPackageTwo", consignment.getCommodityPackageTwo());
+		map.put("commodityPackageThree", consignment.getCommodityPackageThree());
+		map.put("commodityPackageFour", consignment.getCommodityPackageFour());
+		map.put("commodityPackageFive", consignment.getCommodityPackageFive());
+		map.put("commodityPackageNumberOne",
+				consignment.getCommodityPackageNumberOne());
+		map.put("commodityPackageNumberTwo",
+				consignment.getCommodityPackageNumberTwo());
+		map.put("commodityPackageNumberThree",
+				consignment.getCommodityPackageNumberThree());
+		map.put("commodityPackageNumberFour",
+				consignment.getCommodityPackageNumberFour());
+		map.put("commodityPackageNumberFive",
+				consignment.getCommodityPackageNumberFive());
+		map.put("commodityWeightOne", consignment.getCommodityWeightOne());
+		map.put("commodityWeightTwo", consignment.getCommodityWeightTwo());
+		map.put("commodityWeightThree", consignment.getCommodityWeightThree());
+		map.put("commodityWeightFour", consignment.getCommodityWeightFour());
+		map.put("commodityWeightFive", consignment.getCommodityWeightFive());
+		map.put("commodityVolumeOne", consignment.getCommodityVolumeOne());
+		map.put("commodityVolumeTwo", consignment.getCommodityVolumeTwo());
+		map.put("commodityVolumeThree", consignment.getCommodityVolumeThree());
+		map.put("commodityVolumeFour", consignment.getCommodityVolumeFour());
+		map.put("commodityVolumeFive", consignment.getCommodityVolumeFive());
+		map.put("commodityWorthOne", consignment.getCommodityWorthOne());
+		map.put("commodityWorthTwo", consignment.getCommodityWorthTwo());
+		map.put("commodityWorthThree", consignment.getCommodityWorthThree());
+		map.put("commodityWorthFour", consignment.getCommodityWorthFour());
+		map.put("commodityWorthFive", consignment.getCommodityWorthFive());
+		map.put("commodityWorthOne", consignment.getCommodityWorthOne());
+		map.put("commodityWorthTwo", consignment.getCommodityWorthTwo());
+		map.put("commodityWorthThree", consignment.getCommodityWorthThree());
+		map.put("commodityWorthFour", consignment.getCommodityWorthFour());
+		map.put("commodityWorthFive", consignment.getCommodityWorthFive());
 		map.put("chargingWays", consignment.getChargingWays());
 		map.put("unitPrice", consignment.getUnitPrice());
 		map.put("transportPrice", consignment.getTransportPrice());
@@ -139,23 +159,8 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("otherPrice", consignment.getOtherPrice());
 		map.put("collectionMoney", consignment.getCollectionMoney());
 		map.put("collectionMoneyCharge", consignment.getCollectionMoneyCharge());
-		map.put("returnPrice", consignment.getReturnPrice());
 		map.put("createUserId", BaseAction.getLoginUser().getId());
-		int consignmentId = this.consignmentService.updateReturnPrimaryKey(
-				"saveConsignment", "id", map);
-		for (CargoEntity cargo : consignment.getCargos()) {
-			map.clear();
-			map.put("consignmentId", consignmentId);
-			map.put("commodityName", cargo.getCommodityName());
-
-			map.put("pack", cargo.getPack());
-			map.put("numberOfPackages", cargo.getNumberOfPackages());
-			map.put("weight", cargo.getWeight());
-			map.put("weight", cargo.getWeight());
-			map.put("volume", cargo.getVolume());
-			map.put("statementValue", cargo.getStatementValue());
-			this.cargoService.update("saveCargo", map);
-		}
+		this.consignmentService.update("saveConsignment", map);
 		return this.list();
 	}
 }

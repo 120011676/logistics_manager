@@ -15,6 +15,11 @@
 	border-bottom: 1px solid #bbb;
 }
 
+.btnRed {
+	border: 0px;
+	border-bottom: 1px solid red;
+}
+
 .dataTable {
 	width: 100%;
 	border-collapse: collapse;
@@ -35,7 +40,168 @@
 	padding-top: 1px;
 	font-size: 8px;
 }
+
+body {
+	line-height: normal;
+}
 </style>
+<script type="text/javascript">
+	function mySubmit() {
+		var msg = "";
+		if (isNull($("#datetime"))) {
+			msg += "【日期】不能为空！<br>";
+		}
+		if (isNull($("#startCity"))) {
+			msg += "【发站】不能为空！<br>";
+		}
+		if (isNull($("#arrivalCity"))) {
+			msg += "【到站】不能为空！<br>";
+		}
+		if (isNull($("#modeOfTransportation"))) {
+			msg += "【运输方式】不能为空！<br>";
+		}
+		if (isNull($("#serviceMode"))) {
+			msg += "【服务方式】不能为空！<br>";
+		}
+		if (isNull($("#payment"))) {
+			msg += "【付款方式】不能为空！<br>";
+		}
+		if (isNull($("#shipper"))) {
+			msg += "【托运人】不能为空！<br>";
+		}
+		if (isNull($("#shipperUnit"))) {
+			msg += "【托运单位】不能为空！<br>";
+		}
+		if (isNull($("#shipperAddress"))) {
+			msg += "【发货人地址】不能为空！<br>";
+		}
+		if (isNull($("#shipperPhone"))) {
+			msg += "【发货人电话】不能为空！<br>";
+		}
+		if (isNull($("#consignee"))) {
+			msg += "【收货人】不能为空！<br>";
+		}
+		if (isNull($("#consigneeUnit"))) {
+			msg += "【收货单位】不能为空！<br>";
+		}
+		if (isNull($("#consigneeAddress"))) {
+			msg += "【收货人地址】不能为空！<br>";
+		}
+		if (isNull($("#consigneePhone"))) {
+			msg += "【收货人电话】不能为空！<br>";
+		}
+		if (isNull($("#chargingWays"))) {
+			msg += "【计费方式】不能为空！<br>";
+		}
+		if (isNull($("#unitPrice"))) {
+			msg += "【单价】不能为空！<br>";
+		}
+		if (isNull($("#transportPrice"))) {
+			msg += "【运费】不能为空！<br>";
+		}
+		if (isNull($("#loadUnloadPrice"))) {
+			msg += "【装卸费】不能为空！<br>";
+		}
+		if (isNull($("#takeCargoPrice"))) {
+			msg += "【取货费】不能为空！<br>";
+		}
+		if (isNull($("#otherPrice"))) {
+			msg += "【其他费】不能为空！<br>";
+		}
+		if (isNull($("#carryCargoPrice"))) {
+			msg += "【送货费】不能为空！<br>";
+		}
+		if (isNull($("#insurancePrice"))) {
+			msg += "【保险费】不能为空！<br>";
+		}
+		if (isNull($("#collectionMoneyCharge"))) {
+			msg += "【代收款手续费】不能为空！<br>";
+		}
+		if (isNull($("#packPrice"))) {
+			msg += "【包装费】不能为空！<br>";
+		}
+		if (isNull($("#returnPrice"))) {
+			msg += "【返单手续费】不能为空！<br>";
+		}
+		if (($.trim(msg)) != "") {
+			alert("<div style=\"color:red;margin-left: 10px;\">" + msg
+					+ "<br></div>");
+		} else {
+			$("#myForm").submit();
+		}
+	}
+
+	function isNull(obj) {
+		if ($.trim(obj.val()) == "") {
+			obj.attr("class", "btnRed");
+			return true;
+		}
+		return false;
+	}
+
+	function checkNull(obj) {
+		if ($.trim(obj.value) != "") {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function checkRegExp(obj, p) {
+		if (p.test($.trim(obj.value))) {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function checkRegExpPhone(obj) {
+		if (/^\d{11}$/.test($.trim(obj.value))) {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function checkRegExpInt(obj) {
+		if (/^\d+$/.test($.trim(obj.value))) {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function checkRegExpIntAndNull(obj) {
+		if (/^\d*$/.test($.trim(obj.value))) {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function checkRegExpDouble(obj) {
+		if (/^((\d+\.?\d{1,2})|(\d+))$/.test($.trim(obj.value))) {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function checkRegExpDoubleAndNull(obj) {
+		if (/^((\d+\.?\d{1,2})|(\d*))$/.test($.trim(obj.value))) {
+			classBtn(obj);
+		} else {
+			classBtnRed(obj);
+		}
+	}
+
+	function classBtn(obj) {
+		obj.setAttribute("class", "btn");
+	}
+	function classBtnRed(obj) {
+		obj.setAttribute("class", "btnRed");
+	}
+</script>
 </head>
 <body>
 	<div id="page-heading">
@@ -58,58 +224,73 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<form action="${path }/consignment/update.htm" method="post">
+					<form id="myForm" action="${path }/consignment/update.htm"
+						method="post">
 						<div class="data">
 							<div align="center">
 								<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 									size="2" style="font-weight: bold;">货物托运受理单</font>
 							</div>
 							<div style="margin-top: 10px;">
-								<span style="margin-left: 30px;">日期：<input name="datetime"
-									onclick="WdatePicker()" type="text" class="btn"
+								<span style="margin-left: 30px;">日期：<input id="datetime"
+									name="datetime" onclick="WdatePicker()"
+									onchange="checkNull(this)" type="text" class="btn"
 									readonly="readonly" style="width: 70px;"></span> <span
-									style="margin-left: 50px;">发站：<input name="startCity"
-									type="text" class="btn" style="width: 100px;"></span> <span
-									style="margin-left: 50px;">到站：<input name="arrivalCity"
-									type="text" class="btn" style="width: 100px;"></span> <span
+									style="margin-left: 50px;">发站：<input id="startCity"
+									name="startCity" onchange="checkNull(this)" type="text"
+									class="btn" style="width: 100px;"></span> <span
+									style="margin-left: 50px;">到站：<input id="arrivalCity"
+									name="arrivalCity" onchange="checkNull(this)" type="text"
+									class="btn" style="width: 100px;"></span> <span
 									style="margin-left: 50px;">运输方式：<input
-									name="modeOfTransportation" type="text" class="btn"
+									id="modeOfTransportation" name="modeOfTransportation"
+									onchange="checkNull(this)" type="text" class="btn"
 									style="width: 100px;"></span> <span style="margin-left: 50px;">服务方式：<input
-									name="serviceMode" type="text" class="btn"
-									style="width: 100px;"></span> <span style="margin-left: 50px;">付款方式：<input
-									name="payment" type="text" class="btn" style="width: 100px;"></span>
+									id="serviceMode" name="serviceMode" onchange="checkNull(this)"
+									type="text" class="btn" style="width: 100px;"></span> <span
+									style="margin-left: 50px;">付款方式：<input id="payment"
+									name="payment" onchange="checkNull(this)" type="text"
+									class="btn" style="width: 100px;"></span>
 							</div>
 							<table class="dataTable" style="margin-top: 5px;">
 								<tr>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>发</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td><span>托&nbsp;&nbsp;运&nbsp;&nbsp;人：</span><input
-										name="shipper" type="text" class="btn" style="width: 480px;"></td>
+										id="shipper" name="shipper" onchange="checkNull(this)"
+										type="text" class="btn" style="width: 480px;"></td>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>收</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
-									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input name="consignee"
-										type="text" class="btn" style="width: 480px;"></td>
-								</tr>
-								<tr>
-									<td>托运单位：<input name="shipperUnit" type="text" class="btn"
-										style="width: 480px;"></td>
-									<td>收货单位：<input name="consigneeUnit" type="text"
+									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input id="consignee"
+										name="consignee" onchange="checkNull(this)" type="text"
 										class="btn" style="width: 480px;"></td>
 								</tr>
 								<tr>
+									<td>托运单位：<input id="shipperUnit" name="shipperUnit"
+										onchange="checkNull(this)" type="text" class="btn"
+										style="width: 480px;"></td>
+									<td>收货单位：<input id="consigneeUnit" name="consigneeUnit"
+										onchange="checkNull(this)" type="text" class="btn"
+										style="width: 480px;"></td>
+								</tr>
+								<tr>
 									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
-										name="shipperAddress" type="text" class="btn"
+										id="shipperAddress" name="shipperAddress"
+										onchange="checkNull(this)" type="text" class="btn"
 										style="width: 480px;"></td>
 									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
-										name="consigneeAddress" type="text" class="btn"
+										id="consigneeAddress" name="consigneeAddress"
+										onchange="checkNull(this)" type="text" class="btn"
 										style="width: 480px;"></td>
 								</tr>
 								<tr>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
-										name="shipperPhone" type="text" class="btn"
+										id="shipperPhone" name="shipperPhone"
+										onchange="checkRegExpPhone(this)" type="text" class="btn"
 										style="width: 480px;"></td>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
-										name="consigneePhone" type="text" class="btn"
+										id="consigneePhone" name="consigneePhone"
+										onchange="checkRegExpPhone(this)" type="text" class="btn"
 										style="width: 480px;"></td>
 								</tr>
 							</table>
@@ -118,13 +299,15 @@
 									<td>品名</td>
 									<td>包装</td>
 									<td>件数</td>
-									<td>重量（KG）</td>
+									<td>重量（kg）</td>
 									<td>体积（m³）</td>
 									<td>声明价值（元）</td>
 									<td colspan="3" align="left" width="50px">计费方式：<input
-										name="chargingWays" type="text" class="btn"
+										id="chargingWays" name="chargingWays"
+										onchange="checkNull(this)" type="text" class="btn"
 										style="width: 100px;"></td>
-									<td align="left" width="200px">单价：<input name="unitPrice"
+									<td align="left" width="200px">单价：<input id="unitPrice"
+										name="unitPrice" onchange="checkRegExpDouble(this)"
 										type="text" class="btn" style="width: 100px;"></td>
 								</tr>
 								<tr>
@@ -132,19 +315,25 @@
 										style="width: 100px;"></td>
 									<td><input name="commodityPackageOne" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityPackageNumberOne" type="text"
+									<td><input name="commodityPackageNumberOne"
+										onchange="checkRegExpIntAndNull(this)" type="text" class="btn"
+										style="width: 100px;"></td>
+									<td><input name="commodityWeightOne"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWeightOne" type="text"
+									<td><input name="commodityVolumeOne"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityVolumeOne" type="text"
-										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWorthOne" type="text"
+									<td><input name="commodityWorthOne"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
 									<td>运费</td>
-									<td><input name="transportPrice" type="text" class="btn"
+									<td><input id="transportPrice" name="transportPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 									<td>装卸费</td>
-									<td><input name="loadUnloadPrice" type="text" class="btn"
+									<td><input id="loadUnloadPrice" name="loadUnloadPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
@@ -152,19 +341,25 @@
 										style="width: 100px;"></td>
 									<td><input name="commodityPackageTwo" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityPackageNumberTwo" type="text"
+									<td><input name="commodityPackageNumberTwo"
+										onchange="checkRegExpIntAndNull(this)" type="text" class="btn"
+										style="width: 100px;"></td>
+									<td><input name="commodityWeightTwo"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWeightTwo" type="text"
+									<td><input name="commodityVolumeTwo"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityVolumeTwo" type="text"
-										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWorthTwo" type="text"
+									<td><input name="commodityWorthTwo"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
 									<td>取货费</td>
-									<td><input name="takeCargoPrice" type="text" class="btn"
+									<td><input id="takeCargoPrice" name="takeCargoPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 									<td>其他费</td>
-									<td><input name="otherPrice" type="text" class="btn"
+									<td><input id="otherPrice" name="otherPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
@@ -172,19 +367,25 @@
 										class="btn" style="width: 100px;"></td>
 									<td><input name="commodityPackageThree" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityPackageNumberThree" type="text"
+									<td><input name="commodityPackageNumberThree"
+										onchange="checkRegExpIntAndNull(this)" type="text" class="btn"
+										style="width: 100px;"></td>
+									<td><input name="commodityWeightThree"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWeightThree" type="text"
+									<td><input name="commodityVolumeThree"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityVolumeThree" type="text"
-										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWorthThree" type="text"
+									<td><input name="commodityWorthThree"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
 									<td>送货费</td>
-									<td><input name="carryCargoPrice" type="text" class="btn"
+									<td><input id="carryCargoPrice" name="carryCargoPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 									<td>代收费</td>
-									<td><input name="collectionMoney" type="text" class="btn"
+									<td><input id="collectionMoney" name="collectionMoney"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
@@ -192,41 +393,54 @@
 										class="btn" style="width: 100px;"></td>
 									<td><input name="commodityPackageFour" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityPackageNumberFour" type="text"
+									<td><input name="commodityPackageNumberFour"
+										onchange="checkRegExpIntAndNull(this)" type="text" class="btn"
+										style="width: 100px;"></td>
+									<td><input name="commodityWeightFour"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWeightFour" type="text"
+									<td><input name="commodityVolumeFour"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityVolumeFour" type="text"
-										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWorthFour" type="text"
+									<td><input name="commodityWorthFour"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
 									<td>保险费</td>
-									<td><input name="insurancePrice" type="text" class="btn"
+									<td><input id="insurancePrice" name="insurancePrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 									<td>代收款<br> 手续费
 									</td>
-									<td><input name="collectionMoneyCharge" type="text"
-										class="btn" style="width: 100px;"></td>
+									<td><input id="collectionMoneyCharge"
+										name="collectionMoneyCharge"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
+										style="width: 100px;"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameFive" type="text"
 										class="btn" style="width: 100px;"></td>
 									<td><input name="commodityPackageFive" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityPackageNumberFive" type="text"
+									<td><input name="commodityPackageNumberFive"
+										onchange="checkRegExpIntAndNull(this)" type="text" class="btn"
+										style="width: 100px;"></td>
+									<td><input name="commodityWeightFive"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWeightFive" type="text"
+									<td><input name="commodityVolumeFive"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityVolumeFive" type="text"
-										class="btn" style="width: 100px;"></td>
-									<td><input name="commodityWorthFive" type="text"
+									<td><input name="commodityWorthFive"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"></td>
 									<td>包装费</td>
-									<td><input name="packPrice" type="text" class="btn"
+									<td><input id="packPrice" name="packPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 									<td>返&nbsp;&nbsp;&nbsp;&nbsp;单<br> 手续费
 									</td>
-									<td><input name="returnPrice" type="text" class="btn"
+									<td><input id="returnPrice" name="returnPrice"
+										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"></td>
 								</tr>
 								<tr>
@@ -270,8 +484,8 @@
 							</table>
 							<center>
 								<div style="margin-top: 15px;">
-									<input class="form-submit" style="margin-left: 45%;"
-										type="submit" value="">
+									<input class="form-submit" onclick="mySubmit()"
+										style="margin-left: 45%;" type="button" value="">
 								</div>
 							</center>
 						</div>

@@ -11,7 +11,7 @@
         <artifactId>snow</artifactId>
         <version>1.0.6</version>
         <scope>system</scope>
-        <systemPath>${basedir}/webapp/WEB-INF/lib/org.qq120011676.snow-1.0.7.jar</systemPath>
+        <systemPath>${basedir}/webapp/WEB-INF/lib/org.qq120011676.snow-1.0.9.jar</systemPath>
     </dependency>
    <dependency>
     <groupId>junit</groupId>

@@ -28,7 +28,10 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<a href="${path }/consignment/toUpdate.htm">update</a>
+					<div style="height: 35px;line-height: 35px;" class="product-table green-left">
+						<a href="${path }/consignment/toUpdate.htm"><b>新增</b></a>
+					</div>
+					<br>
 					<form id="myForm" action="${path }/consignment/list.htm"
 						method="post">
 						<table border="0" width="100%" cellpadding="0" cellspacing="0"

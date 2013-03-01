@@ -362,7 +362,7 @@ body {
 									<td align="left" width="200px">单价：<input id="unitPrice"
 										name="unitPrice" onchange="checkRegExpDouble(this)"
 										type="text" class="btn" style="width: 100px;"
-										value="${consignment.unitPrice }"></td>
+										value="<fmt:formatNumber value="${consignment.unitPrice }" pattern="0.00"/>"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameOne" type="text" class="btn"
@@ -377,23 +377,25 @@ body {
 									<td><input name="commodityWeightOne"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWeightOne }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWeightOne }" pattern="0.00"/>"></td>
 									<td><input name="commodityVolumeOne"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityVolumeOne }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityVolumeOne }" pattern="0.00"/>"></td>
 									<td><input name="commodityWorthOne"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWorthOne }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWorthOne }" pattern="0.00"/>"></td>
 									<td>运费</td>
 									<td><input id="transportPrice" name="transportPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.transportPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.transportPrice }" pattern="0.00"/>"></td>
 									<td>装卸费</td>
 									<td><input id="loadUnloadPrice" name="loadUnloadPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.loadUnloadPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.loadUnloadPrice }" pattern="0.00"/>"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameTwo" type="text" class="btn"
@@ -408,23 +410,25 @@ body {
 									<td><input name="commodityWeightTwo"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWeightTwo }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWeightTwo }" pattern="0.00"/>"></td>
 									<td><input name="commodityVolumeTwo"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityVolumeTwo }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityVolumeTwo }" pattern="0.00"/>"></td>
 									<td><input name="commodityWorthTwo"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWorthTwo }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWorthTwo }" pattern="0.00"/>"></td>
 									<td>取货费</td>
 									<td><input id="takeCargoPrice" name="takeCargoPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.takeCargoPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.takeCargoPrice }" pattern="0.00"/>"></td>
 									<td>其他费</td>
 									<td><input id="otherPrice" name="otherPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.otherPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.otherPrice }" pattern="0.00"/>"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameThree" type="text"
@@ -440,24 +444,25 @@ body {
 									<td><input name="commodityWeightThree"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWeightThree }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWeightThree }" pattern="0.00"/>"></td>
 									<td><input name="commodityVolumeThree"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityVolumeThree }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityVolumeThree }" pattern="0.00"/>"></td>
 									<td><input name="commodityWorthThree"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWorthThree }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWorthThree }" pattern="0.00"/>"></td>
 									<td>送货费</td>
 									<td><input id="carryCargoPrice" name="carryCargoPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.carryCargoPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.carryCargoPrice }" pattern="0.00"/>"></td>
 									<td>代收费</td>
 									<td><input id="collectionMoney" name="collectionMoney"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.collectionMoney }"></td>
+										value="<fmt:formatNumber value="${consignment.collectionMoney }" pattern="0.00"/>"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameFour" type="text"
@@ -473,26 +478,27 @@ body {
 									<td><input name="commodityWeightFour"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWeightFour }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWeightFour }" pattern="0.00"/>"></td>
 									<td><input name="commodityVolumeFour"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityVolumeFour }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityVolumeFour }" pattern="0.00"/>"></td>
 									<td><input name="commodityWorthFour"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWorthFour }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWorthFour }" pattern="0.00"/>"></td>
 									<td>保险费</td>
 									<td><input id="insurancePrice" name="insurancePrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.insurancePrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.insurancePrice }" pattern="0.00"/>"></td>
 									<td>代收款<br> 手续费
 									</td>
 									<td><input id="collectionMoneyCharge"
 										name="collectionMoneyCharge"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
 										style="width: 100px;"
-										value="${consignment.collectionMoneyCharge }"></td>
+										value="<fmt:formatNumber value="${consignment.collectionMoneyCharge }" pattern="0.00"/>"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameFive" type="text"
@@ -508,24 +514,26 @@ body {
 									<td><input name="commodityWeightFive"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWeightFive }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWeightFive }" pattern="0.00"/>"></td>
 									<td><input name="commodityVolumeFive"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityVolumeFive }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityVolumeFive }" pattern="0.00"/>"></td>
 									<td><input name="commodityWorthFive"
 										onchange="checkRegExpDoubleAndNull(this)" type="text"
 										class="btn" style="width: 100px;"
-										value="${consignment.commodityWorthFive }"></td>
+										value="<fmt:formatNumber value="${consignment.commodityWorthFive }" pattern="0.00"/>"></td>
 									<td>包装费</td>
 									<td><input id="packPrice" name="packPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.packPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.packPrice }" pattern="0.00"/>"></td>
 									<td>返&nbsp;&nbsp;&nbsp;&nbsp;单<br> 手续费
 									</td>
 									<td><input id="returnPrice" name="returnPrice"
 										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;" value="${consignment.returnPrice }"></td>
+										style="width: 100px;"
+										value="<fmt:formatNumber value="${consignment.returnPrice }" pattern="0.00"/>"></td>
 								</tr>
 								<tr>
 									<td colspan="6" align="left">费用总计：</td>

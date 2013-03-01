@@ -110,8 +110,8 @@ public class ConsignmentAction extends SimpleFormController {
 			map.put("id", id);
 			BaseAction.getHttpServletRequest().setAttribute(
 					"consignment",
-					this.consignmentService.query("queryConsignment", map,
-							new RowMapper<ConsignmentEntity>() {
+					this.consignmentService.queryForObject("queryConsignment",
+							map, new RowMapper<ConsignmentEntity>() {
 								@Override
 								public ConsignmentEntity mapRow(
 										ResultSet resultSet, int arg1)

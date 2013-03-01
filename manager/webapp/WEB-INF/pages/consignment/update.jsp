@@ -78,6 +78,8 @@ body {
 		}
 		if (isNull($("#shipperPhone"))) {
 			msg += "【发货人电话】不能为空！<br>";
+		} else if (!checkRegExpPhone(getId("shipperPhone"))) {
+			msg += "【发货人电话】不正确！<br>";
 		}
 		if (isNull($("#consignee"))) {
 			msg += "【收货人】不能为空！<br>";
@@ -90,6 +92,8 @@ body {
 		}
 		if (isNull($("#consigneePhone"))) {
 			msg += "【收货人电话】不能为空！<br>";
+		} else if (!checkRegExpPhone(getId("consigneePhone"))) {
+			msg += "【发货人电话】不正确！<br>";
 		}
 		if (isNull($("#chargingWays"))) {
 			msg += "【计费方式】不能为空！<br>";

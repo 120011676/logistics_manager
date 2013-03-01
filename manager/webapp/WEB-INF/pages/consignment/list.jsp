@@ -28,7 +28,8 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<div style="height: 35px;line-height: 35px;" class="product-table green-left">
+					<div style="height: 35px; line-height: 35px;"
+						class="product-table green-left">
 						<a href="${path }/consignment/toUpdate.htm"><b>新增</b></a>
 					</div>
 					<br>
@@ -38,7 +39,6 @@
 							id="product-table">
 							<tr style="color: white;">
 								<th class="table-header-repeat line-left"><a href="#">序号</a></th>
-								<th class="table-header-repeat line-left"><a href="#">id</a></th>
 								<th class="table-header-repeat line-left"><a href="#">订单时间</a></th>
 								<th class="table-header-repeat line-left"><a href="#">发货人</a></th>
 								<th class="table-header-repeat line-left"><a href="#">发货人电话</a></th>
@@ -48,26 +48,26 @@
 								<th class="table-header-options line-left"><a href="#">创建时间</a></th>
 								<th class="table-header-options line-left"><a href="#">操作</a></th>
 							</tr>
-							<%-- <c:forEach items="${page.results }" var="c" varStatus="in">
+							<c:forEach items="${page.results }" var="c" varStatus="in">
 								<tr>
 									<td>${in.index + 1 }</td>
-									<td>${c.id }</td>
 									<td><fmt:formatDate value="${c.datetime }"
 											pattern="yyyy-MM-dd" /></td>
-									<td>${c.consignor.personalName }</td>
-									<td>${c.consignor.phone }</td>
-									<td>${c.consignee.personalName }</td>
-									<td>${c.consignee.phone }</td>
+									<td>${c.shipper }</td>
+									<td>${c.shipperPhone }</td>
+									<td>${c.consignee }</td>
+									<td>${c.consigneePhone }</td>
 									<td>${c.createUser.name }</td>
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
-									<td><a class="icon-1 info-tooltip" href=""></a> <a
+									<td><a class="icon-1 info-tooltip"
+										href="${path }/consignment/toUpdate.htm?id=${c.id}"></a> <a
 										class="icon-2 info-tooltip" href=""></a> <a
 										class="icon-3 info-tooltip" href=""></a></td>
 								</tr>
-							</c:forEach> --%>
+							</c:forEach>
 						</table>
-						<%-- <pageTag:pageTag pageEntity="${page }" formId="myForm" /> --%>
+						<pageTag:pageTag pageEntity="${page }" formId="myForm" />
 					</form>
 				</div>
 			</td>

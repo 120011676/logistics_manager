@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/pages/utils/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -268,6 +269,7 @@ body {
 				<div id="content-table-inner">
 					<form id="myForm" action="${path }/consignment/update.htm"
 						method="post">
+						<input id="id" type="hidden" value="consignment.id">
 						<div class="data">
 							<div align="center">
 								<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
@@ -277,8 +279,9 @@ body {
 								<span style="margin-left: 30px;">日期：<input id="datetime"
 									name="datetime" onclick="WdatePicker()"
 									onchange="checkNull(this)" type="text" class="btn"
-									readonly="readonly" style="width: 70px;"></span> <span
-									style="margin-left: 50px;">发站：<input id="startCity"
+									readonly="readonly" style="width: 70px;"
+									value="<fmt:formatDate value="${consignment.datetime }" pattern="yyyy-MM-dd"/>"></span>
+								<span style="margin-left: 50px;">发站：<input id="startCity"
 									name="startCity" onchange="checkNull(this)" type="text"
 									class="btn" style="width: 100px;"></span> <span
 									style="margin-left: 50px;">到站：<input id="arrivalCity"

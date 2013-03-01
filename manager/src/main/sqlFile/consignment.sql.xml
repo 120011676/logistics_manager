@@ -5,4 +5,13 @@
   consignment(datetime,start_city,arrival_city,mode_of_transportation,service_mode,payment,shipper,shipper_unit,shipper_address,shipper_phone,consignee,consignee_unit,consignee_address,consignee_phone,commodity_name_one,commodity_name_two,commodity_name_three,commodity_name_four,commodity_name_five,commodity_package_one,commodity_package_two,commodity_package_three,commodity_package_four,commodity_package_five,commodity_package_number_one,commodity_package_number_two,commodity_package_number_three,commodity_package_number_four,commodity_package_number_five,commodity_weight_one,commodity_weight_two,commodity_weight_three,commodity_weight_four,commodity_weight_five,commodity_volume_one,commodity_volume_two,commodity_volume_three,commodity_volume_four,commodity_volume_five,commodity_worth_one,commodity_worth_two,commodity_worth_three,commodity_worth_four,commodity_worth_five,charging_ways,unit_price,transport_price,take_cargo_price,carry_cargo_price,insurance_price,pack_price,load_unload_price,other_price,collection_money,collection_money_charge,create_user_id)
   value(:datetime,:startCity,:arrivalCity,:modeOfTransportation,:serviceMode,:payment,:shipper,:shipperUnit,:shipperAddress,:shipperPhone,:consignee,:consigneeUnit,:consigneeAddress,:consigneePhone,:commodityNameOne,:commodityNameTwo,:commodityNameThree,:commodityNameFour,:commodityNameFive,:commodityPackageOne,:commodityPackageTwo,:commodityPackageThree,:commodityPackageFour,:commodityPackageFive,:commodityPackageNumberOne,:commodityPackageNumberTwo,:commodityPackageNumberThree,:commodityPackageNumberFour,:commodityPackageNumberFive,:commodityWeightOne,:commodityWeightTwo,:commodityWeightThree,:commodityWeightFour,:commodityWeightFive,:commodityVolumeOne,:commodityVolumeTwo,:commodityVolumeThree,:commodityVolumeFour,:commodityVolumeFive,:commodityWorthOne,:commodityWorthTwo,:commodityWorthThree,:commodityWorthFour,:commodityWorthFive,:chargingWays,:unitPrice,:transportPrice,:takeCargoPrice,:carryCargoPrice,:insurancePrice,:packPrice,:loadUnloadPrice,:otherPrice,:collectionMoney,:collectionMoneyCharge,:createUserId)
  </sql>
+
+ <sql name="queryConsignment">
+  select c.*,u.name from consignment c left join user u on
+  c.create_user_id =
+  u.id where 1 = 1
+  <parameter name="id">
+   and c.id = :id
+  </parameter>
+ </sql>
 </sqls>

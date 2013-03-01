@@ -95,33 +95,56 @@ body {
 		}
 		if (isNull($("#unitPrice"))) {
 			msg += "【单价】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("unitPrice"))) {
+			msg += "【单价】只能是数字或小数！<br>";
 		}
 		if (isNull($("#transportPrice"))) {
 			msg += "【运费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("transportPrice"))) {
+			msg += "【运费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#loadUnloadPrice"))) {
 			msg += "【装卸费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("loadUnloadPrice"))) {
+			msg += "【装卸费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#takeCargoPrice"))) {
 			msg += "【取货费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("takeCargoPrice"))) {
+			msg += "【取货费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#otherPrice"))) {
 			msg += "【其他费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("otherPrice"))) {
+			msg += "【其他费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#carryCargoPrice"))) {
 			msg += "【送货费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("carryCargoPrice"))) {
+			msg += "【送货费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#insurancePrice"))) {
 			msg += "【保险费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("insurancePrice"))) {
+			msg += "【保险费】只能是数字或小数！<br>";
+		}
+		if (!checkRegExpDoubleAndNull(getId("collectionMoney"))) {
+			msg += "【代收费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#collectionMoneyCharge"))) {
 			msg += "【代收款手续费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("collectionMoneyCharge"))) {
+			msg += "【代收款手续费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#packPrice"))) {
 			msg += "【包装费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("packPrice"))) {
+			msg += "【包装费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#returnPrice"))) {
 			msg += "【返单手续费】不能为空！<br>";
+		} else if (!checkRegExpDouble(getId("returnPrice"))) {
+			msg += "【返单手续费】只能是数字或小数！<br>";
 		}
 		if (($.trim(msg)) != "") {
 			alert("<div style=\"color:red;margin-left: 10px;\">" + msg
@@ -129,6 +152,10 @@ body {
 		} else {
 			$("#myForm").submit();
 		}
+	}
+
+	function getId(id) {
+		return document.getElementById(id);
 	}
 
 	function isNull(obj) {
@@ -142,62 +169,77 @@ body {
 	function checkNull(obj) {
 		if ($.trim(obj.value) != "") {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function checkRegExp(obj, p) {
 		if (p.test($.trim(obj.value))) {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function checkRegExpPhone(obj) {
 		if (/^\d{11}$/.test($.trim(obj.value))) {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function checkRegExpInt(obj) {
 		if (/^\d+$/.test($.trim(obj.value))) {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function checkRegExpIntAndNull(obj) {
 		if (/^\d*$/.test($.trim(obj.value))) {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function checkRegExpDouble(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d+))$/.test($.trim(obj.value))) {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function checkRegExpDoubleAndNull(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d*))$/.test($.trim(obj.value))) {
 			classBtn(obj);
+			return true;
 		} else {
 			classBtnRed(obj);
+			return false;
 		}
 	}
 
 	function classBtn(obj) {
 		obj.setAttribute("class", "btn");
 	}
+
 	function classBtnRed(obj) {
 		obj.setAttribute("class", "btnRed");
 	}
@@ -385,8 +427,8 @@ body {
 										style="width: 100px;"></td>
 									<td>代收费</td>
 									<td><input id="collectionMoney" name="collectionMoney"
-										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;"></td>
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
+										class="btn" style="width: 100px;"></td>
 								</tr>
 								<tr>
 									<td><input name="commodityNameFour" type="text"

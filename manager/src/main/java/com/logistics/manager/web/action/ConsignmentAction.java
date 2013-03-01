@@ -233,6 +233,8 @@ public class ConsignmentAction extends SimpleFormController {
 											.getDouble("collection_money"));
 									consignment.setCollectionMoneyCharge(resultSet
 											.getDouble("collection_money_charge"));
+									consignment.setReturnPrice(resultSet
+											.getDouble("return_price"));
 									consignment.setCreateUser(new UserEntity());
 									consignment.getCreateUser().setId(
 											resultSet.getInt("create_user_id"));
@@ -315,11 +317,13 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("otherPrice", consignment.getOtherPrice());
 		map.put("collectionMoney", consignment.getCollectionMoney());
 		map.put("collectionMoneyCharge", consignment.getCollectionMoneyCharge());
+		map.put("returnPrice", consignment.getReturnPrice());
 		if (consignment.getId() == null) {
 			map.put("createUserId", BaseAction.getLoginUser().getId());
 			this.consignmentService.update("saveConsignment", map);
 		} else {
-
+			map.put("id", consignment.getId());
+			this.consignmentService.update("updateConsignment", map);
 		}
 		return this.list();
 	}

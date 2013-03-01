@@ -269,7 +269,7 @@ body {
 				<div id="content-table-inner">
 					<form id="myForm" action="${path }/consignment/update.htm"
 						method="post">
-						<input id="id" type="hidden" value="consignment.id">
+						<input name="id" type="hidden" value="${consignment.id }">
 						<div class="data">
 							<div align="center">
 								<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font

@@ -75,6 +75,7 @@ create table consignment(
 	other_price double not null comment '其他费',
 	collection_money double not null comment '代收款',
 	collection_money_charge double not null comment '代收款手续费',
+	return_price double comment '返单手续费',
 	create_user_id int not null,
 	create_datetime timestamp not null default now(),
 	foreign key(create_user_id) references user(id)

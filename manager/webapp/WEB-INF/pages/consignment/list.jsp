@@ -38,15 +38,16 @@
 						<table border="0" width="100%" cellpadding="0" cellspacing="0"
 							id="product-table">
 							<tr style="color: white;">
-								<th class="table-header-repeat line-left"><a href="#">序号</a></th>
-								<th class="table-header-repeat line-left"><a href="#">订单时间</a></th>
-								<th class="table-header-repeat line-left"><a href="#">发货人</a></th>
-								<th class="table-header-repeat line-left"><a href="#">发货人电话</a></th>
-								<th class="table-header-repeat line-left"><a href="#">收货人</a></th>
-								<th class="table-header-repeat line-left"><a href="#">收货人电话</a></th>
-								<th class="table-header-options line-left"><a href="#">创建人</a></th>
-								<th class="table-header-options line-left"><a href="#">创建时间</a></th>
-								<th class="table-header-options line-left"><a href="#">操作</a></th>
+								<th class="table-header-options line-left">序号</th>
+								<th class="table-header-options line-left">订单时间</th>
+								<th class="table-header-options line-left">发货人</th>
+								<th class="table-header-options line-left">发货人电话</th>
+								<th class="table-header-options line-left">收货人</th>
+								<th class="table-header-options line-left">收货人电话</th>
+								<th class="table-header-options line-left">创建人</th>
+								<th class="table-header-options line-left">创建时间</th>
+								<th class="table-header-options line-left">启用</th>
+								<th class="table-header-options line-left">操作</th>
 							</tr>
 							<c:forEach items="${page.results }" var="c" varStatus="in">
 								<tr>
@@ -60,13 +61,17 @@
 									<td>${c.createUser.name }</td>
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td>
+										<c:if test="${c.enable == true }">正常</c:if>
+										<c:if test="${c.enable == false }">已删除</c:if>
+									</td>
 									<td><a class="icon-1 info-tooltip"
 										href="${path }/consignment/toUpdate.htm?id=${c.id}"></a> <c:if
 											test="${c.enable == true }">
 											<a class="icon-2 info-tooltip"
 												href="${path }/consignment/delete.htm?id=${c.id}"></a>
 										</c:if> <c:if test="${c.enable == false }">
-											<a class="icon-5 info-tooltip"
+											<a class="icon-5 info-tooltip" style="margin: 0 8px 0 0;"
 												href="${path }/consignment/recovery.htm?id=${c.id}"></a>
 										</c:if> <a class="icon-3 info-tooltip" href=""></a></td>
 								</tr>

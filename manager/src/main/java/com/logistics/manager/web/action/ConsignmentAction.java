@@ -97,6 +97,10 @@ public class ConsignmentAction extends SimpleFormController {
 										resultSet.getString("name"));
 								consignment.setCreateDatetime(resultSet
 										.getTimestamp("create_datetime"));
+								consignment.setStatus(resultSet
+										.getInt("status"));
+								consignment.setEnable(resultSet
+										.getBoolean("enable"));
 								return consignment;
 							}
 						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
@@ -325,6 +329,24 @@ public class ConsignmentAction extends SimpleFormController {
 			map.put("id", consignment.getId());
 			this.consignmentService.update("updateConsignment", map);
 		}
-		return this.list();
+		return "redirect:/consignment/list.htm";
+	}
+
+	@RequestMapping("delete")
+	public String delete(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("enable", false);
+		this.consignmentService.update("updateConsignmentByEnable", map);
+		return "redirect:/consignment/list.htm";
+	}
+
+	@RequestMapping("recovery")
+	public String recovery(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("enable", true);
+		this.consignmentService.update("updateConsignmentByEnable", map);
+		return "redirect:/consignment/list.htm";
 	}
 }

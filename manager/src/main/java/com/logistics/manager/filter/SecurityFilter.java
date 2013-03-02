@@ -33,10 +33,11 @@ public class SecurityFilter implements Filter {
 			ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		String uri = request.getRequestURI().substring(
+				request.getContextPath().length());
 		if (request.getSession().getAttribute(BaseAction.LOGIN_USER) != null
-				|| request.getRequestURI()
-						.substring(request.getContextPath().length())
-						.startsWith("/noSecurity")) {
+				|| uri.startsWith("/noSecurity/") || uri.startsWith("/css/")
+				|| uri.startsWith("/js/") || uri.startsWith("/images/")) {
 			filterChain.doFilter(servletRequest, servletResponse);
 		} else {
 			HttpServletResponse response = (HttpServletResponse) servletResponse;

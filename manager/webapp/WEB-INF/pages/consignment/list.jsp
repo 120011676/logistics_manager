@@ -61,9 +61,14 @@
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
 									<td><a class="icon-1 info-tooltip"
-										href="${path }/consignment/toUpdate.htm?id=${c.id}"></a> <a
-										class="icon-2 info-tooltip" href=""></a> <a
-										class="icon-3 info-tooltip" href=""></a></td>
+										href="${path }/consignment/toUpdate.htm?id=${c.id}"></a> <c:if
+											test="${c.enable == true }">
+											<a class="icon-2 info-tooltip"
+												href="${path }/consignment/delete.htm?id=${c.id}"></a>
+										</c:if> <c:if test="${c.enable == false }">
+											<a class="icon-5 info-tooltip"
+												href="${path }/consignment/recovery.htm?id=${c.id}"></a>
+										</c:if> <a class="icon-3 info-tooltip" href=""></a></td>
 								</tr>
 							</c:forEach>
 						</table>

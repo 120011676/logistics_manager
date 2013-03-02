@@ -59,5 +59,10 @@
   <parameter name="id">
    and c.id = :id
   </parameter>
+  order by c.id desc
+ </sql>
+ 
+ <sql name="updateConsignmentByEnable">
+     update consignment set enable = :enable where id = :id
  </sql>
 </sqls>

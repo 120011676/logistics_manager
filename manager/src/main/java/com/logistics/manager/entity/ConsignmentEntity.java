@@ -5,12 +5,12 @@ import java.util.Date;
 public class ConsignmentEntity {
 
 	private Integer id;
-	
+
 	private Date datetime;// 日期
 
-	private String startCity;//发站
+	private String startCity;// 发站
 
-	private String arrivalCity;//到站
+	private String arrivalCity;// 到站
 
 	private String modeOfTransportation;// 运输方式
 
@@ -18,82 +18,82 @@ public class ConsignmentEntity {
 
 	private String payment;// 付款方式
 
-	private String shipper;//托运人
-	
-	private String shipperUnit;//托运单位
-	
-	private String shipperAddress;//托运人地址
-	
-	private String shipperPhone;//托运人电话
-	
-	private String consignee;//收货人
-	
-	private String consigneeUnit;//收货单位
-	
-	private String consigneeAddress;//收货地址
-	
-	private String consigneePhone;//收货电话
-	
-	private String commodityNameOne;//品名1
-	
-	private String commodityNameTwo;//品名2
-	
-	private String commodityNameThree;//品名3
-	
-	private String commodityNameFour;//品名4
-	
-	private String commodityNameFive;//品名5
-	
-	private String commodityPackageOne;//包装1
-	
-	private String commodityPackageTwo;//包装2
-	
-	private String commodityPackageThree;//包装3
-	
-	private String commodityPackageFour;//包装4
-	
-	private String commodityPackageFive;//包装5
-	
-	private Integer commodityPackageNumberOne;//件数1
-	
-	private Integer commodityPackageNumberTwo;//件数2
-	
-	private Integer commodityPackageNumberThree;//件数3
-	
-	private Integer commodityPackageNumberFour;//件数4
-	
-	private Integer commodityPackageNumberFive;//件数5
-	
-	private Double commodityWeightOne;//重量1
-	
-	private Double commodityWeightTwo;//重量2
-	
-	private Double commodityWeightThree;//重量3
-	
-	private Double commodityWeightFour;//重量4
-	
-	private Double commodityWeightFive;//重量5
-	
-	private Double commodityVolumeOne;//体积1
-	
-	private Double commodityVolumeTwo;//体积2
-	
-	private Double commodityVolumeThree;//体积3
-	
-	private Double commodityVolumeFour;//体积4
-	
-	private Double commodityVolumeFive;//体积5
-	
-	private Double commodityWorthOne;//声明价值1
-	
-	private Double commodityWorthTwo;//声明价值2
-	
-	private Double commodityWorthThree;//声明价值3
-	
-	private Double commodityWorthFour;//声明价值4
-	
-	private Double commodityWorthFive;//声明价值5
-	
+	private String shipper;// 托运人
+
+	private String shipperUnit;// 托运单位
+
+	private String shipperAddress;// 托运人地址
+
+	private String shipperPhone;// 托运人电话
+
+	private String consignee;// 收货人
+
+	private String consigneeUnit;// 收货单位
+
+	private String consigneeAddress;// 收货地址
+
+	private String consigneePhone;// 收货电话
+
+	private String commodityNameOne;// 品名1
+
+	private String commodityNameTwo;// 品名2
+
+	private String commodityNameThree;// 品名3
+
+	private String commodityNameFour;// 品名4
+
+	private String commodityNameFive;// 品名5
+
+	private String commodityPackageOne;// 包装1
+
+	private String commodityPackageTwo;// 包装2
+
+	private String commodityPackageThree;// 包装3
+
+	private String commodityPackageFour;// 包装4
+
+	private String commodityPackageFive;// 包装5
+
+	private Integer commodityPackageNumberOne;// 件数1
+
+	private Integer commodityPackageNumberTwo;// 件数2
+
+	private Integer commodityPackageNumberThree;// 件数3
+
+	private Integer commodityPackageNumberFour;// 件数4
+
+	private Integer commodityPackageNumberFive;// 件数5
+
+	private Double commodityWeightOne;// 重量1
+
+	private Double commodityWeightTwo;// 重量2
+
+	private Double commodityWeightThree;// 重量3
+
+	private Double commodityWeightFour;// 重量4
+
+	private Double commodityWeightFive;// 重量5
+
+	private Double commodityVolumeOne;// 体积1
+
+	private Double commodityVolumeTwo;// 体积2
+
+	private Double commodityVolumeThree;// 体积3
+
+	private Double commodityVolumeFour;// 体积4
+
+	private Double commodityVolumeFive;// 体积5
+
+	private Double commodityWorthOne;// 声明价值1
+
+	private Double commodityWorthTwo;// 声明价值2
+
+	private Double commodityWorthThree;// 声明价值3
+
+	private Double commodityWorthFour;// 声明价值4
+
+	private Double commodityWorthFive;// 声明价值5
+
 	private String chargingWays;// 计费方式
 
 	private Double unitPrice;// 单价
@@ -117,8 +117,12 @@ public class ConsignmentEntity {
 	private Double collectionMoneyCharge;// 代收款手续费
 
 	private Double returnPrice;// 返单手续费
-	
+
 	private Date createDatetime;
+
+	private Integer status;// 0:装货中，1:送货中，2:已收货
+
+	private Boolean enable;// ture:正常，false：删除
 
 	private UserEntity createUser;
 
@@ -342,7 +346,8 @@ public class ConsignmentEntity {
 		return commodityPackageNumberThree;
 	}
 
-	public void setCommodityPackageNumberThree(Integer commodityPackageNumberThree) {
+	public void setCommodityPackageNumberThree(
+			Integer commodityPackageNumberThree) {
 		this.commodityPackageNumberThree = commodityPackageNumberThree;
 	}
 
@@ -584,6 +589,22 @@ public class ConsignmentEntity {
 
 	public void setCreateDatetime(Date createDatetime) {
 		this.createDatetime = createDatetime;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 
 	public UserEntity getCreateUser() {

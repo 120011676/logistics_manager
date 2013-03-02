@@ -65,15 +65,15 @@
 										<c:if test="${c.enable == true }">正常</c:if>
 										<c:if test="${c.enable == false }">已删除</c:if>
 									</td>
-									<td><a class="icon-1 info-tooltip"
+									<td><div style="margin-left: 10px;"><a class="icon-1 info-tooltip" title="修改"
 										href="${path }/consignment/toUpdate.htm?id=${c.id}"></a> <c:if
 											test="${c.enable == true }">
-											<a class="icon-2 info-tooltip"
+											<a class="icon-2 info-tooltip" title="删除"
 												href="${path }/consignment/delete.htm?id=${c.id}"></a>
 										</c:if> <c:if test="${c.enable == false }">
-											<a class="icon-5 info-tooltip" style="margin: 0 8px 0 0;"
+											<a class="icon-5 info-tooltip" title="恢复" style="margin: 0 8px 0 0;"
 												href="${path }/consignment/recovery.htm?id=${c.id}"></a>
-										</c:if> <a class="icon-3 info-tooltip" href=""></a></td>
+										</c:if> <a class="icon-3 info-tooltip" title="查看" href="${path }/consignment/look.htm?id=${c.id}"></a></div></td>
 								</tr>
 							</c:forEach>
 						</table>

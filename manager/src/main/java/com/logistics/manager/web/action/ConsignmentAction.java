@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import com.logistics.manager.entity.ConsignmentEntity;
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IConsignmentService;
+import com.logistics.manager.utils.ResultSetHelper;
 import com.logistics.manager.web.action.base.BaseAction;
 
 @SuppressWarnings("deprecation")
@@ -110,147 +111,152 @@ public class ConsignmentAction extends SimpleFormController {
 	@RequestMapping("toUpdate")
 	public String toUpdate(Integer id) {
 		if (id != null) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("id", id);
-			BaseAction.getHttpServletRequest().setAttribute(
-					"consignment",
-					this.consignmentService.queryForObject("queryConsignment",
-							map, new RowMapper<ConsignmentEntity>() {
-								@Override
-								public ConsignmentEntity mapRow(
-										ResultSet resultSet, int arg1)
-										throws SQLException {
-									ConsignmentEntity consignment = new ConsignmentEntity();
-									consignment.setId(resultSet.getInt("id"));
-									consignment.setDatetime(resultSet
-											.getDate("datetime"));
-									consignment.setStartCity(resultSet
-											.getString("start_city"));
-									consignment.setArrivalCity(resultSet
-											.getString("arrival_city"));
-									consignment.setModeOfTransportation(resultSet
-											.getString("mode_of_transportation"));
-									consignment.setServiceMode(resultSet
-											.getString("service_mode"));
-									consignment.setPayment(resultSet
-											.getString("payment"));
-									consignment.setShipper(resultSet
-											.getString("shipper"));
-									consignment.setShipperUnit(resultSet
-											.getString("shipper_unit"));
-									consignment.setShipperAddress(resultSet
-											.getString("shipper_address"));
-									consignment.setShipperPhone(resultSet
-											.getString("shipper_phone"));
-									consignment.setConsignee(resultSet
-											.getString("consignee"));
-									consignment.setConsigneeUnit(resultSet
-											.getString("consignee_unit"));
-									consignment.setConsigneeAddress(resultSet
-											.getString("consignee_address"));
-									consignment.setConsigneePhone(resultSet
-											.getString("consignee_phone"));
-									consignment.setCommodityNameOne(resultSet
-											.getString("commodity_name_one"));
-									consignment.setCommodityNameTwo(resultSet
-											.getString("commodity_name_two"));
-									consignment.setCommodityNameThree(resultSet
-											.getString("commodity_name_three"));
-									consignment.setCommodityNameFour(resultSet
-											.getString("commodity_name_four"));
-									consignment.setCommodityNameFive(resultSet
-											.getString("commodity_name_five"));
-									consignment.setCommodityPackageOne(resultSet
-											.getString("commodity_package_one"));
-									consignment.setCommodityPackageTwo(resultSet
-											.getString("commodity_package_two"));
-									consignment.setCommodityPackageThree(resultSet
-											.getString("commodity_package_three"));
-									consignment.setCommodityPackageFour(resultSet
-											.getString("commodity_package_four"));
-									consignment.setCommodityPackageFive(resultSet
-											.getString("commodity_package_five"));
-									consignment
-											.setCommodityPackageNumberOne(resultSet
-													.getInt("commodity_package_number_one"));
-									consignment
-											.setCommodityPackageNumberTwo(resultSet
-													.getInt("commodity_package_number_two"));
-									consignment
-											.setCommodityPackageNumberThree(resultSet
-													.getInt("commodity_package_number_three"));
-									consignment
-											.setCommodityPackageNumberFour(resultSet
-													.getInt("commodity_package_number_four"));
-									consignment
-											.setCommodityPackageNumberFive(resultSet
-													.getInt("commodity_package_number_five"));
-									consignment.setCommodityWeightOne(resultSet
-											.getDouble("commodity_weight_one"));
-									consignment.setCommodityWeightTwo(resultSet
-											.getDouble("commodity_weight_two"));
-									consignment.setCommodityWeightThree(resultSet
-											.getDouble("commodity_weight_three"));
-									consignment.setCommodityWeightFour(resultSet
-											.getDouble("commodity_weight_four"));
-									consignment.setCommodityWeightFive(resultSet
-											.getDouble("commodity_weight_five"));
-									consignment.setCommodityVolumeOne(resultSet
-											.getDouble("commodity_volume_one"));
-									consignment.setCommodityVolumeTwo(resultSet
-											.getDouble("commodity_volume_two"));
-									consignment.setCommodityVolumeThree(resultSet
-											.getDouble("commodity_volume_three"));
-									consignment.setCommodityVolumeFour(resultSet
-											.getDouble("commodity_volume_four"));
-									consignment.setCommodityVolumeFive(resultSet
-											.getDouble("commodity_volume_five"));
-									consignment.setCommodityWorthOne(resultSet
-											.getDouble("commodity_worth_one"));
-									consignment.setCommodityWorthTwo(resultSet
-											.getDouble("commodity_worth_two"));
-									consignment.setCommodityWorthThree(resultSet
-											.getDouble("commodity_worth_three"));
-									consignment.setCommodityWorthFour(resultSet
-											.getDouble("commodity_worth_four"));
-									consignment.setCommodityWorthFive(resultSet
-											.getDouble("commodity_worth_five"));
-									consignment.setChargingWays(resultSet
-											.getString("charging_ways"));
-									consignment.setUnitPrice(resultSet
-											.getDouble("unit_price"));
-									consignment.setTransportPrice(resultSet
-											.getDouble("transport_price"));
-									consignment.setTakeCargoPrice(resultSet
-											.getDouble("take_cargo_price"));
-									consignment.setCarryCargoPrice(resultSet
-											.getDouble("carry_cargo_price"));
-									consignment.setInsurancePrice(resultSet
-											.getDouble("insurance_price"));
-									consignment.setPackPrice(resultSet
-											.getDouble("pack_price"));
-									consignment.setLoadUnloadPrice(resultSet
-											.getDouble("load_unload_price"));
-									consignment.setOtherPrice(resultSet
-											.getDouble("other_price"));
-									consignment.setCollectionMoney(resultSet
-											.getDouble("collection_money"));
-									consignment.setCollectionMoneyCharge(resultSet
-											.getDouble("collection_money_charge"));
-									consignment.setReturnPrice(resultSet
-											.getDouble("return_price"));
-									consignment.setCreateUser(new UserEntity());
-									consignment.getCreateUser().setId(
-											resultSet.getInt("create_user_id"));
-									consignment.getCreateUser().setName(
-											resultSet.getString("name"));
-									consignment.setCreateDatetime(resultSet
-											.getTimestamp("create_datetime"));
-									return consignment;
-								}
-							}));
+			get(id);
 		}
 		return "consignment/update";
+	}
+
+	private void get(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		BaseAction.getHttpServletRequest().setAttribute(
+				"consignment",
+				this.consignmentService.queryForObject("queryConsignment", map,
+						new RowMapper<ConsignmentEntity>() {
+							@Override
+							public ConsignmentEntity mapRow(
+									ResultSet rs, int arg1)
+									throws SQLException {
+								ResultSetHelper resultSet = new ResultSetHelper(
+										rs);
+								ConsignmentEntity consignment = new ConsignmentEntity();
+								consignment.setId(resultSet.getInt("id"));
+								consignment.setDatetime(resultSet
+										.getDate("datetime"));
+								consignment.setStartCity(resultSet
+										.getString("start_city"));
+								consignment.setArrivalCity(resultSet
+										.getString("arrival_city"));
+								consignment.setModeOfTransportation(resultSet
+										.getString("mode_of_transportation"));
+								consignment.setServiceMode(resultSet
+										.getString("service_mode"));
+								consignment.setPayment(resultSet
+										.getString("payment"));
+								consignment.setShipper(resultSet
+										.getString("shipper"));
+								consignment.setShipperUnit(resultSet
+										.getString("shipper_unit"));
+								consignment.setShipperAddress(resultSet
+										.getString("shipper_address"));
+								consignment.setShipperPhone(resultSet
+										.getString("shipper_phone"));
+								consignment.setConsignee(resultSet
+										.getString("consignee"));
+								consignment.setConsigneeUnit(resultSet
+										.getString("consignee_unit"));
+								consignment.setConsigneeAddress(resultSet
+										.getString("consignee_address"));
+								consignment.setConsigneePhone(resultSet
+										.getString("consignee_phone"));
+								consignment.setCommodityNameOne(resultSet
+										.getString("commodity_name_one"));
+								consignment.setCommodityNameTwo(resultSet
+										.getString("commodity_name_two"));
+								consignment.setCommodityNameThree(resultSet
+										.getString("commodity_name_three"));
+								consignment.setCommodityNameFour(resultSet
+										.getString("commodity_name_four"));
+								consignment.setCommodityNameFive(resultSet
+										.getString("commodity_name_five"));
+								consignment.setCommodityPackageOne(resultSet
+										.getString("commodity_package_one"));
+								consignment.setCommodityPackageTwo(resultSet
+										.getString("commodity_package_two"));
+								consignment.setCommodityPackageThree(resultSet
+										.getString("commodity_package_three"));
+								consignment.setCommodityPackageFour(resultSet
+										.getString("commodity_package_four"));
+								consignment.setCommodityPackageFive(resultSet
+										.getString("commodity_package_five"));
+
+								consignment.setCommodityPackageNumberOne(resultSet
+										.getInt("commodity_package_number_one"));
+								consignment.setCommodityPackageNumberTwo(resultSet
+										.getInt("commodity_package_number_two"));
+								consignment
+										.setCommodityPackageNumberThree(resultSet
+												.getInt("commodity_package_number_three"));
+								consignment
+										.setCommodityPackageNumberFour(resultSet
+												.getInt("commodity_package_number_four"));
+								consignment
+										.setCommodityPackageNumberFive(resultSet
+												.getInt("commodity_package_number_five"));
+								consignment.setCommodityWeightOne(resultSet
+										.getDouble("commodity_weight_one"));
+								consignment.setCommodityWeightTwo(resultSet
+										.getDouble("commodity_weight_two"));
+								consignment.setCommodityWeightThree(resultSet
+										.getDouble("commodity_weight_three"));
+								consignment.setCommodityWeightFour(resultSet
+										.getDouble("commodity_weight_four"));
+								consignment.setCommodityWeightFive(resultSet
+										.getDouble("commodity_weight_five"));
+								consignment.setCommodityVolumeOne(resultSet
+										.getDouble("commodity_volume_one"));
+								consignment.setCommodityVolumeTwo(resultSet
+										.getDouble("commodity_volume_two"));
+								consignment.setCommodityVolumeThree(resultSet
+										.getDouble("commodity_volume_three"));
+								consignment.setCommodityVolumeFour(resultSet
+										.getDouble("commodity_volume_four"));
+								consignment.setCommodityVolumeFive(resultSet
+										.getDouble("commodity_volume_five"));
+								consignment.setCommodityWorthOne(resultSet
+										.getDouble("commodity_worth_one"));
+								consignment.setCommodityWorthTwo(resultSet
+										.getDouble("commodity_worth_two"));
+								consignment.setCommodityWorthThree(resultSet
+										.getDouble("commodity_worth_three"));
+								consignment.setCommodityWorthFour(resultSet
+										.getDouble("commodity_worth_four"));
+								consignment.setCommodityWorthFive(resultSet
+										.getDouble("commodity_worth_five"));
+								consignment.setChargingWays(resultSet
+										.getString("charging_ways"));
+								consignment.setUnitPrice(resultSet
+										.getDouble("unit_price"));
+								consignment.setTransportPrice(resultSet
+										.getDouble("transport_price"));
+								consignment.setTakeCargoPrice(resultSet
+										.getDouble("take_cargo_price"));
+								consignment.setCarryCargoPrice(resultSet
+										.getDouble("carry_cargo_price"));
+								consignment.setInsurancePrice(resultSet
+										.getDouble("insurance_price"));
+								consignment.setPackPrice(resultSet
+										.getDouble("pack_price"));
+								consignment.setLoadUnloadPrice(resultSet
+										.getDouble("load_unload_price"));
+								consignment.setOtherPrice(resultSet
+										.getDouble("other_price"));
+								consignment.setCollectionMoney(resultSet
+										.getDouble("collection_money"));
+								consignment.setCollectionMoneyCharge(resultSet
+										.getDouble("collection_money_charge"));
+								consignment.setReturnPrice(resultSet
+										.getDouble("return_price"));
+								consignment.setCreateUser(new UserEntity());
+								consignment.getCreateUser().setId(
+										resultSet.getInt("create_user_id"));
+								consignment.getCreateUser().setName(
+										resultSet.getString("name"));
+								consignment.setCreateDatetime(resultSet
+										.getTimestamp("create_datetime"));
+								return consignment;
+							}
+						}));
 	}
 
 	@RequestMapping("update")
@@ -348,5 +354,11 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("enable", true);
 		this.consignmentService.update("updateConsignmentByEnable", map);
 		return "redirect:/consignment/list.htm";
+	}
+
+	@RequestMapping("look")
+	public String look(Integer id) {
+		this.get(id);
+		return "/consignment/look";
 	}
 }

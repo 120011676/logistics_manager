@@ -136,10 +136,17 @@ body {
 		if (!checkRegExpDoubleAndNull(getId("collectionMoney"))) {
 			msg += "【代收费】只能是数字或小数！<br>";
 		}
-		if (isNull($("#collectionMoneyCharge"))) {
-			msg += "【代收款手续费】不能为空！<br>";
-		} else if (!checkRegExpDouble(getId("collectionMoneyCharge"))) {
+		if (!checkRegExpDoubleAndNull(getId("collectionMoneyCharge"))) {
 			msg += "【代收款手续费】只能是数字或小数！<br>";
+		}
+		if (!isBooleanNull($("#collectionMoney"))
+				&& isBooleanNull($("#collectionMoneyCharge"))) {
+			$("#collectionMoneyCharge").attr("class", "btnRed");
+			msg += "【代收款手续费】不能为空！<br>";
+		} else if (isBooleanNull($("#collectionMoney"))
+				&& !isBooleanNull($("#collectionMoneyCharge"))) {
+			$("#collectionMoney").attr("class", "btnRed");
+			msg += "【代收费】不能为空！<br>";
 		}
 		if (isNull($("#packPrice"))) {
 			msg += "【包装费】不能为空！<br>";
@@ -166,6 +173,13 @@ body {
 	function isNull(obj) {
 		if ($.trim(obj.val()) == "") {
 			obj.attr("class", "btnRed");
+			return true;
+		}
+		return false;
+	}
+
+	function isBooleanNull(obj) {
+		if ($.trim(obj.val()) == "") {
 			return true;
 		}
 		return false;
@@ -252,7 +266,10 @@ body {
 </head>
 <body>
 	<div id="page-heading">
-		<h1>新增货物托运受理单</h1>
+		<h1>
+			<c:if test="${consignment.id == null}">新增货物托运受理单</c:if>
+			<c:if test="${consignment.id != null}">修改货物托运受理单</c:if>
+		</h1>
 	</div>
 	<table border="0" width="100%" cellpadding="0" cellspacing="0"
 		id="content-table">
@@ -533,8 +550,8 @@ body {
 									</td>
 									<td><input id="collectionMoneyCharge"
 										name="collectionMoneyCharge"
-										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
+										class="btn" style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.collectionMoneyCharge }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>

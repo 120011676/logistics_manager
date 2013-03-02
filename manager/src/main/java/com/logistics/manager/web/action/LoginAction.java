@@ -31,6 +31,7 @@ public class LoginAction {
 	public String toLogin(String username, String password) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("username", username);
+		map.put("enable", true);
 		UserEntity user = this.userService.query("querUser", map,
 				new ResultSetExtractor<UserEntity>() {
 					@Override

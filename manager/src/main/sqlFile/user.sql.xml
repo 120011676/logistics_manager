@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sqls>
  <sql name="querUser">
-  select * from user where enable = true
+  select * from user where 1 = 1
+  <parameter name="enable">
+   and enable = :enable
+  </parameter>
   <parameter name="username">
    and username = :username
+  </parameter>
+  <parameter name="id">
+   and id = :id
   </parameter> </sql>
+ 
+ <sql name="updateUserByName">
+     update user set name = :name where id = :id
+ </sql>
 </sqls>

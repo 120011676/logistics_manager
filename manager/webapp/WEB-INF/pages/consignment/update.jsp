@@ -118,9 +118,7 @@ body {
 		} else if (!checkRegExpDouble(getId("takeCargoPrice"))) {
 			msg += "【取货费】只能是数字或小数！<br>";
 		}
-		if (isNull($("#otherPrice"))) {
-			msg += "【其他费】不能为空！<br>";
-		} else if (!checkRegExpDouble(getId("otherPrice"))) {
+		if (!checkRegExpDoubleAndNull(getId("otherPrice"))) {
 			msg += "【其他费】只能是数字或小数！<br>";
 		}
 		if (isNull($("#carryCargoPrice"))) {
@@ -153,9 +151,7 @@ body {
 		} else if (!checkRegExpDouble(getId("packPrice"))) {
 			msg += "【包装费】只能是数字或小数！<br>";
 		}
-		if (isNull($("#returnPrice"))) {
-			msg += "【返单手续费】不能为空！<br>";
-		} else if (!checkRegExpDouble(getId("returnPrice"))) {
+		if (!checkRegExpDoubleAndNull(getId("returnPrice"))) {
 			msg += "【返单手续费】只能是数字或小数！<br>";
 		}
 		if (($.trim(msg)) != "") {
@@ -171,7 +167,7 @@ body {
 	}
 
 	function isNull(obj) {
-		if ($.trim(obj.val()) == "") {
+		if (obj.val() == "") {
 			obj.attr("class", "btnRed");
 			return true;
 		}
@@ -186,7 +182,7 @@ body {
 	}
 
 	function checkNull(obj) {
-		if ($.trim(obj.value) != "") {
+		if (obj.value != "") {
 			classBtn(obj);
 			return true;
 		} else {
@@ -196,7 +192,7 @@ body {
 	}
 
 	function checkRegExp(obj, p) {
-		if (p.test($.trim(obj.value))) {
+		if (p.test(obj.value)) {
 			classBtn(obj);
 			return true;
 		} else {
@@ -206,7 +202,7 @@ body {
 	}
 
 	function checkRegExpPhone(obj) {
-		if (/^\d{11}$/.test($.trim(obj.value))) {
+		if (/^\d{11}$/.test(obj.value)) {
 			classBtn(obj);
 			return true;
 		} else {
@@ -216,7 +212,7 @@ body {
 	}
 
 	function checkRegExpInt(obj) {
-		if (/^\d+$/.test($.trim(obj.value))) {
+		if (/^\d+$/.test(obj.value)) {
 			classBtn(obj);
 			return true;
 		} else {
@@ -226,7 +222,7 @@ body {
 	}
 
 	function checkRegExpIntAndNull(obj) {
-		if (/^\d*$/.test($.trim(obj.value))) {
+		if (/^\d*$/.test(obj.value)) {
 			classBtn(obj);
 			return true;
 		} else {
@@ -236,7 +232,7 @@ body {
 	}
 
 	function checkRegExpDouble(obj) {
-		if (/^((\d+\.?\d{1,2})|(\d+))$/.test($.trim(obj.value))) {
+		if (/^((\d+\.?\d{1,2})|(\d+))$/.test(obj.value)) {
 			classBtn(obj);
 			return true;
 		} else {
@@ -246,13 +242,29 @@ body {
 	}
 
 	function checkRegExpDoubleAndNull(obj) {
-		if (/^((\d+\.?\d{1,2})|(\d*))$/.test($.trim(obj.value))) {
+		if (/^((\d+\.?\d{1,2})|(\d*))$/.test(obj.value)) {
 			classBtn(obj);
 			return true;
 		} else {
 			classBtnRed(obj);
 			return false;
 		}
+	}
+
+	function specialCheckRegExp(obj1, obj2) {
+		if (obj1.value != "" && obj2.value != "" && checkRegExpDouble(obj1)
+				&& checkRegExpDouble(obj2)) {
+			classBtn(obj1);
+			classBtn(obj2);
+			return true;
+		} else if (obj1.value == "" && obj2.value == "") {
+			classBtn(obj1);
+			classBtn(obj2);
+			return true;
+		}
+		classBtnRed(obj1);
+		classBtnRed(obj2);
+		return true;
 	}
 
 	function classBtn(obj) {
@@ -468,8 +480,8 @@ body {
 										maxlength="11"></td>
 									<td>其他费</td>
 									<td><input id="otherPrice" name="otherPrice"
-										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
+										class="btn" style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.otherPrice }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>
@@ -508,8 +520,8 @@ body {
 										maxlength="11"></td>
 									<td>代收费</td>
 									<td><input id="collectionMoney" name="collectionMoney"
-										onchange="checkRegExpDoubleAndNull(this)" type="text"
-										class="btn" style="width: 100px;"
+										onchange="specialCheckRegExp(getId('collectionMoney'), getId('collectionMoneyCharge'))"
+										type="text" class="btn" style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.collectionMoney }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>
@@ -550,8 +562,8 @@ body {
 									</td>
 									<td><input id="collectionMoneyCharge"
 										name="collectionMoneyCharge"
-										onchange="checkRegExpDoubleAndNull(this)" type="text"
-										class="btn" style="width: 100px;"
+										onchange="specialCheckRegExp(getId('collectionMoney'), getId('collectionMoneyCharge'))"
+										type="text" class="btn" style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.collectionMoneyCharge }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>
@@ -591,8 +603,8 @@ body {
 									<td>返&nbsp;&nbsp;&nbsp;&nbsp;单<br> 手续费
 									</td>
 									<td><input id="returnPrice" name="returnPrice"
-										onchange="checkRegExpDouble(this)" type="text" class="btn"
-										style="width: 100px;"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
+										class="btn" style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.returnPrice }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>

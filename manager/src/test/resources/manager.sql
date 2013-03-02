@@ -72,7 +72,7 @@ create table consignment(
 	insurance_price double not null comment '保险费',
 	pack_price double not null comment '包装费',
 	load_unload_price double not null comment '装卸费',
-	other_price double not null comment '其他费',
+	other_price double comment '其他费',
 	collection_money double comment '代收款',
 	collection_money_charge double comment '代收款手续费',
 	return_price double comment '返单手续费',

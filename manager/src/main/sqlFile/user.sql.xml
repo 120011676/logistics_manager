@@ -15,4 +15,8 @@
  <sql name="updateUserByName">
      update user set name = :name where id = :id
  </sql>
+ 
+ <sql name="updateUserByPassword">
+     update user set password = :newPassword where id = :id and password = :password
+ </sql>
 </sqls>

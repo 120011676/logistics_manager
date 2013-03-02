@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.qq120011676.snow.properties.ProjectProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,9 @@ public class MyAction {
 	private IUserService userService;
 
 	@RequestMapping("toUpdate")
-	public String toUpdate(Integer id) {
+	public String toUpdate(Integer id, String messages) {
 		get();
+		BaseAction.getHttpServletRequest().setAttribute("messages", messages);
 		return "my/update";
 	}
 
@@ -57,12 +59,28 @@ public class MyAction {
 		map.put("id", user.getId());
 		map.put("name", user.getName());
 		this.userService.update("updateUserByName", map);
-		return "redirect:/my/toUpdate.htm?id=" + user.getId();
+		return this.toUpdate(user.getId(),
+				ProjectProperties.getConfig("updateMyUserInfo"));
 	}
-	
+
 	@RequestMapping("toPassword")
-	public String toPassword(Integer id){
+	public String toPassword(Integer id, String messages) {
 		get();
+		BaseAction.getHttpServletRequest().setAttribute("messages", messages);
 		return "my/updatePassword";
+	}
+
+	@RequestMapping("updatePassword")
+	public String updatePassword(UserEntity user, String newPassword) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", user.getId());
+		map.put("password", user.getPassword());
+		map.put("newPassword", newPassword);
+		int u = this.userService.update("updateUserByPassword", map);
+		if (u > 0) {
+			return "redirect:/noSecurity/logout.htm";
+		}
+		return this.toPassword(user.getId(),
+				ProjectProperties.getConfig("updatePasswordError"));
 	}
 }

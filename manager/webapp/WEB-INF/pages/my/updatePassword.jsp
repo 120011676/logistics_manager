@@ -44,19 +44,39 @@
 		obj.setAttribute("class", "inp-form-error");
 	}
 
-	function res() {
-		$(":text").val("");
+	function checkNull(obj) {
+		if ($.trim(obj.value) != "") {
+			classBtn(obj);
+			return true;
+		} else {
+			classBtnRed(obj);
+			return false;
+		}
+	}
+
+	function otherCheck() {
+		if ($("#newPassword").val() != $("#newPassword1").val()) {
+			classBtnRed(get("newPassword"));
+			classBtnRed(get("newPassword1"));
+		} else {
+			classBtn(get("newPassword"));
+			classBtn(get("newPassword1"));
+		}
 	}
 
 	function mySubmit() {
 		var msg = "";
 		if ($("#password").val().length <= 0) {
-			msg += "旧密码长度不能为空!<br>";
+			classBtnRed(get("password"));
+			msg += "旧密码不能为空!<br>";
 		}
 		if ($("#newPassword").val().length < 6) {
+			classBtnRed(get("newPassword"));
 			msg += "新密码长度不能小于6位!<br>";
 		}
 		if ($("#newPassword").val() != $("#newPassword1").val()) {
+			classBtnRed(get("newPassword"));
+			classBtnRed(get("newPassword1"));
 			msg += "两次密码不一致!<br>";
 		}
 		if (msg.length > 0) {
@@ -89,6 +109,17 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
+					<c:if test="${messages != null }">
+						<div id="message-red">
+							<table width="100%" cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr>
+										<td class="red-left">错误：${messages }</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</c:if>
 					<form id="myForm" action="${path }/my/updatePassword.htm"
 						method="post">
 						<input name="id" type="hidden" value="${user.id}">
@@ -108,18 +139,19 @@
 							</tr>
 							<tr>
 								<td class="title">旧密码:</td>
-								<td><input id="password" name="password" type="text"
-									class="inp-form" maxlength="20"></td>
+								<td><input onchange="checkNull(this)" id="password"
+									name="password" type="password" class="inp-form" maxlength="20"></td>
 							</tr>
 							<tr>
 								<td class="title">新密码:</td>
-								<td><input id="newPassword" name="newPassword" type="text"
-									class="inp-form" maxlength="20"></td>
+								<td><input onchange="otherCheck()" id="newPassword"
+									name="newPassword" type="password" class="inp-form"
+									maxlength="20"></td>
 							</tr>
 							<tr>
 								<td class="title">确认新密码:</td>
-								<td><input id="newPassword1" type="text" class="inp-form"
-									maxlength="20"></td>
+								<td><input onchange="otherCheck()" id="newPassword1"
+									type="password" class="inp-form" maxlength="20"></td>
 							</tr>
 							<tr>
 								<td></td>

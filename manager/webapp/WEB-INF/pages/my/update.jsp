@@ -51,7 +51,7 @@ body {
 	function res() {
 		$(":text").val("");
 	}
-	
+
 	function mySubmit() {
 		if (!checkNull(get("name_s"))) {
 			alert("<font color=\"red\">姓名不能为空！</font>");
@@ -82,6 +82,15 @@ body {
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
+					<c:if test="${messages !=null }">
+						<div id="message-green">
+							<table width="100%" cellspacing="0" cellpadding="0" border="0">
+								<tr>
+									<td class="green-left">${messages }</td>
+								</tr>
+							</table>
+						</div>
+					</c:if>
 					<form id="myForm" action="${path }/my/update.htm" method="post">
 						<input name="id" type="hidden" value="${user.id}">
 						<table class="formTable">

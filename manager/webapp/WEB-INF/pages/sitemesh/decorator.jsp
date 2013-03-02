@@ -76,7 +76,7 @@
 							href="${path }/my/toUpdate.htm?id=${LOGIN_USER.id}">我的信息</a>
 						<div class="clear"></div>
 						<div class="acc-line">&nbsp;</div>
-						<a id="acc-settings" href="">密码修改</a>
+						<a id="acc-settings" href="${path }/my/toPassword.htm?id=${LOGIN_USER.id}">密码修改</a>
 						<div class="clear"></div>
 						<div class="acc-line">&nbsp;</div>
 					</div>

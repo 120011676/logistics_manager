@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>我的信息</title>
+<title>密码修改</title>
 <style type="text/css">
 .formTable {
 	width: 100%;
@@ -20,18 +20,14 @@
 	text-align: right;
 	font-weight: bold;
 }
-
-body {
-	line-height: 0px;
-}
 </style>
 <script type="text/javascript">
 	function get(id) {
 		return document.getElementById(id);
 	}
 
-	function checkNull(obj) {
-		if ($.trim(obj.value) != "") {
+	function checkPassword(obj) {
+		if (obj.value.length >= 6) {
 			classBtn(obj);
 			return true;
 		} else {
@@ -51,10 +47,21 @@ body {
 	function res() {
 		$(":text").val("");
 	}
-	
+
 	function mySubmit() {
-		if (!checkNull(get("name_s"))) {
-			alert("<font color=\"red\">姓名不能为空！</font>");
+		var msg = "";
+		if ($("#password").val().length <= 0) {
+			msg += "旧密码长度不能为空!<br>";
+		}
+		if ($("#newPassword").val().length < 6) {
+			msg += "新密码长度不能小于6位!<br>";
+		}
+		if ($("#newPassword").val() != $("#newPassword1").val()) {
+			msg += "两次密码不一致!<br>";
+		}
+		if (msg.length > 0) {
+			alert("<div style=\"color:red;margin-left: 10px;\">" + msg
+					+ "<br></div>");
 		} else {
 			$("#myForm").submit();
 		}
@@ -82,7 +89,8 @@ body {
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<form id="myForm" action="${path }/my/update.htm" method="post">
+					<form id="myForm" action="${path }/my/updatePassword.htm"
+						method="post">
 						<input name="id" type="hidden" value="${user.id}">
 						<table class="formTable">
 							<tr>
@@ -91,14 +99,27 @@ body {
 							</tr>
 							<tr>
 								<td class="title">姓名:</td>
-								<td><input name="name" id="name_s" type="text"
-									class="inp-form" onchange="checkNull(this)"
-									value="${user.name }" maxlength="4"></td>
+								<td>${user.name }</td>
 							</tr>
 							<tr>
 								<td class="title">创建时间:</td>
 								<td><fmt:formatDate value="${user.createDatetime }"
 										pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							</tr>
+							<tr>
+								<td class="title">旧密码:</td>
+								<td><input id="password" name="password" type="text"
+									class="inp-form" maxlength="20"></td>
+							</tr>
+							<tr>
+								<td class="title">新密码:</td>
+								<td><input id="newPassword" name="newPassword" type="text"
+									class="inp-form" maxlength="20"></td>
+							</tr>
+							<tr>
+								<td class="title">确认新密码:</td>
+								<td><input id="newPassword1" type="text" class="inp-form"
+									maxlength="20"></td>
 							</tr>
 							<tr>
 								<td></td>

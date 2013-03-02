@@ -27,6 +27,11 @@ public class MyAction {
 
 	@RequestMapping("toUpdate")
 	public String toUpdate(Integer id) {
+		get();
+		return "my/update";
+	}
+
+	private void get() {
 		Map<String, Object> map = new HashMap<>();
 		BaseAction.getHttpServletRequest().setAttribute(
 				"user",
@@ -44,7 +49,6 @@ public class MyAction {
 								return user;
 							}
 						}));
-		return "my/update";
 	}
 
 	@RequestMapping("update")
@@ -54,5 +58,11 @@ public class MyAction {
 		map.put("name", user.getName());
 		this.userService.update("updateUserByName", map);
 		return "redirect:/my/toUpdate.htm?id=" + user.getId();
+	}
+	
+	@RequestMapping("toPassword")
+	public String toPassword(Integer id){
+		get();
+		return "my/updatePassword";
 	}
 }

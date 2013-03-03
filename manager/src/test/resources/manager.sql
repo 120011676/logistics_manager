@@ -21,6 +21,7 @@ create table company(
 drop table if exists consignment;
 create table consignment(
 	id int primary key auto_increment,
+	order_number varchar(255) not null unique comment '订单号',
 	datetime date not null comment '日期',
 	start_city varchar(255) not null comment '发站',
 	arrival_city varchar(255) not null comment '到站',

@@ -35,6 +35,7 @@
 	href="${path }/js/snow-framework/css/framework.css">
 <link type="text/css" rel="stylesheet"
 	href="${path }/js/snow-framework/css/pageTag.css">
+<link type="text/css" rel="stylesheet" href="${path }/css/main.css">
 <script type="text/javascript">
 	function myUser() {
 		var obj = $("#myUserMenu");
@@ -62,11 +63,12 @@
 			<div id="nav-right">
 				<div class="nav-divider">&nbsp;</div>
 				<div class="showhide-account">
-					<img src="${path }/images/shared/nav/nav_myaccount.gif" width="93"
+					<img title="我的信息"
+						src="${path }/images/shared/nav/nav_myaccount.gif" width="93"
 						height="14" alt="" onclick="myUser()" />
 				</div>
 				<div class="nav-divider">&nbsp;</div>
-				<a href="${path }/noSecurity/logout.htm" id="logout"><img
+				<a title="退出" href="${path }/noSecurity/logout.htm" id="logout"><img
 					src="${path }/images/shared/nav/nav_logout.gif" width="64"
 					height="14" alt="" /></a>
 				<div class="clear">&nbsp;</div>

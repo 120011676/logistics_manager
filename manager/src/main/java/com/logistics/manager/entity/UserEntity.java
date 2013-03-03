@@ -13,6 +13,8 @@ public class UserEntity {
 	private String name;
 
 	private Boolean enable;
+	
+	private Boolean position;//true：管理员，普通用户
 
 	private Date createDatetime;
 
@@ -58,6 +60,14 @@ public class UserEntity {
 
 	public Date getCreateDatetime() {
 		return createDatetime;
+	}
+
+	public Boolean getPosition() {
+		return position;
+	}
+
+	public void setPosition(Boolean position) {
+		this.position = position;
 	}
 
 	public void setCreateDatetime(Date createDatetime) {

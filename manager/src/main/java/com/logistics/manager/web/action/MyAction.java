@@ -28,13 +28,14 @@ public class MyAction {
 
 	@RequestMapping("toUpdate")
 	public String toUpdate(Integer id, String messages) {
-		get();
+		get(id);
 		BaseAction.getHttpServletRequest().setAttribute("messages", messages);
 		return "my/update";
 	}
 
-	private void get() {
+	private void get(Integer id) {
 		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
 		BaseAction.getHttpServletRequest().setAttribute(
 				"user",
 				this.userService.queryForObject("querUser", map,
@@ -65,7 +66,7 @@ public class MyAction {
 
 	@RequestMapping("toPassword")
 	public String toPassword(Integer id, String messages) {
-		get();
+		get(id);
 		BaseAction.getHttpServletRequest().setAttribute("messages", messages);
 		return "my/updatePassword";
 	}

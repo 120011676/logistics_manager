@@ -31,6 +31,7 @@ public class LoginAction {
 	public String toLogin(String username, String password) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("username", username);
+		map.put("password", password);
 		map.put("enable", true);
 		UserEntity user = this.userService.query("querUser", map,
 				new ResultSetExtractor<UserEntity>() {
@@ -43,12 +44,13 @@ public class LoginAction {
 							user.setUsername(resultSet.getString("username"));
 							user.setPassword(resultSet.getString("password"));
 							user.setName(resultSet.getString("name"));
+							user.setPosition(resultSet.getBoolean("position"));
 							return user;
 						}
 						return null;
 					}
 				});
-		if (user != null && password.equals(user.getPassword())) {
+		if (user != null) {
 			BaseAction.getHttpServletRequest().getSession()
 					.setAttribute(BaseAction.LOGIN_USER, user);
 			return "redirect:/";

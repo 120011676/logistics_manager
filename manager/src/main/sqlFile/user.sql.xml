@@ -8,15 +8,35 @@
   <parameter name="username">
    and username = :username
   </parameter>
+  <parameter name="password">
+   and password = :password
+  </parameter>
   <parameter name="id">
    and id = :id
-  </parameter> </sql>
- 
- <sql name="updateUserByName">
-     update user set name = :name where id = :id
+  </parameter>
+  order by enable desc,id desc </sql>
+
+ <sql name="saveUser">
+  insert user(username,password,name,position)
+  value(:username,:password,:name,:position)
  </sql>
- 
+
+ <sql name="updateUserByName">
+  update user set name = :name where id = :id
+ </sql>
+
+ <sql name="updateUserByEnable">
+  update user set enable = :enable where id = :id
+ </sql>
+
+ <sql name="updateUser">
+  update user set username = :username,name =
+  :name,position = :position where id = :id
+ </sql>
+
  <sql name="updateUserByPassword">
-     update user set password = :newPassword where id = :id and password = :password
+  update user set password = :newPassword where id = :id
+  and password =
+  :password
  </sql>
 </sqls>

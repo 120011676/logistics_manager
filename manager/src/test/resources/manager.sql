@@ -4,6 +4,7 @@ create table user(
 	username varchar(255) not null unique,
 	password varchar(255) not null,
 	name varchar(255) not null,
+	position boolean not null default false,
 	enable boolean not null default true,
 	create_datetime timestamp not null default now()
 );

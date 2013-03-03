@@ -80,9 +80,9 @@ showDIV = function(width, height, title, title_image, image_url, message,
 							+ getContextPath()
 							+ image_url
 							+ '">'
-							+ '</td><Td class="messageCss" align="left">&nbsp;&nbsp;&nbsp;&nbsp;'
+							+ '</td><Td class="messageCss" align="left"><div style=\"margin-left: 10px;\">'
 							+ message
-							+ '</Td></tr><tr valign="middle" height="20px"><Th align="center" colspan="2">'
+							+ '</div></Td></tr><tr valign="middle" height="20px"><Th align="center" colspan="2">'
 							+ '<input class="snow_framework_btn" value="'
 							+ button_message
 							+ '" onclick="MClose()" type="button" /></Th></tr></table></div>',

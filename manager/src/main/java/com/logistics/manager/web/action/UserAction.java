@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IUserService;
@@ -152,4 +153,17 @@ public class UserAction {
 		return "redirect:/user/list.htm";
 	}
 
+	@RequestMapping("checkUsername")
+	@ResponseBody
+	public String checkUsername(Integer id, String username) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", username);
+		if (id != null) {
+			map.put("id", id);
+		}
+		if (this.userService.queryForInt("checkUsername", map) > 0) {
+			return "false";
+		}
+		return "true";
+	}
 }

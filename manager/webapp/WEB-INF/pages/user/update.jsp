@@ -60,7 +60,16 @@
 		if (msg.length > 0) {
 			alert("<font color=\"red\">" + msg + "</font>");
 		} else {
-			$("#myForm").submit();
+			$.post("${path}/user/checkUsername.htm", {
+				username : $("#username").val(),
+				id : "${user.id}"
+			}, function(data) {
+				if ($.trim(data) == "true") {
+					$("#myForm").submit();
+				} else {
+					alert("<font color=\"red\">账号已经存在！</font>");
+				}
+			});
 		}
 	}
 </script>

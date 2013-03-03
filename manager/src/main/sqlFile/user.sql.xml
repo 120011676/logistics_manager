@@ -22,6 +22,13 @@
   </parameter>
   order by enable desc,id desc </sql>
 
+ <sql name="checkUsername">
+  select count(*) from user where username = :username
+  <parameter name="id">
+   and id != :id
+  </parameter>
+ </sql>
+
  <sql name="saveUser">
   insert user(username,password,name,position)
   value(:username,:password,:name,:position)

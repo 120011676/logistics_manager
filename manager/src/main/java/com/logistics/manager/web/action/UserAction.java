@@ -102,7 +102,7 @@ public class UserAction {
 	public String update(UserEntity user) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("username", user.getUsername());
-		map.put("name", user.getUsername());
+		map.put("name", user.getName());
 		map.put("position", user.getPosition());
 		if (user.getId() == null) {
 			map.put("password", user.getPassword());

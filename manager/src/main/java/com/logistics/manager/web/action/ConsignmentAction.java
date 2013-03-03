@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import com.logistics.manager.entity.ConsignmentEntity;
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IConsignmentService;
+import com.logistics.manager.utils.OrderNumberUtils;
 import com.logistics.manager.utils.ResultSetHelper;
 import com.logistics.manager.web.action.base.BaseAction;
 
@@ -62,6 +63,8 @@ public class ConsignmentAction extends SimpleFormController {
 									ResultSet resultSet, int arg1)
 									throws SQLException {
 								ConsignmentEntity consignment = new ConsignmentEntity();
+								consignment.setOrderNumber(resultSet
+										.getString("order_number"));
 								consignment.setId(resultSet.getInt("id"));
 								consignment.setDatetime(resultSet
 										.getDate("datetime"));
@@ -124,9 +127,8 @@ public class ConsignmentAction extends SimpleFormController {
 				this.consignmentService.queryForObject("queryConsignment", map,
 						new RowMapper<ConsignmentEntity>() {
 							@Override
-							public ConsignmentEntity mapRow(
-									ResultSet rs, int arg1)
-									throws SQLException {
+							public ConsignmentEntity mapRow(ResultSet rs,
+									int arg1) throws SQLException {
 								ResultSetHelper resultSet = new ResultSetHelper(
 										rs);
 								ConsignmentEntity consignment = new ConsignmentEntity();
@@ -330,6 +332,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("returnPrice", consignment.getReturnPrice());
 		if (consignment.getId() == null) {
 			map.put("createUserId", BaseAction.getLoginUser().getId());
+			map.put("orderNumber", OrderNumberUtils.getOrderNumber());
 			this.consignmentService.update("saveConsignment", map);
 		} else {
 			map.put("id", consignment.getId());

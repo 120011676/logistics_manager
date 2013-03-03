@@ -6,6 +6,8 @@ public class ConsignmentEntity {
 
 	private Integer id;
 
+	private String orderNumber;
+	
 	private Date datetime;// 日期
 
 	private String startCity;// 发站
@@ -128,6 +130,14 @@ public class ConsignmentEntity {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 
 	public void setId(Integer id) {

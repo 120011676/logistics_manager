@@ -39,6 +39,7 @@
 							id="product-table">
 							<tr style="color: white;">
 								<th class="table-header-options line-left">序号</th>
+								<th class="table-header-options line-left">订单号</th>
 								<th class="table-header-options line-left">订单时间</th>
 								<th class="table-header-options line-left">发货人</th>
 								<th class="table-header-options line-left">发货人电话</th>
@@ -52,6 +53,7 @@
 							<c:forEach items="${page.results }" var="c" varStatus="in">
 								<tr>
 									<td>${in.index + 1 }</td>
+									<td>${c.orderNumber }</td>
 									<td><fmt:formatDate value="${c.datetime }"
 											pattern="yyyy-MM-dd" /></td>
 									<td>${c.shipper }</td>

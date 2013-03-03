@@ -58,6 +58,8 @@
 			</div>
 		</div>
 	</div>
+	<div
+		style="width: 200px; height: 30px; z-index: 99; position: absolute; right: 10px; top: 65px; font-size: 14px; color: #fff; text-align: center;">${LOGIN_USER.name},你好！</div>
 	<div class="nav-outer-repeat">
 		<div class="nav-outer">
 			<div id="nav-right">

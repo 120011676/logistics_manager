@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>密码修改</title>
+<title>用户管理-重置密码</title>
 <style type="text/css">
 .formTable {
 	width: 100%;
@@ -71,10 +71,6 @@
 
 	function mySubmit() {
 		var msg = "";
-		if ($("#password").val().length <= 0) {
-			classBtnRed(get("password"));
-			msg += "旧密码不能为空!<br>";
-		}
 		if ($("#newPassword").val().length < 6) {
 			classBtnRed(get("newPassword"));
 			msg += "新密码长度不能小于6位!<br>";
@@ -95,7 +91,7 @@
 </head>
 <body>
 	<div id="page-heading">
-		<h1>密码修改</h1>
+		<h1>重置密码</h1>
 	</div>
 	<table border="0" width="100%" cellpadding="0" cellspacing="0"
 		id="content-table">
@@ -138,19 +134,19 @@
 								<td>${user.name }</td>
 							</tr>
 							<tr>
+								<td class="title">类型:</td>
+								<td><c:if test="${user.position == false }">普通用户</c:if> <c:if
+										test="${user.position == true }">管理员</c:if></td>
+							</tr>
+							<tr>
 								<td class="title">创建时间:</td>
 								<td><fmt:formatDate value="${user.createDatetime }"
 										pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							</tr>
 							<tr>
-								<td class="title">旧密码:</td>
-								<td><input onchange="checkNull(this)" id="password"
-									name="password" type="password" class="inp-form" maxlength="20"></td>
-							</tr>
-							<tr>
 								<td class="title">新密码:</td>
 								<td><input onchange="otherCheck()" id="newPassword"
-									name="newPassword" type="password" class="inp-form"
+									name="password" type="password" class="inp-form"
 									maxlength="20"></td>
 							</tr>
 							<tr>

@@ -36,7 +36,9 @@
 
  <sql name="updateUserByPassword">
   update user set password = :newPassword where id = :id
-  and password =
-  :password
+  <parameter name="password">
+   and password =
+   :password
+  </parameter>
  </sql>
 </sqls>

@@ -126,4 +126,20 @@ public class UserAction {
 		get(id);
 		return "user/look";
 	}
+
+	@RequestMapping("toUpdatePassword")
+	public String toUpdatePassword(Integer id) {
+		get(id);
+		return "user/updatePassword";
+	}
+
+	@RequestMapping("updatePassword")
+	public String updatePassword(UserEntity user) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", user.getId());
+		map.put("newPassword", user.getPassword());
+		this.userService.update("updateUserByPassword", map);
+		return "redirect:/user/list.htm";
+	}
+
 }

@@ -51,13 +51,15 @@
 									<td>${in.index + 1 }</td>
 									<td>${c.username }</td>
 									<td>${c.name }</td>
-									<td><c:if test="${c.position == true }">管理员</c:if><c:if test="${c.position == false }">普通用户</c:if></td>
+									<td><c:if test="${c.position == true }">管理员</c:if>
+										<c:if test="${c.position == false }">普通用户</c:if></td>
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
 									<td><c:if test="${c.enable == true }">启用</c:if> <c:if
 											test="${c.enable == false }">停用</c:if></td>
 									<td><div style="margin-left: 10px;">
-											<a class="icon-1 info-tooltip" title="修改"
+											<a title="重置密码" class="icon-4 info-tooltip" href="${path }/user/toUpdatePassword.htm?id=${c.id }"></a> <a
+												class="icon-1 info-tooltip" title="修改"
 												href="${path }/user/toUpdate.htm?id=${c.id}"></a>
 											<c:if test="${c.enable == true }">
 												<a class="icon-2 info-tooltip" title="停用"

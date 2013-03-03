@@ -28,13 +28,25 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<div style="height: 35px; line-height: 35px;"
-						class="product-table green-left">
-						<a href="${path }/user/toUpdate.htm"><b>新增</b></a>
-					</div>
-					<br>
-					<form id="myForm" action="${path }/consignment/list.htm"
-						method="post">
+					<form id="myForm" action="${path }/user/list.htm" method="post">
+						<table class="quetTable">
+							<tr>
+								<td class="textR" width="200px;">账号：</td>
+								<td><input name="username" class="inp-form" type="text"
+									value="${username }"></td>
+								<td class="textR">姓名：</td>
+								<td><input name="name" class="inp-form" type="text"
+									value="${name }"></td>
+								<td><input type="image"
+									src="${path }/images/shared/top_search_btn.gif"></td>
+							</tr>
+						</table>
+						<br>
+						<div style="height: 35px; line-height: 35px;"
+							class="product-table green-left">
+							<a href="${path }/user/toUpdate.htm"><b>新增</b></a>
+						</div>
+						<br>
 						<table border="0" width="100%" cellpadding="0" cellspacing="0"
 							id="product-table">
 							<tr style="color: white;">
@@ -51,14 +63,15 @@
 									<td>${in.index + 1 }</td>
 									<td>${c.username }</td>
 									<td>${c.name }</td>
-									<td><c:if test="${c.position == true }">管理员</c:if>
-										<c:if test="${c.position == false }">普通用户</c:if></td>
+									<td><c:if test="${c.position == true }">管理员</c:if> <c:if
+											test="${c.position == false }">普通用户</c:if></td>
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
 									<td><c:if test="${c.enable == true }">启用</c:if> <c:if
 											test="${c.enable == false }">停用</c:if></td>
 									<td><div style="margin-left: 10px;">
-											<a title="重置密码" class="icon-4 info-tooltip" href="${path }/user/toUpdatePassword.htm?id=${c.id }"></a> <a
+											<a title="重置密码" class="icon-4 info-tooltip"
+												href="${path }/user/toUpdatePassword.htm?id=${c.id }"></a> <a
 												class="icon-1 info-tooltip" title="修改"
 												href="${path }/user/toUpdate.htm?id=${c.id}"></a>
 											<c:if test="${c.enable == true }">

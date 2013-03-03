@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.qq120011676.snow.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.jdbc.core.RowMapper;
@@ -46,14 +47,18 @@ public class ConsignmentAction extends SimpleFormController {
 	}
 
 	@RequestMapping("list")
-	public String list() {
-		BaseAction.getHttpServletRequest().setAttribute("current",
-				"consignment");
-		BaseAction.getHttpServletRequest().setAttribute("show",
-				"consignment_show");
-		BaseAction.getHttpServletRequest().setAttribute("subShow",
-				"consignment_show_acceptance");
+	public String list(String orderNumber, String consignee) {
 		Map<String, Object> map = new HashMap<>();
+		if (!StringUtils.isNull(orderNumber)) {
+			map.put("orderNumber", "%" + orderNumber + "%");
+			BaseAction.getHttpServletRequest().setAttribute("orderNumber",
+					orderNumber);
+		}
+		if (!StringUtils.isNull(consignee)) {
+			map.put("consignee", "%" + consignee + "%");
+			BaseAction.getHttpServletRequest().setAttribute("consignee",
+					consignee);
+		}
 		BaseAction.getHttpServletRequest().setAttribute(
 				"page",
 				this.consignmentService.queryMySqlPage("queryConsignment", map,

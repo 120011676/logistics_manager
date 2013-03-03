@@ -14,8 +14,10 @@
   :shipperUnit,shipper_address = :shipperAddress,shipper_phone =
   :shipperPhone,consignee = :consignee,consignee_unit =
   :consigneeUnit,consignee_address = :consigneeAddress,consignee_phone =
-  :consigneePhone,commodity_name_one = :commodityNameOne,commodity_name_two
-  = :commodityNameTwo,commodity_name_three =
+  :consigneePhone,commodity_name_one =
+  :commodityNameOne,commodity_name_two
+  =
+  :commodityNameTwo,commodity_name_three =
   :commodityNameThree,commodity_name_four =
   :commodityNameFour,commodity_name_five =
   :commodityNameFive,commodity_package_one =
@@ -59,10 +61,16 @@
   <parameter name="id">
    and c.id = :id
   </parameter>
+  <parameter name="orderNumber">
+   and order_number like :orderNumber
+  </parameter>
+  <parameter name="consignee">
+   and consignee like :consignee
+  </parameter>
   order by c.id desc
  </sql>
- 
+
  <sql name="updateConsignmentByEnable">
-     update consignment set enable = :enable where id = :id
+  update consignment set enable = :enable where id = :id
  </sql>
 </sqls>

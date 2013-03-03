@@ -28,13 +28,26 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<div style="height: 35px; line-height: 35px;"
-						class="product-table green-left">
-						<a href="${path }/consignment/toUpdate.htm"><b>新增</b></a>
-					</div>
-					<br>
 					<form id="myForm" action="${path }/consignment/list.htm"
 						method="post">
+						<table class="quetTable">
+							<tr>
+								<td class="textR" width="200px;">订单号：</td>
+								<td><input name="orderNumber" class="inp-form" type="text"
+									value="${orderNumber }"></td>
+								<td class="textR">收货人：</td>
+								<td><input name="consignee" class="inp-form" type="text"
+									value="${consignee }"></td>
+								<td><input type="image"
+									src="${path }/images/shared/top_search_btn.gif"></td>
+							</tr>
+						</table>
+						<br>
+						<div style="height: 35px; line-height: 35px;"
+							class="product-table green-left">
+							<a href="${path }/consignment/toUpdate.htm"><b>新增</b></a>
+						</div>
+						<br>
 						<table border="0" width="100%" cellpadding="0" cellspacing="0"
 							id="product-table">
 							<tr style="color: white;">

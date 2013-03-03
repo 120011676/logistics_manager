@@ -5,3 +5,16 @@
 body {
 	line-height: normal;
 }
+
+.quetTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.quetTable td {
+	height: 30px;
+}
+
+.textR{
+	text-align: right;
+}

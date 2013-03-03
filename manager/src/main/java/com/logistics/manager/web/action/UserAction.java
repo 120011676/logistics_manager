@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.qq120011676.snow.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,17 @@ public class UserAction {
 	private IUserService userService;
 
 	@RequestMapping("list")
-	public String list() {
+	public String list(String username, String name) {
 		Map<String, Object> map = new HashMap<>();
+		if (!StringUtils.isNull(username)) {
+			map.put("queryUsername", "%" + username + "%");
+			BaseAction.getHttpServletRequest().setAttribute("username",
+					username);
+		}
+		if (!StringUtils.isNull(name)) {
+			map.put("queryName", "%" + name + "%");
+			BaseAction.getHttpServletRequest().setAttribute("name", name);
+		}
 		BaseAction.getHttpServletRequest()
 				.setAttribute(
 						"page",

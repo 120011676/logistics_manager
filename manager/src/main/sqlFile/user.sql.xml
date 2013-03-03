@@ -14,6 +14,12 @@
   <parameter name="id">
    and id = :id
   </parameter>
+  <parameter name="queryUsername">
+   and username like :queryUsername
+  </parameter>
+  <parameter name="queryName">
+   and name like :queryName
+  </parameter>
   order by enable desc,id desc </sql>
 
  <sql name="saveUser">

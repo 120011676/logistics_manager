@@ -63,7 +63,7 @@
 			classBtn(get("newPassword1"));
 		}
 	}
-	
+
 	function res() {
 		$(":text").val("");
 		$(":password").val("");
@@ -125,7 +125,7 @@
 							</table>
 						</div>
 					</c:if>
-					<form id="myForm" action="${path }/user/updatePassword.htm"
+					<form id="myForm" action="${path }/my/updatePassword.htm"
 						method="post">
 						<input name="id" type="hidden" value="${user.id}">
 						<table class="formTable">
@@ -136,6 +136,11 @@
 							<tr>
 								<td class="title">姓名:</td>
 								<td>${user.name }</td>
+							</tr>
+							<tr>
+								<td class="title">类型:</td>
+								<td><c:if test="${user.position == false }">普通用户</c:if> <c:if
+										test="${user.position == true }">管理员</c:if></td>
 							</tr>
 							<tr>
 								<td class="title">创建时间:</td>

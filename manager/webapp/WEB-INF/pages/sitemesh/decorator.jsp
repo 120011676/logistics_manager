@@ -87,13 +87,15 @@
 			</div>
 			<div class="nav">
 				<div class="table">
-					<ul
-						class="<c:choose>
+					<c:if test="${LOGIN_USER.position == true }">
+						<ul
+							class="<c:choose>
 						<c:when test="${menu == 'user' }">current</c:when>
 						<c:otherwise>select</c:otherwise>
 					</c:choose>">
-						<li><a href="${path }/user/list.htm"><b>用户管理</b></a></li>
-					</ul>
+							<li><a href="${path }/user/list.htm"><b>用户管理</b></a></li>
+						</ul>
+					</c:if>
 					<ul
 						class="<c:choose>
 						<c:when test="${menu == 'consignment' }">current</c:when>

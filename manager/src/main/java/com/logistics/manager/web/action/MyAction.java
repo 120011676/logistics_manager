@@ -49,6 +49,7 @@ public class MyAction {
 								user.setUsername(rs.getString("username"));
 								user.setCreateDatetime(rs
 										.getTimestamp("create_datetime"));
+								user.setPosition(rs.getBoolean("position"));
 								return user;
 							}
 						}));

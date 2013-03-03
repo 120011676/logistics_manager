@@ -105,6 +105,11 @@ body {
 									value="${user.name }" maxlength="4"></td>
 							</tr>
 							<tr>
+								<td class="title">类型:</td>
+								<td><c:if test="${user.position == false }">普通用户</c:if> <c:if
+										test="${user.position == true }">管理员</c:if></td>
+							</tr>
+							<tr>
 								<td class="title">创建时间:</td>
 								<td><fmt:formatDate value="${user.createDatetime }"
 										pattern="yyyy-MM-dd HH:mm:ss" /></td>

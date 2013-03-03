@@ -76,7 +76,8 @@
 							href="${path }/my/toUpdate.htm?id=${LOGIN_USER.id}">我的信息</a>
 						<div class="clear"></div>
 						<div class="acc-line">&nbsp;</div>
-						<a id="acc-settings" href="${path }/my/toPassword.htm?id=${LOGIN_USER.id}">密码修改</a>
+						<a id="acc-settings"
+							href="${path }/my/toPassword.htm?id=${LOGIN_USER.id}">密码修改</a>
 						<div class="clear"></div>
 						<div class="acc-line">&nbsp;</div>
 					</div>
@@ -86,19 +87,17 @@
 				<div class="table">
 					<ul
 						class="<c:choose>
-						<c:when test="${current == 'consignment' }">current</c:when>
+						<c:when test="${menu == 'user' }">current</c:when>
 						<c:otherwise>select</c:otherwise>
 					</c:choose>">
-						<li><a href="#nogo"><b>货物托运管理</b></a>
-
-							<div
-								class="select_sub<c:if test="${show == 'consignment_show' }"> show</c:if>">
-								<ul class="sub">
-									<li
-										<c:if test="${subShow == 'consignment_show_acceptance' }"> class="sub_show"</c:if>><a
-										href="${path }/consignment/list.htm">受理单管理</a></li>
-								</ul>
-							</div></li>
+						<li><a href="${path }/user/list.htm"><b>用户管理</b></a></li>
+					</ul>
+					<ul
+						class="<c:choose>
+						<c:when test="${menu == 'consignment' }">current</c:when>
+						<c:otherwise>select</c:otherwise>
+					</c:choose>">
+						<li><a href="${path }/consignment/list.htm"><b>货物托运管理</b></a>
 					</ul>
 					<div class="nav-divider">&nbsp;</div>
 				</div>

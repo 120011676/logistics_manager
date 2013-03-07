@@ -234,6 +234,7 @@ body {
 	function checkRegExpDoubleAndNull(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d*))$/.test(obj.value)) {
 			classBtn(obj);
+			ways();
 			compute();
 			return true;
 		} else {

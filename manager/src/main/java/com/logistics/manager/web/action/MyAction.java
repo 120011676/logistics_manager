@@ -62,7 +62,7 @@ public class MyAction {
 		map.put("name", user.getName());
 		this.userService.update("updateUserByName", map);
 		return this.toUpdate(user.getId(),
-				ProjectProperties.getConfig("updateMyUserInfo"));
+				ProjectProperties.getMessage("updateMyUserInfo"));
 	}
 
 	@RequestMapping("toPassword")
@@ -83,6 +83,6 @@ public class MyAction {
 			return "redirect:/noSecurity/logout.htm";
 		}
 		return this.toPassword(user.getId(),
-				ProjectProperties.getConfig("updatePasswordError"));
+				ProjectProperties.getMessage("updatePasswordError"));
 	}
 }

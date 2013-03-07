@@ -222,6 +222,7 @@ body {
 	function checkRegExpDouble(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d+))$/.test(obj.value)) {
 			classBtn(obj);
+			ways();
 			compute();
 			return true;
 		} else {
@@ -266,11 +267,19 @@ body {
 	}
 
 	function getDouble(id) {
-		if ($("#" + id).val().length <= 0
-				|| !/^((\d+\.?\d{1,2})|(\d*))$/.test($("#" + id).val())) {
+		var value = $("#" + id).val();
+		if (value.length <= 0 || !/^((\d+\.?\d{1,2})|(\d*))$/.test(value)) {
 			return 0;
 		}
-		return parseFloat($("#" + id).val());
+		return parseFloat(value);
+	}
+
+	function getDoubleByName(name) {
+		var values = $("input[name='" + name + "']").val();
+		if (values.length <= 0 || !/^((\d+\.?\d{1,2})|(\d*))$/.test(values)) {
+			return 0;
+		}
+		return parseFloat(values);
 	}
 
 	function accAdd(arg1, arg2) {
@@ -313,20 +322,24 @@ body {
 						getDouble("insurancePrice"))), accAdd(
 				getDouble("collectionMoneyCharge"), getDouble("packPrice"))),
 				getDouble("returnPrice"));
-		sum += "";
-		var index = sum.indexOf(".");
+		$("#capital").html(DX(formatDouble(sum)));
+		$("#total").html(formatDouble(sum));
+	}
+
+	function formatDouble(v) {
+		v += "";
+		var index = v.indexOf(".");
 		if (index > 0) {
-			var c = sum.length - index - 3;
+			var c = v.length - index - 3;
 			if (c < 0) {
 				for ( var i = 0; i < Math.abs(c); i++) {
-					sum += "0";
+					v += "0";
 				}
 			}
 		} else {
-			sum += ".00";
+			v += ".00";
 		}
-		$("#capital").html(DX(sum));
-		$("#total").html(sum);
+		return v;
 	}
 
 	var collection = parseFloat("${collection}");
@@ -348,12 +361,13 @@ body {
 		return Number(s1.replace(".", "")) * Number(s2.replace(".", ""))
 				/ Math.pow(10, m);
 	}
-	var arr = [ "个", "" ];
+
 	function specialCheck(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d*))$/.test(obj.value)) {
 			classBtn(obj);
 			if (obj.value.length > 0) {
-				$("#collectionMoneyCharge").val(accMul(obj.value, collection));
+				$("#collectionMoneyCharge").val(
+						subDouble(accMul(obj.value, collection)));
 				compute();
 			} else {
 				$("#collectionMoneyCharge").val("");
@@ -363,6 +377,57 @@ body {
 			classBtnRed(obj);
 			return false;
 		}
+	}
+
+	function subDouble(value) {
+		value += "";
+		var i = value.indexOf(".");
+		if (i > 0) {
+			var l = value.length - i - 3;
+			if (l > 0) {
+
+				return value.substr(0, i + 3);
+			}
+		}
+		return value;
+	}
+
+	function cleanByName(name) {
+		$("input[name='" + name + "']").val("");
+	}
+
+	function ways() {
+		var s = $("select[name='chargingWays']").val();
+		if (s == 1) {
+			$("#transportPrice").val(
+					formatDouble(subDouble(accMul(accAdd(accAdd(accAdd(accAdd(
+							getDoubleByName("commodityWeightOne"),
+							getDoubleByName("commodityWeightTwo")),
+							getDoubleByName("commodityWeightThree")),
+							getDoubleByName("commodityWeightFour")),
+							getDoubleByName("commodityWeightFive")),
+							getDouble("unitPrice")))));
+			cleanByName("commodityVolumeOne");
+			cleanByName("commodityVolumeTwo");
+			cleanByName("commodityVolumeThree");
+			cleanByName("commodityVolumeFour");
+			cleanByName("commodityVolumeFive");
+		} else if (s == 2) {
+			$("#transportPrice").val(
+					formatDouble(subDouble(accMul(accAdd(accAdd(accAdd(accAdd(
+							getDoubleByName("commodityVolumeOne"),
+							getDoubleByName("commodityVolumeTwo")),
+							getDoubleByName("commodityVolumeThree")),
+							getDoubleByName("commodityVolumeFour")),
+							getDoubleByName("commodityVolumeFive")),
+							getDouble("unitPrice")))));
+			cleanByName("commodityWeightOne");
+			cleanByName("commodityWeightTwo");
+			cleanByName("commodityWeightThree");
+			cleanByName("commodityWeightFour");
+			cleanByName("commodityWeightFive");
+		}
+		compute();
 	}
 </script>
 </head>
@@ -484,11 +549,21 @@ body {
 									<td>重量（kg）</td>
 									<td>体积（m³）</td>
 									<td>声明价值（元）</td>
-									<td colspan="3" align="left" width="50px">计费方式：<input
+									<td colspan="3" align="left" width="50px">计费方式：<select
+										name="chargingWays" class="btn" style="width: 100px;"
+										onchange="ways()">
+											<option
+												<c:if test="${consignment.chargingWays == '1'}">selected="selected"</c:if>
+												value="1">重量和</option>
+											<option
+												<c:if test="${consignment.chargingWays == '2'}">selected="selected"</c:if>
+												value="2">体积和</option>
+									</select> <%-- <input
 										id="chargingWays" name="chargingWays"
 										onchange="checkNull(this)" type="text" class="btn"
 										style="width: 100px;" value="${consignment.chargingWays }"
-										maxlength="7"></td>
+										maxlength="7"> --%>
+									</td>
 									<td align="left" width="200px">单价：<input id="unitPrice"
 										name="unitPrice" onchange="checkRegExpDouble(this)"
 										type="text" class="btn" style="width: 100px;"
@@ -524,7 +599,7 @@ body {
 										maxlength="11"></td>
 									<td>运费</td>
 									<td><input id="transportPrice" name="transportPrice"
-										onchange="checkRegExpDouble(this)" type="text" class="btn"
+										type="text" class="btn" readonly="readonly"
 										style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.transportPrice }" pattern="0.00"/>"
 										maxlength="11"></td>

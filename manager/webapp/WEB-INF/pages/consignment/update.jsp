@@ -134,18 +134,6 @@ body {
 		if (!checkRegExpDoubleAndNull(getId("collectionMoney"))) {
 			msg += "【代收费】只能是数字或小数！<br>";
 		}
-		if (!checkRegExpDoubleAndNull(getId("collectionMoneyCharge"))) {
-			msg += "【代收款手续费】只能是数字或小数！<br>";
-		}
-		if (!isBooleanNull($("#collectionMoney"))
-				&& isBooleanNull($("#collectionMoneyCharge"))) {
-			$("#collectionMoneyCharge").attr("class", "btnRed");
-			msg += "【代收款手续费】不能为空！<br>";
-		} else if (isBooleanNull($("#collectionMoney"))
-				&& !isBooleanNull($("#collectionMoneyCharge"))) {
-			$("#collectionMoney").attr("class", "btnRed");
-			msg += "【代收费】不能为空！<br>";
-		}
 		if (isNull($("#packPrice"))) {
 			msg += "【包装费】不能为空！<br>";
 		} else if (!checkRegExpDouble(getId("packPrice"))) {
@@ -234,6 +222,7 @@ body {
 	function checkRegExpDouble(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d+))$/.test(obj.value)) {
 			classBtn(obj);
+			compute();
 			return true;
 		} else {
 			classBtnRed(obj);
@@ -244,6 +233,7 @@ body {
 	function checkRegExpDoubleAndNull(obj) {
 		if (/^((\d+\.?\d{1,2})|(\d*))$/.test(obj.value)) {
 			classBtn(obj);
+			compute();
 			return true;
 		} else {
 			classBtnRed(obj);
@@ -273,6 +263,106 @@ body {
 
 	function classBtnRed(obj) {
 		obj.setAttribute("class", "btnRed");
+	}
+
+	function getDouble(id) {
+		if ($("#" + id).val().length <= 0
+				|| !/^((\d+\.?\d{1,2})|(\d*))$/.test($("#" + id).val())) {
+			return 0;
+		}
+		return parseFloat($("#" + id).val());
+	}
+
+	function accAdd(arg1, arg2) {
+		var r1, r2, m;
+		try {
+			r1 = arg1.toString().split(".")[1].length;
+		} catch (e) {
+			r1 = 0;
+		}
+		try {
+			r2 = arg2.toString().split(".")[1].length;
+		} catch (e) {
+			r2 = 0;
+		}
+		m = Math.pow(10, Math.max(r1, r2));
+		return (arg1 * m + arg2 * m) / m;
+	}
+
+	function DX(n) {
+		if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
+			return "数据非法";
+		var unit = "千百拾亿千百拾万千百拾元角分", str = "";
+		n += "00";
+		var p = n.indexOf('.');
+		if (p >= 0)
+			n = n.substring(0, p) + n.substr(p + 1, 2);
+		unit = unit.substr(unit.length - n.length);
+		for ( var i = 0; i < n.length; i++)
+			str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+		return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(
+				/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(
+				/^元零?|零分/g, "").replace(/元$/g, "元整");
+	}
+
+	function compute() {
+		var sum = accAdd(accAdd(accAdd(accAdd(accAdd(
+				getDouble("transportPrice"), getDouble("loadUnloadPrice")),
+				accAdd(getDouble("takeCargoPrice"), getDouble("otherPrice"))),
+				accAdd(getDouble("carryCargoPrice"),
+						getDouble("insurancePrice"))), accAdd(
+				getDouble("collectionMoneyCharge"), getDouble("packPrice"))),
+				getDouble("returnPrice"));
+		sum += "";
+		var index = sum.indexOf(".");
+		if (index > 0) {
+			var c = sum.length - index - 3;
+			if (c < 0) {
+				for ( var i = 0; i < Math.abs(c); i++) {
+					sum += "0";
+				}
+			}
+		} else {
+			sum += ".00";
+		}
+		$("#capital").html(DX(sum));
+		$("#total").html(sum);
+	}
+
+	var collection = parseFloat("${collection}");
+
+	$(function() {
+		compute();
+	});
+
+	function accMul(arg1, arg2) {
+		var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+		try {
+			m += s1.split(".")[1].length;
+		} catch (e) {
+		}
+		try {
+			m += s2.split(".")[1].length;
+		} catch (e) {
+		}
+		return Number(s1.replace(".", "")) * Number(s2.replace(".", ""))
+				/ Math.pow(10, m);
+	}
+	var arr = [ "个", "" ];
+	function specialCheck(obj) {
+		if (/^((\d+\.?\d{1,2})|(\d*))$/.test(obj.value)) {
+			classBtn(obj);
+			if (obj.value.length > 0) {
+				$("#collectionMoneyCharge").val(accMul(obj.value, collection));
+				compute();
+			} else {
+				$("#collectionMoneyCharge").val("");
+			}
+			return true;
+		} else {
+			classBtnRed(obj);
+			return false;
+		}
 	}
 </script>
 </head>
@@ -520,8 +610,8 @@ body {
 										maxlength="11"></td>
 									<td>代收费</td>
 									<td><input id="collectionMoney" name="collectionMoney"
-										onchange="specialCheckRegExp(getId('collectionMoney'), getId('collectionMoneyCharge'))"
-										type="text" class="btn" style="width: 100px;"
+										onchange="specialCheck(this)" type="text" class="btn"
+										style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.collectionMoney }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>
@@ -562,8 +652,8 @@ body {
 									</td>
 									<td><input id="collectionMoneyCharge"
 										name="collectionMoneyCharge"
-										onchange="specialCheckRegExp(getId('collectionMoney'), getId('collectionMoneyCharge'))"
-										type="text" class="btn" style="width: 100px;"
+										onchange="checkRegExpDoubleAndNull(this)" type="text"
+										readonly="readonly" class="btn" style="width: 100px;"
 										value="<fmt:formatNumber value="${consignment.collectionMoneyCharge }" pattern="0.00"/>"
 										maxlength="11"></td>
 								</tr>
@@ -609,8 +699,9 @@ body {
 										maxlength="11"></td>
 								</tr>
 								<tr>
-									<td colspan="6" align="left">费用总计：</td>
-									<td colspan="4" align="left">￥元</td>
+									<td colspan="6" align="left">费用总计：<span id="capital"></span></td>
+									<td colspan="4" align="left">￥<span id="total"></span>元
+									</td>
 								</tr>
 							</table>
 							<table class="dataTable">

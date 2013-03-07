@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.qq120011676.snow.properties.ProjectProperties;
 import org.qq120011676.snow.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -121,6 +122,8 @@ public class ConsignmentAction extends SimpleFormController {
 		if (id != null) {
 			get(id);
 		}
+		BaseAction.getHttpServletRequest().setAttribute("collection",
+				ProjectProperties.getConfigToDouble("collection"));
 		return "consignment/update";
 	}
 

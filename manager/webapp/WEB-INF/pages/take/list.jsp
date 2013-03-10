@@ -28,7 +28,7 @@
 			<td id="tbl-border-left"></td>
 			<td valign="top">
 				<div id="content-table-inner">
-					<form id="myForm" action="${path }/consignment/list.htm"
+					<form id="myForm" action="${path }/take/list.htm"
 						method="post">
 						<table class="quetTable">
 							<tr>
@@ -42,11 +42,6 @@
 									src="${path }/images/shared/top_search_btn.gif"></td>
 							</tr>
 						</table>
-						<br>
-						<div style="height: 35px; line-height: 35px;"
-							class="product-table green-left">
-							<a href="${path }/consignment/toUpdate.htm"><b>新增</b></a>
-						</div>
 						<br>
 						<table border="0" width="100%" cellpadding="0" cellspacing="0"
 							id="product-table">
@@ -84,22 +79,22 @@
 											test="${c.enable == false }">已删除</c:if></td>
 									<td><div style="margin-left: 10px;">
 											<a class="icon-1 info-tooltip" title="修改"
-												href="${path }/consignment/toUpdate.htm?id=${c.id}"></a>
+												href="${path }/take/toUpdate.htm?id=${c.id}"></a>
 											<c:if test="${c.enable == true }">
 												<a class="icon-2 info-tooltip" title="删除"
-													href="${path }/consignment/delete.htm?id=${c.id}"></a>
+													href="${path }/take/delete.htm?id=${c.id}"></a>
 											</c:if>
 											<c:if test="${c.enable == false }">
 												<a class="icon-5 info-tooltip" title="恢复"
 													style="margin: 0 8px 0 0;"
-													href="${path }/consignment/recovery.htm?id=${c.id}"></a>
+													href="${path }/take/recovery.htm?id=${c.id}"></a>
 											</c:if>
 											<a class="icon-3 info-tooltip" title="查看"
-												href="${path }/consignment/look.htm?id=${c.id}"></a>
+												href="${path }/take/look.htm?id=${c.id}"></a>
 											<c:if test="${c.enable == true }">
-												<a title="下一步" class="icon-3 info-tooltip"
-													style="background-image: url('${path}/images/table/paging_right.gif');"
-													href="${path }/consignment/delivery.htm?id=${c.id}"></a>
+											<a title="上一步" class="icon-3 info-tooltip"
+													style="background-image: url('${path}/images/table/paging_left.gif');"
+													href="${path }/take/delivery.htm?id=${c.id}"></a>
 											</c:if>
 										</div></td>
 								</tr>

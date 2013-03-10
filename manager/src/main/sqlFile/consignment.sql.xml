@@ -61,16 +61,31 @@
   <parameter name="id">
    and c.id = :id
   </parameter>
+  <parameter name="status">
+   and c.status = :status
+  </parameter>
   <parameter name="orderNumber">
    and order_number like :orderNumber
   </parameter>
   <parameter name="consignee">
    and consignee like :consignee
   </parameter>
-  order by c.id desc
+  order by c.enable desc,c.id desc
  </sql>
 
  <sql name="updateConsignmentByEnable">
-  update consignment set enable = :enable where id = :id
+  update consignment set
+  <parameter name="enable">
+   enable = :enable
+  </parameter>
+  <parameter name="status">
+   status = :status
+  </parameter>
+  <parameter name="signShipper">
+   ,sign_shipper = :signShipper,sign_carrier =
+   :signCarrier,sign_consignee = :signConsignee,sign_datetime =
+   :signDatetime
+  </parameter>
+  where id = :id
  </sql>
 </sqls>

@@ -3,55 +3,35 @@ package com.logistics.manager.web.action;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.qq120011676.snow.properties.ProjectProperties;
 import org.qq120011676.snow.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.logistics.manager.entity.ConsignmentEntity;
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IConsignmentService;
-import com.logistics.manager.utils.OrderNumberUtils;
 import com.logistics.manager.utils.ResultSetHelper;
 import com.logistics.manager.web.action.base.BaseAction;
 
-@SuppressWarnings("deprecation")
+/**
+ * <b>@author</b> Say<br>
+ * <b>email</b> 120011676@qq.com<br>
+ */
 @Controller
-@RequestMapping("consignment")
-public class ConsignmentAction extends SimpleFormController {
+@RequestMapping("all")
+public class AllAction {
 
 	@Autowired
 	private IConsignmentService consignmentService;
 
-	@InitBinder
-	@Override
-	protected void initBinder(HttpServletRequest request,
-			ServletRequestDataBinder binder) throws Exception {
-		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
-		binder.registerCustomEditor(Date.class, dateEditor);
-		super.initBinder(request, binder);
-
-	}
-
 	@RequestMapping("list")
 	public String list(String orderNumber, String consignee) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("status", 0);
 		if (!StringUtils.isNull(orderNumber)) {
 			map.put("orderNumber", "%" + orderNumber + "%");
 			BaseAction.getHttpServletRequest().setAttribute("orderNumber",
@@ -116,18 +96,63 @@ public class ConsignmentAction extends SimpleFormController {
 								return consignment;
 							}
 						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
-		return "consignment/list";
+		return "all/list";
 	}
 
-	@RequestMapping("toUpdate")
-	public String toUpdate(Integer id) {
-		if (id != null) {
-			BaseAction.getHttpServletRequest().setAttribute("consignment",
-					get(id));
+	@RequestMapping("delete")
+	public String delete(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("enable", false);
+		this.consignmentService.update("updateConsignmentByEnable", map);
+		return "redirect:/all/list.htm";
+	}
+
+	@RequestMapping("recovery")
+	public String recovery(Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("enable", true);
+		this.consignmentService.update("updateConsignmentByEnable", map);
+		return "redirect:/all/list.htm";
+	}
+
+	@RequestMapping("look")
+	public String look(Integer id) {
+		ConsignmentEntity c = get(id);
+		BaseAction.getHttpServletRequest().setAttribute("consignment", c);
+		BigDecimal bigDecimal = new BigDecimal(0);
+		if (c.getTransportPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTransportPrice()));
 		}
-		BaseAction.getHttpServletRequest().setAttribute("collection",
-				ProjectProperties.getConfigToDouble("collection"));
-		return "consignment/update";
+		if (c.getTakeCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTakeCargoPrice()));
+		}
+		if (c.getCarryCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getCarryCargoPrice()));
+		}
+		if (c.getInsurancePrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getInsurancePrice()));
+		}
+		if (c.getPackPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getPackPrice()));
+		}
+		if (c.getLoadUnloadPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getLoadUnloadPrice()));
+		}
+		if (c.getOtherPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getOtherPrice()));
+		}
+		if (c.getCollectionMoneyCharge() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c
+					.getCollectionMoneyCharge()));
+		}
+		if (c.getReturnPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getReturnPrice()));
+		}
+		BaseAction.getHttpServletRequest().setAttribute("total",
+				bigDecimal.doubleValue());
+		return "all/look";
 	}
 
 	private ConsignmentEntity get(Integer id) {
@@ -259,153 +284,16 @@ public class ConsignmentAction extends SimpleFormController {
 						consignment.setCreateDatetime(resultSet
 								.getTimestamp("create_datetime"));
 						consignment.setStatus(resultSet.getInt("status"));
+						consignment.setSignShipper(resultSet
+								.getString("sign_shipper"));
+						consignment.setSignCarrier(resultSet
+								.getString("sign_carrier"));
+						consignment.setSignConsignee(resultSet
+								.getString("sign_consignee"));
+						consignment.setSignDatetime(resultSet
+								.getDate("sign_datetime"));
 						return consignment;
 					}
 				});
-	}
-
-	@RequestMapping("update")
-	public String update(ConsignmentEntity consignment) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("datetime", consignment.getDatetime());
-		map.put("startCity", consignment.getStartCity());
-		map.put("arrivalCity", consignment.getArrivalCity());
-		map.put("modeOfTransportation", consignment.getModeOfTransportation());
-		map.put("serviceMode", consignment.getServiceMode());
-		map.put("payment", consignment.getPayment());
-		map.put("shipper", consignment.getShipper());
-		map.put("shipperUnit", consignment.getShipperUnit());
-		map.put("shipperAddress", consignment.getShipperAddress());
-		map.put("shipperPhone", consignment.getShipperPhone());
-		map.put("consignee", consignment.getConsignee());
-		map.put("consigneeUnit", consignment.getConsigneeUnit());
-		map.put("consigneeAddress", consignment.getConsigneeAddress());
-		map.put("consigneePhone", consignment.getConsigneePhone());
-		map.put("commodityNameOne", consignment.getCommodityNameOne());
-		map.put("commodityNameTwo", consignment.getCommodityNameTwo());
-		map.put("commodityNameThree", consignment.getCommodityNameThree());
-		map.put("commodityNameFour", consignment.getCommodityNameFour());
-		map.put("commodityNameFive", consignment.getCommodityNameFive());
-		map.put("commodityPackageOne", consignment.getCommodityPackageOne());
-		map.put("commodityPackageTwo", consignment.getCommodityPackageTwo());
-		map.put("commodityPackageThree", consignment.getCommodityPackageThree());
-		map.put("commodityPackageFour", consignment.getCommodityPackageFour());
-		map.put("commodityPackageFive", consignment.getCommodityPackageFive());
-		map.put("commodityPackageNumberOne",
-				consignment.getCommodityPackageNumberOne());
-		map.put("commodityPackageNumberTwo",
-				consignment.getCommodityPackageNumberTwo());
-		map.put("commodityPackageNumberThree",
-				consignment.getCommodityPackageNumberThree());
-		map.put("commodityPackageNumberFour",
-				consignment.getCommodityPackageNumberFour());
-		map.put("commodityPackageNumberFive",
-				consignment.getCommodityPackageNumberFive());
-		map.put("commodityWeightOne", consignment.getCommodityWeightOne());
-		map.put("commodityWeightTwo", consignment.getCommodityWeightTwo());
-		map.put("commodityWeightThree", consignment.getCommodityWeightThree());
-		map.put("commodityWeightFour", consignment.getCommodityWeightFour());
-		map.put("commodityWeightFive", consignment.getCommodityWeightFive());
-		map.put("commodityVolumeOne", consignment.getCommodityVolumeOne());
-		map.put("commodityVolumeTwo", consignment.getCommodityVolumeTwo());
-		map.put("commodityVolumeThree", consignment.getCommodityVolumeThree());
-		map.put("commodityVolumeFour", consignment.getCommodityVolumeFour());
-		map.put("commodityVolumeFive", consignment.getCommodityVolumeFive());
-		map.put("commodityWorthOne", consignment.getCommodityWorthOne());
-		map.put("commodityWorthTwo", consignment.getCommodityWorthTwo());
-		map.put("commodityWorthThree", consignment.getCommodityWorthThree());
-		map.put("commodityWorthFour", consignment.getCommodityWorthFour());
-		map.put("commodityWorthFive", consignment.getCommodityWorthFive());
-		map.put("commodityWorthOne", consignment.getCommodityWorthOne());
-		map.put("commodityWorthTwo", consignment.getCommodityWorthTwo());
-		map.put("commodityWorthThree", consignment.getCommodityWorthThree());
-		map.put("commodityWorthFour", consignment.getCommodityWorthFour());
-		map.put("commodityWorthFive", consignment.getCommodityWorthFive());
-		map.put("chargingWays", consignment.getChargingWays());
-		map.put("unitPrice", consignment.getUnitPrice());
-		map.put("transportPrice", consignment.getTransportPrice());
-		map.put("takeCargoPrice", consignment.getTakeCargoPrice());
-		map.put("carryCargoPrice", consignment.getCarryCargoPrice());
-		map.put("insurancePrice", consignment.getInsurancePrice());
-		map.put("packPrice", consignment.getPackPrice());
-		map.put("loadUnloadPrice", consignment.getLoadUnloadPrice());
-		map.put("otherPrice", consignment.getOtherPrice());
-		map.put("collectionMoney", consignment.getCollectionMoney());
-		map.put("collectionMoneyCharge", consignment.getCollectionMoneyCharge());
-		map.put("returnPrice", consignment.getReturnPrice());
-		if (consignment.getId() == null) {
-			map.put("createUserId", BaseAction.getLoginUser().getId());
-			map.put("orderNumber", OrderNumberUtils.getOrderNumber());
-			this.consignmentService.update("saveConsignment", map);
-		} else {
-			map.put("id", consignment.getId());
-			this.consignmentService.update("updateConsignment", map);
-		}
-		return "redirect:/consignment/list.htm";
-	}
-
-	@RequestMapping("delete")
-	public String delete(Integer id) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
-		map.put("enable", false);
-		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
-	}
-
-	@RequestMapping("recovery")
-	public String recovery(Integer id) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
-		map.put("enable", true);
-		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
-	}
-
-	@RequestMapping("look")
-	public String look(Integer id) {
-		ConsignmentEntity c = get(id);
-		BaseAction.getHttpServletRequest().setAttribute("consignment", c);
-		BigDecimal bigDecimal = new BigDecimal(0);
-		if (c.getTransportPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getTransportPrice()));
-		}
-		if (c.getTakeCargoPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getTakeCargoPrice()));
-		}
-		if (c.getCarryCargoPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getCarryCargoPrice()));
-		}
-		if (c.getInsurancePrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getInsurancePrice()));
-		}
-		if (c.getPackPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getPackPrice()));
-		}
-		if (c.getLoadUnloadPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getLoadUnloadPrice()));
-		}
-		if (c.getOtherPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getOtherPrice()));
-		}
-		if (c.getCollectionMoneyCharge() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c
-					.getCollectionMoneyCharge()));
-		}
-		if (c.getReturnPrice() != null) {
-			bigDecimal = bigDecimal.add(new BigDecimal(c.getReturnPrice()));
-		}
-		BaseAction.getHttpServletRequest().setAttribute("total",
-				bigDecimal.doubleValue());
-		return "/consignment/look";
-	}
-
-	@RequestMapping("delivery")
-	public String delivery(Integer id) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("id", id);
-		map.put("status", 1);
-		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
 	}
 }

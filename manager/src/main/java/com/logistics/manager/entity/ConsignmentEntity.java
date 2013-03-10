@@ -7,7 +7,7 @@ public class ConsignmentEntity {
 	private Integer id;
 
 	private String orderNumber;
-	
+
 	private Date datetime;// 日期
 
 	private String startCity;// 发站
@@ -120,7 +120,15 @@ public class ConsignmentEntity {
 
 	private Double returnPrice;// 返单手续费
 
-	private Date createDatetime;
+	private Date createDatetime;// 创建时间
+
+	private String signShipper;// 托运人（签字）姓名
+
+	private String signCarrier;// 承运人（签字）姓名
+
+	private String signConsignee;// 收货人（签字）姓名
+
+	private Date signDatetime;// 收 获 日 期
 
 	private Integer status;// 0:装货中，1:送货中，2:已收货
 
@@ -599,6 +607,40 @@ public class ConsignmentEntity {
 
 	public void setCreateDatetime(Date createDatetime) {
 		this.createDatetime = createDatetime;
+	}
+	
+	
+
+	public String getSignShipper() {
+		return signShipper;
+	}
+
+	public void setSignShipper(String signShipper) {
+		this.signShipper = signShipper;
+	}
+
+	public String getSignCarrier() {
+		return signCarrier;
+	}
+
+	public void setSignCarrier(String signCarrier) {
+		this.signCarrier = signCarrier;
+	}
+
+	public String getSignConsignee() {
+		return signConsignee;
+	}
+
+	public void setSignConsignee(String signConsignee) {
+		this.signConsignee = signConsignee;
+	}
+
+	public Date getSignDatetime() {
+		return signDatetime;
+	}
+
+	public void setSignDatetime(Date signDatetime) {
+		this.signDatetime = signDatetime;
 	}
 
 	public Integer getStatus() {

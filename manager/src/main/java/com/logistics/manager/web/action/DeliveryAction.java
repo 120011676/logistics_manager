@@ -29,10 +29,14 @@ import com.logistics.manager.utils.OrderNumberUtils;
 import com.logistics.manager.utils.ResultSetHelper;
 import com.logistics.manager.web.action.base.BaseAction;
 
+/**
+ * <b>@author</b> Say<br>
+ * <b>email</b> 120011676@qq.com<br>
+ */
 @SuppressWarnings("deprecation")
 @Controller
-@RequestMapping("consignment")
-public class ConsignmentAction extends SimpleFormController {
+@RequestMapping("delivery")
+public class DeliveryAction extends SimpleFormController {
 
 	@Autowired
 	private IConsignmentService consignmentService;
@@ -51,7 +55,7 @@ public class ConsignmentAction extends SimpleFormController {
 	@RequestMapping("list")
 	public String list(String orderNumber, String consignee) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("status", 0);
+		map.put("status", 1);
 		if (!StringUtils.isNull(orderNumber)) {
 			map.put("orderNumber", "%" + orderNumber + "%");
 			BaseAction.getHttpServletRequest().setAttribute("orderNumber",
@@ -116,7 +120,7 @@ public class ConsignmentAction extends SimpleFormController {
 								return consignment;
 							}
 						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
-		return "consignment/list";
+		return "delivery/list";
 	}
 
 	@RequestMapping("toUpdate")
@@ -127,7 +131,7 @@ public class ConsignmentAction extends SimpleFormController {
 		}
 		BaseAction.getHttpServletRequest().setAttribute("collection",
 				ProjectProperties.getConfigToDouble("collection"));
-		return "consignment/update";
+		return "delivery/update";
 	}
 
 	private ConsignmentEntity get(Integer id) {
@@ -341,7 +345,7 @@ public class ConsignmentAction extends SimpleFormController {
 			map.put("id", consignment.getId());
 			this.consignmentService.update("updateConsignment", map);
 		}
-		return "redirect:/consignment/list.htm";
+		return "redirect:/delivery/list.htm";
 	}
 
 	@RequestMapping("delete")
@@ -350,7 +354,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("enable", false);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
+		return "redirect:/delivery/list.htm";
 	}
 
 	@RequestMapping("recovery")
@@ -359,7 +363,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("enable", true);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
+		return "redirect:/delivery/list.htm";
 	}
 
 	@RequestMapping("look")
@@ -397,15 +401,66 @@ public class ConsignmentAction extends SimpleFormController {
 		}
 		BaseAction.getHttpServletRequest().setAttribute("total",
 				bigDecimal.doubleValue());
-		return "/consignment/look";
+		return "delivery/look";
 	}
 
-	@RequestMapping("delivery")
-	public String delivery(Integer id) {
+	@RequestMapping("load")
+	public String load(Integer id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
-		map.put("status", 1);
+		map.put("status", 0);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
+		return "redirect:/delivery/list.htm";
+	}
+
+	@RequestMapping("toTake")
+	public String toTake(Integer id) {
+		ConsignmentEntity c = get(id);
+		BaseAction.getHttpServletRequest().setAttribute("consignment", c);
+		BigDecimal bigDecimal = new BigDecimal(0);
+		if (c.getTransportPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTransportPrice()));
+		}
+		if (c.getTakeCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTakeCargoPrice()));
+		}
+		if (c.getCarryCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getCarryCargoPrice()));
+		}
+		if (c.getInsurancePrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getInsurancePrice()));
+		}
+		if (c.getPackPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getPackPrice()));
+		}
+		if (c.getLoadUnloadPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getLoadUnloadPrice()));
+		}
+		if (c.getOtherPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getOtherPrice()));
+		}
+		if (c.getCollectionMoneyCharge() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c
+					.getCollectionMoneyCharge()));
+		}
+		if (c.getReturnPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getReturnPrice()));
+		}
+		BaseAction.getHttpServletRequest().setAttribute("total",
+				bigDecimal.doubleValue());
+		return "/delivery/take";
+	}
+
+	@RequestMapping("updateTake")
+	public String updateTake(ConsignmentEntity consignment) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", consignment.getId());
+		map.put("signShipper", consignment.getSignShipper());
+		map.put("signCarrier", consignment.getSignCarrier());
+		map.put("signConsignee", consignment.getSignConsignee());
+		map.put("signDatetime", consignment.getSignDatetime());
+		map.put("status", 2);
+		this.consignmentService.update("updateConsignmentByEnable", map);
+		return "redirect:/delivery/list.htm";
 	}
 }

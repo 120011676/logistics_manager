@@ -29,10 +29,16 @@ public class MenuSelectFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		String uri = request.getRequestURI().substring(
 				request.getContextPath().length());
-		if (uri.startsWith("/user/list")) {
+		if (uri.startsWith("/user/")) {
 			servletRequest.setAttribute(MENU, "user");
-		} else if (uri.startsWith("/consignment/list")) {
+		} else if (uri.startsWith("/consignment/")) {
 			servletRequest.setAttribute(MENU, "consignment");
+		} else if (uri.startsWith("/delivery/")) {
+			servletRequest.setAttribute(MENU, "delivery");
+		} else if (uri.startsWith("/take/")) {
+			servletRequest.setAttribute(MENU, "take");
+		} else if (uri.startsWith("/all/")) {
+			servletRequest.setAttribute(MENU, "all");
 		}
 		filterChain.doFilter(servletRequest, servletResponse);
 	}

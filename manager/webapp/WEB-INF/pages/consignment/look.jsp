@@ -50,6 +50,27 @@ body {
 	text-align: left;
 }
 </style>
+<script type="text/javascript">
+	function DX(n) {
+		if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
+			return "数据非法";
+		var unit = "千百拾亿千百拾万千百拾元角分", str = "";
+		n += "00";
+		var p = n.indexOf('.');
+		if (p >= 0)
+			n = n.substring(0, p) + n.substr(p + 1, 2);
+		unit = unit.substr(unit.length - n.length);
+		for ( var i = 0; i < n.length; i++)
+			str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+		return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(
+				/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(
+				/^元零?|零分/g, "").replace(/元$/g, "元整");
+	}
+
+	$(function() {
+		$("#sc").html(DX($("#total").html()));
+	});
+</script>
 </head>
 <body>
 	<div id="page-heading">
@@ -129,8 +150,10 @@ body {
 									<td>重量（kg）</td>
 									<td>体积（m³）</td>
 									<td>声明价值（元）</td>
-									<td colspan="3" align="left" width="50px">计费方式：${consignment.chargingWays
-										}</td>
+									<td colspan="3" align="left" width="50px">计费方式： <c:if
+											test="${consignment.chargingWays == '1'}">重量和</c:if> <c:if
+											test="${consignment.chargingWays == '2'}">体积和</c:if>
+									</td>
 									<td align="left" width="200px">单价：<fmt:formatNumber
 											value="${consignment.unitPrice }" pattern="0.00" /></td>
 								</tr>
@@ -222,8 +245,10 @@ body {
 											value="${consignment.returnPrice }" pattern="0.00" /></td>
 								</tr>
 								<tr>
-									<td colspan="6" align="left">费用总计：</td>
-									<td colspan="4" align="left">￥元</td>
+									<td colspan="6" align="left">费用总计：<span id="sc"></span></td>
+									<td colspan="4" align="left">￥<span id="total"><fmt:formatNumber
+												value="${total }" pattern="0.00" /></span>元
+									</td>
 								</tr>
 							</table>
 							<table class="dataTable">

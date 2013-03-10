@@ -285,12 +285,6 @@ body {
 									<td align="left">收&nbsp;获&nbsp;日&nbsp;期：</td>
 								</tr>
 							</table>
-							<center>
-								<div style="margin-top: 15px;">
-									<input class="form-submit" onclick="mySubmit()"
-										style="margin-left: 45%;" type="button" value="">
-								</div>
-							</center>
 						</div>
 					</form>
 				</div>

@@ -60,6 +60,7 @@
 								<th class="table-header-options line-left">收货人电话</th>
 								<th class="table-header-options line-left">创建人</th>
 								<th class="table-header-options line-left">创建时间</th>
+								<th class="table-header-options line-left">状态</th>
 								<th class="table-header-options line-left">启用</th>
 								<th class="table-header-options line-left">操作</th>
 							</tr>
@@ -76,6 +77,9 @@
 									<td>${c.createUser.name }</td>
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td><c:if test="${c.status == 0}">装货中</c:if>
+										<c:if test="${c.status == 1}">送货中</c:if>
+										<c:if test="${c.status == 2}">已收货</c:if></td>
 									<td><c:if test="${c.enable == true }">正常</c:if> <c:if
 											test="${c.enable == false }">已删除</c:if></td>
 									<td><div style="margin-left: 10px;">

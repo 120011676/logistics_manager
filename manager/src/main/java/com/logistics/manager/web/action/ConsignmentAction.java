@@ -257,6 +257,7 @@ public class ConsignmentAction extends SimpleFormController {
 								resultSet.getString("name"));
 						consignment.setCreateDatetime(resultSet
 								.getTimestamp("create_datetime"));
+						consignment.setStatus(resultSet.getInt("status"));
 						return consignment;
 					}
 				});

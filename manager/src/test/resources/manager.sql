@@ -80,5 +80,7 @@ create table consignment(
 	return_price double comment '返单手续费',
 	create_user_id int not null,
 	create_datetime timestamp not null default now(),
+	status int not null default 0 comment '0:装货中，1:送货中，2:已收货',
+	enable boolean not null default true comment 'ture:正常，false：删除',
 	foreign key(create_user_id) references user(id)
 );

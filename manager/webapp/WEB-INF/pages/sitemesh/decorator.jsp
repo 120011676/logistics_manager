@@ -103,28 +103,7 @@
 						<c:when test="${menu == 'consignment' }">current</c:when>
 						<c:otherwise>select</c:otherwise>
 					</c:choose>">
-						<li><a href="${path }/consignment/list.htm"><b>货物托运管理(装货中)</b></a>
-					</ul>
-					<ul
-						class="<c:choose>
-						<c:when test="${menu == 'delivery' }">current</c:when>
-						<c:otherwise>select</c:otherwise>
-					</c:choose>">
-						<li><a href="${path }/delivery/list.htm"><b>货物托运管理(送货中)</b></a>
-					</ul>
-					<ul
-						class="<c:choose>
-						<c:when test="${menu == 'take' }">current</c:when>
-						<c:otherwise>select</c:otherwise>
-					</c:choose>">
-						<li><a href="${path }/take/list.htm"><b>货物托运管理(已收货)</b></a>
-					</ul>
-					<ul
-						class="<c:choose>
-						<c:when test="${menu == 'all' }">current</c:when>
-						<c:otherwise>select</c:otherwise>
-					</c:choose>">
-						<li><a href="${path }/all/list.htm"><b>货物托运管理(全部)</b></a>
+						<li><a href="${path }/consignment/list.htm"><b>货物托运管理</b></a>
 					</ul>
 					<div class="nav-divider">&nbsp;</div>
 				</div>

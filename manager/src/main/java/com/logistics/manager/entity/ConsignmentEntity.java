@@ -130,9 +130,9 @@ public class ConsignmentEntity {
 
 	private Date signDatetime;// 收 获 日 期
 
-	private Integer status;// 0:装货中，1:送货中，2:已收货
+	private String status;// 状态
 
-	private Boolean enable;// ture:正常，false：删除
+	private Boolean enable;// true:正常，false：删除
 
 	private UserEntity createUser;
 
@@ -643,14 +643,6 @@ public class ConsignmentEntity {
 		this.signDatetime = signDatetime;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public Boolean getEnable() {
 		return enable;
 	}
@@ -665,6 +657,14 @@ public class ConsignmentEntity {
 
 	public void setCreateUser(UserEntity createUser) {
 		this.createUser = createUser;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

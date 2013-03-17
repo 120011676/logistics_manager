@@ -67,6 +67,12 @@ body {
 		if (isNull($("#payment"))) {
 			msg += "【付款方式】不能为空！<br>";
 		}
+		if (isNull($("#orderNumber"))) {
+			msg += "【订单号】不能为空！<br>";
+		}
+		if (isNull($("#status"))) {
+			msg += "【状态】不能为空！<br>";
+		}
 		if (isNull($("#shipper"))) {
 			msg += "【托运人】不能为空！<br>";
 		}
@@ -146,7 +152,16 @@ body {
 			alert("<div style=\"color:red;margin-left: 10px;\">" + msg
 					+ "<br></div>");
 		} else {
-			$("#myForm").submit();
+			$.post("${path}/consignment/ajaxCheck.htm", {
+				orderNumber : $("#orderNumber").val(),
+				id : $("#id").val()
+			},function(data){
+				if($.trim(data) == "true"){
+					$("#myForm").submit();
+				}else{
+					alert("<div style=\"color:red;margin-left: 10px;\">【订单号】已存在！<br></div>");
+				}
+			});
 		}
 	}
 
@@ -458,12 +473,17 @@ body {
 				<div id="content-table-inner">
 					<form id="myForm" action="${path }/consignment/update.htm"
 						method="post">
-						<input name="id" type="hidden" value="${consignment.id }">
+						<input id="id" name="id" type="hidden" value="${consignment.id }">
 						<div class="data">
 							<div align="center">
 								<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 									size="2" style="font-weight: bold;">货物托运受理单</font>
 							</div>
+							<table>
+								<tr>
+									<td></td>
+								</tr>
+							</table>
 							<div style="margin-top: 10px;">
 								<span style="margin-left: 30px;">日期：<input id="datetime"
 									name="datetime" onclick="WdatePicker()"
@@ -491,6 +511,17 @@ body {
 									name="payment" onchange="checkNull(this)" type="text"
 									class="btn" style="width: 100px;"
 									value="${consignment.payment }" maxlength="7"></span>
+							</div>
+							<div style="margin-top: 10px;">
+								<span style="margin-left: 30px;">订单号：<input
+									id="orderNumber" name="orderNumber" onchange="checkNull(this)"
+									class="btn" style="width: 100px;" type="text"
+									value="${consignment.orderNumber }">
+								</span> <span style="margin-left: 50px;">状态：<input id="status"
+									name="status" onchange="checkNull(this)" class="btn"
+									style="width: 100px;" type="text"
+									value="${consignment.status  }">
+								</span>
 							</div>
 							<table class="dataTable" style="margin-top: 5px;">
 								<tr>

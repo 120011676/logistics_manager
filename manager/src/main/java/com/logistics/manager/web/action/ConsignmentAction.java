@@ -16,16 +16,17 @@ import org.qq120011676.snow.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.logistics.manager.entity.ConsignmentEntity;
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IConsignmentService;
-import com.logistics.manager.utils.OrderNumberUtils;
 import com.logistics.manager.utils.ResultSetHelper;
 import com.logistics.manager.web.action.base.BaseAction;
 
@@ -51,7 +52,6 @@ public class ConsignmentAction extends SimpleFormController {
 	@RequestMapping("list")
 	public String list(String orderNumber, String consignee) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("status", 0);
 		if (!StringUtils.isNull(orderNumber)) {
 			map.put("orderNumber", "%" + orderNumber + "%");
 			BaseAction.getHttpServletRequest().setAttribute("orderNumber",
@@ -110,7 +110,7 @@ public class ConsignmentAction extends SimpleFormController {
 								consignment.setCreateDatetime(resultSet
 										.getTimestamp("create_datetime"));
 								consignment.setStatus(resultSet
-										.getInt("status"));
+										.getString("status"));
 								consignment.setEnable(resultSet
 										.getBoolean("enable"));
 								return consignment;
@@ -186,7 +186,6 @@ public class ConsignmentAction extends SimpleFormController {
 								.getString("commodity_package_four"));
 						consignment.setCommodityPackageFive(resultSet
 								.getString("commodity_package_five"));
-
 						consignment.setCommodityPackageNumberOne(resultSet
 								.getInt("commodity_package_number_one"));
 						consignment.setCommodityPackageNumberTwo(resultSet
@@ -258,7 +257,9 @@ public class ConsignmentAction extends SimpleFormController {
 								resultSet.getString("name"));
 						consignment.setCreateDatetime(resultSet
 								.getTimestamp("create_datetime"));
-						consignment.setStatus(resultSet.getInt("status"));
+						consignment.setStatus(resultSet.getString("status"));
+						consignment.setOrderNumber(resultSet
+								.getString("order_number"));
 						return consignment;
 					}
 				});
@@ -267,6 +268,8 @@ public class ConsignmentAction extends SimpleFormController {
 	@RequestMapping("update")
 	public String update(ConsignmentEntity consignment) {
 		Map<String, Object> map = new HashMap<>();
+		map.put("orderNumber", consignment.getOrderNumber());
+		map.put("status", consignment.getStatus());
 		map.put("datetime", consignment.getDatetime());
 		map.put("startCity", consignment.getStartCity());
 		map.put("arrivalCity", consignment.getArrivalCity());
@@ -335,7 +338,6 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("returnPrice", consignment.getReturnPrice());
 		if (consignment.getId() == null) {
 			map.put("createUserId", BaseAction.getLoginUser().getId());
-			map.put("orderNumber", OrderNumberUtils.getOrderNumber());
 			this.consignmentService.update("saveConsignment", map);
 		} else {
 			map.put("id", consignment.getId());
@@ -407,5 +409,23 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("status", 1);
 		this.consignmentService.update("updateConsignmentByEnable", map);
 		return "redirect:/consignment/list.htm";
+	}
+
+	@RequestMapping("ajaxCheck")
+	@ResponseBody
+	public String ajaxCheck(String orderNumber, Integer id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("orderNumber", orderNumber);
+		if (id != null) {
+			map.put("id", id);
+		}
+		SqlRowSet sqlRowSet = this.consignmentService.queryForRowSet(
+				"ajaxCheckConsignmentByOrderNumber", map);
+		if (sqlRowSet.next()) {
+			if (sqlRowSet.getInt("c") > 0) {
+				return "false";
+			}
+		}
+		return "true";
 	}
 }

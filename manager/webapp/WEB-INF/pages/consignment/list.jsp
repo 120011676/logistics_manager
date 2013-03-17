@@ -77,9 +77,7 @@
 									<td>${c.createUser.name }</td>
 									<td><fmt:formatDate value="${c.createDatetime }"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
-									<td><c:if test="${c.status == 0}">装货中</c:if> <c:if
-											test="${c.status == 1}">送货中</c:if> <c:if
-											test="${c.status == 2}">已收货</c:if></td>
+									<td>${c.status }</td>
 									<td><c:if test="${c.enable == true }">正常</c:if> <c:if
 											test="${c.enable == false }">已删除</c:if></td>
 									<td><div style="margin-left: 10px;">
@@ -96,11 +94,6 @@
 											</c:if>
 											<a class="icon-3 info-tooltip" title="查看"
 												href="${path }/consignment/look.htm?id=${c.id}"></a>
-											<c:if test="${c.enable == true }">
-												<a title="下一步" class="icon-3 info-tooltip"
-													style="background-image: url('${path}/images/table/paging_right.gif');"
-													href="${path }/consignment/delivery.htm?id=${c.id}"></a>
-											</c:if>
 										</div></td>
 								</tr>
 							</c:forEach>

@@ -515,7 +515,7 @@ body {
 									value="${consignment.orderNumber }" maxlength="255">
 								</span> <span style="margin-left: 50px;">状态：<input id="status"
 									name="status" onchange="checkNull(this)" class="btn"
-									style="width: 300px;" type="text"
+									style="width: 500px;" type="text"
 									value="${consignment.status  }" maxlength="255">
 								</span>
 							</div>

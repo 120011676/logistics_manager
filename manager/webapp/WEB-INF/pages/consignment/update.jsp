@@ -489,24 +489,32 @@ body {
 								<span style="margin-left: 50px;">发站：<input id="startCity"
 									name="startCity" onchange="checkNull(this)" type="text"
 									class="btn" style="width: 100px;"
-									value="${consignment.startCity }" maxlength="7"></span> <span
+									value="<c:if test="${consignment.id == null}">成都</c:if><c:if test="${consignment.id != null}">${consignment.startCity }</c:if>" maxlength="7"></span> <span
 									style="margin-left: 50px;">到站：<input id="arrivalCity"
 									name="arrivalCity" onchange="checkNull(this)" type="text"
 									class="btn" style="width: 100px;"
 									value="${consignment.arrivalCity }" maxlength="7"></span> <span
-									style="margin-left: 50px;">运输方式：<input
-									id="modeOfTransportation" name="modeOfTransportation"
-									onchange="checkNull(this)" type="text" class="btn"
-									style="width: 100px;"
-									value="${consignment.modeOfTransportation }" maxlength="7"></span>
-								<span style="margin-left: 50px;">服务方式：<input
+									style="margin-left: 50px;">运输方式：
+									<select id="modeOfTransportation" name="modeOfTransportation"  class="btn" style="width: 100px;">
+										<option value="公路" <c:if test="${consignment.modeOfTransportation == '公路'}">selected="selected"</c:if>>公路</option>
+										<option value="铁路" <c:if test="${consignment.modeOfTransportation == '铁路'}">selected="selected"</c:if>>铁路</option>
+										<option value="航空" <c:if test="${consignment.modeOfTransportation == '航空'}">selected="selected"</c:if>>航空</option>
+									</select>
+									</span>
+								<span style="margin-left: 50px;">服务方式：
+								<select id="serviceMode" name="serviceMode" class="btn" style="width: 100px;">
+										<option value="送货" <c:if test="${consignment.serviceMode == '送货'}">selected="selected"</c:if>>送货</option>
+										<option value="自提" <c:if test="${consignment.serviceMode == '自提'}">selected="selected"</c:if>>自提</option>
+									</select>
+								<input
 									id="serviceMode" name="serviceMode" onchange="checkNull(this)"
 									type="text" class="btn" style="width: 100px;"
 									value="${consignment.serviceMode }" maxlength="7"></span> <span
-									style="margin-left: 50px;">付款方式：<input id="payment"
-									name="payment" onchange="checkNull(this)" type="text"
-									class="btn" style="width: 100px;"
-									value="${consignment.payment }" maxlength="7"></span>
+									style="margin-left: 50px;">付款方式：
+									<select id="payment" name="payment" class="btn" style="width: 100px;">
+										<option value="月结" <c:if test="${consignment.payment == '月结'}">selected="selected"</c:if>>月结</option>
+										<option value="现金" <c:if test="${consignment.payment == '现金'}">selected="selected"</c:if>>现金</option>
+									</select></span>
 							</div>
 							<div style="margin-top: 10px;">
 								<span style="margin-left: 30px;">订单号：<input
@@ -526,13 +534,13 @@ body {
 									<td><span>托&nbsp;&nbsp;运&nbsp;&nbsp;人：</span><input
 										id="shipper" name="shipper" onchange="checkNull(this)"
 										type="text" class="btn" style="width: 480px;"
-										value="${consignment.shipper }" maxlength="4"></td>
+										value="${consignment.shipper }" maxlength="255"></td>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>收</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input id="consignee"
 										name="consignee" onchange="checkNull(this)" type="text"
 										class="btn" style="width: 480px;"
-										value="${consignment.consignee }" maxlength="4"></td>
+										value="${consignment.consignee }" maxlength="255"></td>
 								</tr>
 								<tr>
 									<td>托运单位：<input id="shipperUnit" name="shipperUnit"

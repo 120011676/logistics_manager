@@ -84,8 +84,6 @@ body {
 		}
 		if (isNull($("#shipperPhone"))) {
 			msg += "【发货人电话】不能为空！<br>";
-		} else if (!checkRegExpPhone(getId("shipperPhone"))) {
-			msg += "【发货人电话】不正确！<br>";
 		}
 		if (isNull($("#consignee"))) {
 			msg += "【收货人】不能为空！<br>";
@@ -98,8 +96,6 @@ body {
 		}
 		if (isNull($("#consigneePhone"))) {
 			msg += "【收货人电话】不能为空！<br>";
-		} else if (!checkRegExpPhone(getId("consigneePhone"))) {
-			msg += "【发货人电话】不正确！<br>";
 		}
 		if (isNull($("#chargingWays"))) {
 			msg += "【计费方式】不能为空！<br>";
@@ -516,11 +512,11 @@ body {
 								<span style="margin-left: 30px;">订单号：<input
 									id="orderNumber" name="orderNumber" onchange="checkNull(this)"
 									class="btn" style="width: 100px;" type="text"
-									value="${consignment.orderNumber }">
+									value="${consignment.orderNumber }" maxlength="255">
 								</span> <span style="margin-left: 50px;">状态：<input id="status"
 									name="status" onchange="checkNull(this)" class="btn"
-									style="width: 100px;" type="text"
-									value="${consignment.status  }">
+									style="width: 300px;" type="text"
+									value="${consignment.status  }" maxlength="255">
 								</span>
 							</div>
 							<table class="dataTable" style="margin-top: 5px;">
@@ -563,14 +559,14 @@ body {
 								<tr>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
 										id="shipperPhone" name="shipperPhone"
-										onchange="checkRegExpPhone(this)" type="text" class="btn"
+										onchange="checkNull(this)" type="text" class="btn"
 										style="width: 480px;" value="${consignment.shipperPhone }"
-										maxlength="11"></td>
+										maxlength="255"></td>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
 										id="consigneePhone" name="consigneePhone"
-										onchange="checkRegExpPhone(this)" type="text" class="btn"
+										onchange="checkNull(this)" type="text" class="btn"
 										style="width: 480px;" value="${consignment.consigneePhone }"
-										maxlength="11"></td>
+										maxlength="255"></td>
 								</tr>
 							</table>
 							<table class="dataTable">

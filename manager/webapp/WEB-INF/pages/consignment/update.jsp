@@ -506,10 +506,7 @@ body {
 										<option value="送货" <c:if test="${consignment.serviceMode == '送货'}">selected="selected"</c:if>>送货</option>
 										<option value="自提" <c:if test="${consignment.serviceMode == '自提'}">selected="selected"</c:if>>自提</option>
 									</select>
-								<input
-									id="serviceMode" name="serviceMode" onchange="checkNull(this)"
-									type="text" class="btn" style="width: 100px;"
-									value="${consignment.serviceMode }" maxlength="7"></span> <span
+								</span> <span
 									style="margin-left: 50px;">付款方式：
 									<select id="payment" name="payment" class="btn" style="width: 100px;">
 										<option value="月结" <c:if test="${consignment.payment == '月结'}">selected="selected"</c:if>>月结</option>

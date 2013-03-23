@@ -521,7 +521,7 @@ body {
 									<td><span>托&nbsp;&nbsp;运&nbsp;&nbsp;人：</span><input
 										id="shipper" name="shipper" onchange="checkNull(this)"
 										type="text" class="btn" style="width: 480px;"
-										value="${consignment.shipper }" maxlength="255"></td>
+										value="<c:if test="${consignment.id == null }">文采明</c:if><c:if test="${consignment.id != null }">${consignment.shipper }</c:if>" maxlength="255"></td>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>收</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input id="consignee"
@@ -532,7 +532,7 @@ body {
 								<tr>
 									<td>托运单位：<input id="shipperUnit" name="shipperUnit"
 										onchange="checkNull(this)" type="text" class="btn"
-										style="width: 480px;" value="${consignment.shipperUnit }"
+										style="width: 480px;" value="<c:if test="${consignment.id == null }">四川维奥制药有限公司</c:if><c:if test="${consignment.id != null }">${consignment.shipperUnit }</c:if>"
 										maxlength="36"></td>
 									<td>收货单位：<input id="consigneeUnit" name="consigneeUnit"
 										onchange="checkNull(this)" type="text" class="btn"
@@ -543,7 +543,7 @@ body {
 									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
 										id="shipperAddress" name="shipperAddress"
 										onchange="checkNull(this)" type="text" class="btn"
-										style="width: 480px;" value="${consignment.shipperAddress }"
+										style="width: 480px;" value="<c:if test="${consignment.id == null }">成都市温江区凤溪大道南778号</c:if><c:if test="${consignment.id != null }">${consignment.shipperAddress }</c:if>"
 										maxlength="36"></td>
 									<td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：<input
 										id="consigneeAddress" name="consigneeAddress"
@@ -555,7 +555,7 @@ body {
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
 										id="shipperPhone" name="shipperPhone"
 										onchange="checkNull(this)" type="text" class="btn"
-										style="width: 480px;" value="${consignment.shipperPhone }"
+										style="width: 480px;" value="<c:if test="${consignment.id == null }">13880012610</c:if><c:if test="${consignment.id != null }">${consignment.shipperPhone }</c:if>"
 										maxlength="255"></td>
 									<td>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：<input
 										id="consigneePhone" name="consigneePhone"

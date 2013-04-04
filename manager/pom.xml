@@ -131,7 +131,7 @@
  </properties>
 
  <build>
-  <finalName>ROOT</finalName>
+  <finalName>m</finalName>
   <plugins>
    <plugin>
     <artifactId>maven-compiler-plugin</artifactId>

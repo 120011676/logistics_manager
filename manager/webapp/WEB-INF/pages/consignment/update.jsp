@@ -434,7 +434,7 @@ body {
 	}
 </script>
 <script type="text/javascript">
-	function shipper(){
+	function shipperAlert(){
 		OBox("${path}/consignment/alert/shipper.htm",800,800);
 	}
 	
@@ -454,7 +454,7 @@ body {
 		DClose();
 	}
 	
-	function consignee(){
+	function consigneeAlert(){
 		OBox("${path}/consignment/alert/consignee.htm",800,800);
 	}
 	
@@ -563,13 +563,13 @@ body {
 									<td><span>托&nbsp;&nbsp;运&nbsp;&nbsp;人：</span><input
 										id="shipper" name="shipper" onchange="checkNull(this)"
 										type="text" class="btn" style="width: 450px;"
-										value="<c:if test="${consignment.id == null }">文采明</c:if><c:if test="${consignment.id != null }">${consignment.shipper }</c:if>" maxlength="255"> <a href="#" onclick="shipper()">选择</a></td>
+										value="<c:if test="${consignment.id == null }">文采明</c:if><c:if test="${consignment.id != null }">${consignment.shipper }</c:if>" maxlength="255"> <a href="#" onclick="shipperAlert()">选择</a></td>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>收</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input id="consignee"
 										name="consignee" onchange="checkNull(this)" type="text"
 										class="btn" style="width: 450px;"
-										value="${consignment.consignee }" maxlength="255"> <a href="#" onclick="consignee()">选择</a></td>
+										value="${consignment.consignee }" maxlength="255"> <a href="#" onclick="consigneeAlert()">选择</a></td>
 								</tr>
 								<tr>
 									<td>托运单位：<input id="shipperUnit" name="shipperUnit"

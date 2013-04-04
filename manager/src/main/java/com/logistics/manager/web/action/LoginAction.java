@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -28,7 +31,8 @@ public class LoginAction {
 	}
 
 	@RequestMapping("toLogin")
-	public String toLogin(String username, String password) {
+	public String toLogin(String username, String password, boolean me,
+			HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("username", username);
 		map.put("password", password);
@@ -42,7 +46,6 @@ public class LoginAction {
 							UserEntity user = new UserEntity();
 							user.setId(resultSet.getInt("id"));
 							user.setUsername(resultSet.getString("username"));
-							user.setPassword(resultSet.getString("password"));
 							user.setName(resultSet.getString("name"));
 							user.setPosition(resultSet.getBoolean("position"));
 							return user;
@@ -53,6 +56,11 @@ public class LoginAction {
 		if (user != null) {
 			BaseAction.getHttpServletRequest().getSession()
 					.setAttribute(BaseAction.LOGIN_USER, user);
+			if (me) {
+				Cookie cookie = new Cookie("username", user.getUsername());
+				cookie.setPath("/");
+				response.addCookie(cookie);
+			}
 			return "redirect:/";
 		}
 		return "redirect:/noSecurity/login.htm?error=true";

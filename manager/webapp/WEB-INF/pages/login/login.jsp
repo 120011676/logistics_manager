@@ -37,7 +37,7 @@
 						</tr>
 						<tr>
 							<th></th>
-							<td valign="top"><input type="checkbox"
+							<td valign="top"><input name="me" type="checkbox" checked="checked"
 								class="checkbox-size" id="login-check" /><label
 								for="login-check">记住我</label></td>
 						</tr>

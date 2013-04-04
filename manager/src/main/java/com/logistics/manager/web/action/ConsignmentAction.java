@@ -430,7 +430,7 @@ public class ConsignmentAction extends SimpleFormController {
 	}
 
 	@RequestMapping("alert/shipper")
-	public String shipperList(String shipper) {
+	public String shipper(String shipper) {
 		Map<String, Object> map = new HashMap<>();
 		if (!StringUtils.isNull(shipper)) {
 			map.put("shipper", "%" + shipper + "%");
@@ -455,5 +455,33 @@ public class ConsignmentAction extends SimpleFormController {
 							}
 						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
 		return "consignment/alert/shipper";
+	}
+	
+	@RequestMapping("alert/consignee")
+	public String consignee(String consignee){
+		Map<String, Object> map = new HashMap<>();
+		if (!StringUtils.isNull(consignee)) {
+			map.put("consignee", "%" + consignee + "%");
+			BaseAction.getHttpServletRequest().setAttribute("consignee", consignee);
+		}
+		BaseAction.getHttpServletRequest().setAttribute(
+				"page",
+				this.consignmentService.queryMySqlPage("queryConsignee", map,
+						new RowMapper<ConsignmentEntity>() {
+							@Override
+							public ConsignmentEntity mapRow(ResultSet rs,
+									int arg1) throws SQLException {
+								ConsignmentEntity consignment = new ConsignmentEntity();
+								consignment.setConsignee(rs.getString("consignee"));
+								consignment.setConsigneeAddress(rs
+										.getString("consignee_address"));
+								consignment.setConsigneePhone(rs
+										.getString("consignee_phone"));
+								consignment.setConsigneeUnit(rs
+										.getString("consignee_unit"));
+								return consignment;
+							}
+						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
+		return "consignment/alert/consignee";
 	}
 }

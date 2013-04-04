@@ -453,6 +453,26 @@ body {
 		isNull(sa);
 		DClose();
 	}
+	
+	function consignee(){
+		OBox("${path}/consignment/alert/consignee.htm",800,800);
+	}
+	
+	function c(consignee, consigneeUnit, consigneePhone, consigneeAddress){
+		var s = $("#consignee");
+		var su = $("#consigneeUnit");
+		var sp = $("#consigneePhone");
+		var sa = $("#consigneeAddress");
+		s.val(consignee);
+		su.val(consigneeUnit);
+		sp.val(consigneePhone);
+		sa.val(consigneeAddress);
+		isNull(s);
+		isNull(su);
+		isNull(sp);
+		isNull(sa);
+		DClose();
+	}
 </script>
 </head>
 <body>
@@ -548,8 +568,8 @@ body {
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input id="consignee"
 										name="consignee" onchange="checkNull(this)" type="text"
-										class="btn" style="width: 480px;"
-										value="${consignment.consignee }" maxlength="255"></td>
+										class="btn" style="width: 450px;"
+										value="${consignment.consignee }" maxlength="255"> <a href="#" onclick="consignee()">选择</a></td>
 								</tr>
 								<tr>
 									<td>托运单位：<input id="shipperUnit" name="shipperUnit"

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>选择托运人</title>
+<title>选择收货人</title>
 <link href="${path }/js/snow-framework/css/pageTag.css" type="text/css"
 	rel="stylesheet" media="screen" />
 <style type="text/css">
@@ -54,18 +54,19 @@ a {
 }
 </style>
 <script type="text/javascript">
-	function st(shipper, shipperUnit, shipperPhone, shipperAddress) {
-		window.parent.sd(shipper, shipperUnit, shipperPhone, shipperAddress);
+	function ct(consignee, consigneeUnit, consigneePhone, consigneeAddress) {
+		window.parent.c(consignee, consigneeUnit, consigneePhone,
+				consigneeAddress);
 	}
 </script>
 </head>
 <body>
-	<form id="myForm" action="${path}/consignment/alert/shipper.htm"
+	<form id="myForm" action="${path}/consignment/alert/consignee.htm"
 		method="post">
 		<table class="queryTable">
 			<tr>
-				<td class="textR">托运人：</td>
-				<td><input name="shipper" type="text" value="${shipper }"></td>
+				<td class="textR">收货人：</td>
+				<td><input name="consignee" type="text" value="${consignee }"></td>
 				<td><input type="image"
 					src="${path }/images/shared/top_search_btn.gif"></td>
 			</tr>
@@ -75,8 +76,8 @@ a {
 	<table class="dataTable">
 		<tr>
 			<th>序号</th>
-			<th>托运人</th>
-			<th>托运单位</th>
+			<th>收货人</th>
+			<th>收货单位</th>
 			<th>电话</th>
 			<th>地址</th>
 			<th>选中</th>
@@ -84,12 +85,12 @@ a {
 		<c:forEach items="${page.results}" var="c" varStatus="in">
 			<tr>
 				<td>${in.index + 1 }</td>
-				<td>${c.shipper }</td>
-				<td>${c.shipperUnit }</td>
-				<td>${c.shipperPhone }</td>
-				<td>${c.shipperAddress }</td>
+				<td>${c.consignee }</td>
+				<td>${c.consigneeUnit }</td>
+				<td>${c.consigneePhone }</td>
+				<td>${c.consigneeAddress }</td>
 				<td><a
-					onclick="st('${c.shipper }','${c.shipperUnit }','${c.shipperPhone }','${c.shipperAddress }')"
+					onclick="ct('${c.consignee }','${c.consigneeUnit }','${c.consigneePhone }','${c.consigneeAddress }')"
 					href="#">确认</a></td>
 			</tr>
 		</c:forEach>

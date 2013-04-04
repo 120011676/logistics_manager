@@ -104,4 +104,12 @@
    and shipper like :shipper
   </parameter>
  </sql>
+ 
+ <sql name="queryConsignee">
+  select distinct consignee,consignee_address,consignee_phone,consignee_unit
+  from consignment where enable = true
+  <parameter name="consignee">
+   and consignee like :consignee
+  </parameter>
+ </sql>
 </sqls>

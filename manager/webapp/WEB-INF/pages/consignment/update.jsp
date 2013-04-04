@@ -160,6 +160,7 @@ body {
 			obj.attr("class", "btnRed");
 			return true;
 		}
+		obj.attr("class", "btn");
 		return false;
 	}
 
@@ -432,6 +433,27 @@ body {
 		compute();
 	}
 </script>
+<script type="text/javascript">
+	function shipper(){
+		OBox("${path}/consignment/alert/shipper.htm",800,800);
+	}
+	
+	function sd(shipper, shipperUnit, shipperPhone, shipperAddress){
+		var s = $("#shipper");
+		var su = $("#shipperUnit");
+		var sp = $("#shipperPhone");
+		var sa = $("#shipperAddress");
+		s.val(shipper);
+		su.val(shipperUnit);
+		sp.val(shipperPhone);
+		sa.val(shipperAddress);
+		isNull(s);
+		isNull(su);
+		isNull(sp);
+		isNull(sa);
+		DClose();
+	}
+</script>
 </head>
 <body>
 	<div id="page-heading">
@@ -520,8 +542,8 @@ body {
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td><span>托&nbsp;&nbsp;运&nbsp;&nbsp;人：</span><input
 										id="shipper" name="shipper" onchange="checkNull(this)"
-										type="text" class="btn" style="width: 480px;"
-										value="<c:if test="${consignment.id == null }">文采明</c:if><c:if test="${consignment.id != null }">${consignment.shipper }</c:if>" maxlength="255"></td>
+										type="text" class="btn" style="width: 450px;"
+										value="<c:if test="${consignment.id == null }">文采明</c:if><c:if test="${consignment.id != null }">${consignment.shipper }</c:if>" maxlength="255"> <a href="#" onclick="shipper()">选择</a></td>
 									<td rowspan="4" align="center" valign="middle" width="30px"><span>收</span><br>
 										<br> <span>货</span><br> <br> <span>人</span></td>
 									<td>收&nbsp;&nbsp;货&nbsp;&nbsp;人：<input id="consignee"

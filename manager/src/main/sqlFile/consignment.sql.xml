@@ -96,4 +96,12 @@
    and id != :id
   </parameter>
  </sql>
+
+ <sql name="queryShipper">
+  select distinct shipper,shipper_address,shipper_phone,shipper_unit
+  from consignment where enable = true
+  <parameter name="shipper">
+   and shipper like :shipper
+  </parameter>
+ </sql>
 </sqls>

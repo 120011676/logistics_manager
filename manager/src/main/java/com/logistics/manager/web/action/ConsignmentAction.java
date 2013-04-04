@@ -428,4 +428,32 @@ public class ConsignmentAction extends SimpleFormController {
 		}
 		return "true";
 	}
+
+	@RequestMapping("alert/shipper")
+	public String shipperList(String shipper) {
+		Map<String, Object> map = new HashMap<>();
+		if (!StringUtils.isNull(shipper)) {
+			map.put("shipper", "%" + shipper + "%");
+			BaseAction.getHttpServletRequest().setAttribute("shipper", shipper);
+		}
+		BaseAction.getHttpServletRequest().setAttribute(
+				"page",
+				this.consignmentService.queryMySqlPage("queryShipper", map,
+						new RowMapper<ConsignmentEntity>() {
+							@Override
+							public ConsignmentEntity mapRow(ResultSet rs,
+									int arg1) throws SQLException {
+								ConsignmentEntity consignment = new ConsignmentEntity();
+								consignment.setShipper(rs.getString("shipper"));
+								consignment.setShipperAddress(rs
+										.getString("shipper_address"));
+								consignment.setShipperPhone(rs
+										.getString("shipper_phone"));
+								consignment.setShipperUnit(rs
+										.getString("shipper_unit"));
+								return consignment;
+							}
+						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
+		return "consignment/alert/shipper";
+	}
 }

@@ -2,6 +2,7 @@
 <sitemesh>
 	<mapping path="/*" decorator="/WEB-INF/pages/sitemesh/decorator.jsp" />
     <mapping path="/noSecurity/login.htm" exclue="true" />
+    <mapping path="*/alert/*" exclue="true" />
 	<mapping path="/js/*" exclue="true" />
     <mapping path="/css/*" exclue="true" />
     <mapping path="/images/*" exclue="true" />

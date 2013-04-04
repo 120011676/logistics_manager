@@ -189,3 +189,20 @@ function alertBox(message, fun, esc) {
 	}
 	cBox.show();
 }
+
+function OBox(url,_width,_height){
+	$.fancybox(
+			url,
+			{
+				'width'				: _width,
+				'height'			: _height,
+				'autoScale'			: false,
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none',
+				'type'				: 'iframe',
+				'hideOnOverlayClick':true,
+				'showCloseButton':false,
+				'enableEscapeButton':true,
+				autoDimensions:false
+			});
+}

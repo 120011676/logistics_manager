@@ -6,6 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>选择托运人</title>
+<script type="text/javascript"
+	src="${path }/js/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="${path }/js/snow-framework/snow.framework.js"></script>
 <link href="${path }/js/snow-framework/css/pageTag.css" type="text/css"
 	rel="stylesheet" media="screen" />
 <style type="text/css">
@@ -52,8 +56,20 @@ a {
 	text-decoration: none;
 	color: green;
 }
+
+.xz {
+	background-color: #aaa;
+}
 </style>
 <script type="text/javascript">
+	$(function() {
+		$('.dataTr').hover(function() {
+			$(this).addClass("xz");
+		}, function() {
+			$(this).removeClass("xz");
+		});
+	});
+
 	function st(shipper, shipperUnit, shipperPhone, shipperAddress) {
 		window.parent.sd(shipper, shipperUnit, shipperPhone, shipperAddress);
 	}
@@ -82,7 +98,7 @@ a {
 			<th>选中</th>
 		</tr>
 		<c:forEach items="${page.results}" var="c" varStatus="in">
-			<tr>
+			<tr class="dataTr">
 				<td>${in.index + 1 }</td>
 				<td>${c.shipper }</td>
 				<td>${c.shipperUnit }</td>

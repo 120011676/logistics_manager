@@ -44,7 +44,6 @@ public class SecurityFilter implements Filter {
 			Cookie[] cookies = request.getCookies();
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {
-					System.out.println(cookie.getName());
 					if ("username".equals(cookie.getName())) {
 						Map<String, Object> map = new HashMap<>();
 						map.put("username", cookie.getValue());

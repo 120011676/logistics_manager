@@ -59,6 +59,7 @@ public class LoginAction {
 			if (me) {
 				Cookie cookie = new Cookie("username", user.getUsername());
 				cookie.setPath("/");
+				cookie.setMaxAge(Integer.MAX_VALUE);
 				response.addCookie(cookie);
 			}
 			return "redirect:/";

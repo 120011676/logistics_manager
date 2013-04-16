@@ -618,11 +618,11 @@ body {
 										name="chargingWays" class="btn" style="width: 100px;"
 										onchange="ways()">
 											<option
-												<c:if test="${consignment.chargingWays == '1'}">selected="selected"</c:if>
-												value="1">重量和</option>
+												<c:if test="${consignment.chargingWays == '重量和'}">selected="selected"</c:if>
+												value="重量和">重量和</option>
 											<option
-												<c:if test="${consignment.chargingWays == '2'}">selected="selected"</c:if>
-												value="2">体积和</option>
+												<c:if test="${consignment.chargingWays == '体积和'}">selected="selected"</c:if>
+												value="体积和">体积和</option>
 									</select> <%-- <input
 										id="chargingWays" name="chargingWays"
 										onchange="checkNull(this)" type="text" class="btn"

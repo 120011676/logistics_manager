@@ -88,3 +88,6 @@ create table consignment(
 	enable boolean not null default true comment 'ture:正常，false：删除',
 	foreign key(create_user_id) references user(id)
 );
+
+update consignment set charging_ways = '重量和' where charging_ways = '1';
+update consignment set charging_ways = '体积和' where charging_ways = '2';

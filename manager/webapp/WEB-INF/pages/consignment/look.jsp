@@ -94,6 +94,10 @@ body {
 			<td valign="top">
 				<div id="content-table-inner">
 					<div class="data">
+						<div style="text-align: right;">
+							<a href="${path }/consignment/download.htm?id=${consignment.id}">下载</a>
+							<a href="">打印</a>
+						</div>
 						<div align="center">
 							<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 								size="2" style="font-weight: bold;">货物托运受理单</font>
@@ -152,10 +156,8 @@ body {
 								<td>重量（kg）</td>
 								<td>体积（m³）</td>
 								<td>声明价值（元）</td>
-								<td colspan="3" align="left" width="50px">计费方式： <c:if
-										test="${consignment.chargingWays == '1'}">重量和</c:if> <c:if
-										test="${consignment.chargingWays == '2'}">体积和</c:if>
-								</td>
+								<td colspan="3" align="left" width="50px">计费方式：
+									${consignment.chargingWays }</td>
 								<td align="left" width="200px">单价：<fmt:formatNumber
 										value="${consignment.unitPrice }" pattern="0.00" /></td>
 							</tr>

@@ -1,16 +1,27 @@
 package com.logistics.manager.web.action;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.qq120011676.snow.properties.ProjectProperties;
 import org.qq120011676.snow.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +38,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import com.logistics.manager.entity.ConsignmentEntity;
 import com.logistics.manager.entity.UserEntity;
 import com.logistics.manager.service.interfaces.IConsignmentService;
+import com.logistics.manager.utils.HSSFCellHelper;
+import com.logistics.manager.utils.MoneyUtils;
 import com.logistics.manager.utils.ResultSetHelper;
 import com.logistics.manager.web.action.base.BaseAction;
 
@@ -343,7 +356,7 @@ public class ConsignmentAction extends SimpleFormController {
 			map.put("id", consignment.getId());
 			this.consignmentService.update("updateConsignment", map);
 		}
-		return "redirect:/consignment/list.htm";
+		return "redirect：/consignment/list.htm";
 	}
 
 	@RequestMapping("delete")
@@ -352,7 +365,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("enable", false);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
+		return "redirect：/consignment/list.htm";
 	}
 
 	@RequestMapping("recovery")
@@ -361,7 +374,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("enable", true);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
+		return "redirect：/consignment/list.htm";
 	}
 
 	@RequestMapping("look")
@@ -408,7 +421,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("status", 1);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect:/consignment/list.htm";
+		return "redirect：/consignment/list.htm";
 	}
 
 	@RequestMapping("ajaxCheck")
@@ -456,13 +469,14 @@ public class ConsignmentAction extends SimpleFormController {
 						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
 		return "consignment/alert/shipper";
 	}
-	
+
 	@RequestMapping("alert/consignee")
-	public String consignee(String consignee){
+	public String consignee(String consignee) {
 		Map<String, Object> map = new HashMap<>();
 		if (!StringUtils.isNull(consignee)) {
 			map.put("consignee", "%" + consignee + "%");
-			BaseAction.getHttpServletRequest().setAttribute("consignee", consignee);
+			BaseAction.getHttpServletRequest().setAttribute("consignee",
+					consignee);
 		}
 		BaseAction.getHttpServletRequest().setAttribute(
 				"page",
@@ -472,7 +486,8 @@ public class ConsignmentAction extends SimpleFormController {
 							public ConsignmentEntity mapRow(ResultSet rs,
 									int arg1) throws SQLException {
 								ConsignmentEntity consignment = new ConsignmentEntity();
-								consignment.setConsignee(rs.getString("consignee"));
+								consignment.setConsignee(rs
+										.getString("consignee"));
 								consignment.setConsigneeAddress(rs
 										.getString("consignee_address"));
 								consignment.setConsigneePhone(rs
@@ -483,5 +498,272 @@ public class ConsignmentAction extends SimpleFormController {
 							}
 						}, BaseAction.getNowPage(), BaseAction.getOnePageRows()));
 		return "consignment/alert/consignee";
+	}
+
+	@RequestMapping("download")
+	public void download(int id, HttpServletResponse response)
+			throws IOException {
+		ConsignmentEntity c = get(id);
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("sheet1");
+		int r = 0;
+		HSSFRow row = sheet.createRow(r);
+		HSSFCell cell = row.createCell(0);
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 0, 9));
+		HSSFCellStyle cellStyle = wb.createCellStyle();
+		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		HSSFFont font = wb.createFont();
+		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		font.setFontHeightInPoints((short) 12);
+		cellStyle.setFont(font);
+		cell.setCellStyle(cellStyle);
+		cell.setCellValue("成都道成物流有限公司");
+		r = 1;
+		row = sheet.createRow(r);
+		cell = row.createCell(0);
+		cellStyle = wb.createCellStyle();
+		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		cell.setCellStyle(cellStyle);
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 0, 9));
+		StringBuilder stringBuilder = new StringBuilder();
+		String temp = "     ";
+		stringBuilder.append(
+				new SimpleDateFormat("yyyy年MM月dd日").format(c.getDatetime()))
+				.append(temp);
+		stringBuilder.append("发站：" + c.getStartCity()).append(temp);
+		stringBuilder.append("到站：" + c.getArrivalCity()).append(temp);
+		stringBuilder.append("运输方式：" + c.getModeOfTransportation())
+				.append(temp);
+		stringBuilder.append("服务方式：" + c.getServiceMode()).append(temp);
+		stringBuilder.append("付款方式：" + c.getPayment()).append(temp);
+		cell.setCellValue(stringBuilder.toString().trim());
+		r = 2;
+		row = sheet.createRow(r);
+		cell = row.createCell(0);
+		sheet.addMergedRegion(new CellRangeAddress(r, 5, 0, 0));
+		cellStyle = wb.createCellStyle();
+		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+		cellStyle.setWrapText(true);
+		cell.setCellStyle(cellStyle);
+		cell.setCellValue("发\r\n货\r\n人");
+		sheet.addMergedRegion(new CellRangeAddress(r, 5, 5, 5));
+		row.createCell(1).setCellValue("托 运  人：" + c.getShipper());
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 1, 4));
+		HSSFCell c25 = row.createCell(5);
+		c25.setCellStyle(cellStyle);
+		c25.setCellValue("收\r\n货\r\n人");
+		row.createCell(6).setCellValue("收 货  人：" + c.getConsignee());
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 6, 9));
+		r = 3;
+		row = sheet.createRow(r);
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 1, 4));
+		row.createCell(1).setCellValue("托运单位：" + c.getShipperUnit());
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 6, 9));
+		row.createCell(6).setCellValue("收货单位：" + c.getConsigneeUnit());
+		r = 4;
+		row = sheet.createRow(r);
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 1, 4));
+		row.createCell(1).setCellValue("地      址：" + c.getShipperAddress());
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 6, 9));
+		row.createCell(6).setCellValue("地      址：" + c.getConsigneeAddress());
+		r = 5;
+		row = sheet.createRow(r);
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 1, 4));
+		row.createCell(1).setCellValue("电      话：" + c.getShipperPhone());
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 6, 9));
+		row.createCell(6).setCellValue("电      话：" + c.getConsigneePhone());
+		cellStyle = wb.createCellStyle();
+		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+		r = 6;
+		row = sheet.createRow(r);
+		new HSSFCellHelper(row.createCell(0)).setCellStyle(cellStyle)
+				.setCellValue("品名");
+		new HSSFCellHelper(row.createCell(1)).setCellStyle(cellStyle)
+				.setCellValue("包装");
+		new HSSFCellHelper(row.createCell(2)).setCellStyle(cellStyle)
+				.setCellValue("件数");
+		new HSSFCellHelper(row.createCell(3)).setCellStyle(cellStyle)
+				.setCellValue("重量(KG)");
+		new HSSFCellHelper(row.createCell(4)).setCellStyle(cellStyle)
+				.setCellValue("体积(M)");
+		new HSSFCellHelper(row.createCell(5)).setCellStyle(cellStyle)
+				.setCellValue("声明价值(元)");
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 6, 8));
+		row.createCell(6).setCellValue("计费方式：" + c.getChargingWays());
+		row.createCell(9).setCellValue("单价：" + c.getUnitPrice());
+		r = 7;
+		row = sheet.createRow(r);
+		new HSSFCellHelper(row.createCell(0)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityNameOne());
+		new HSSFCellHelper(row.createCell(1)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityPackageOne());
+		new HSSFCellHelper(row.createCell(2)).setCellStyle(cellStyle)
+				.setCellValue(formatInteger(c.getCommodityPackageNumberOne()));
+		new HSSFCellHelper(row.createCell(3)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWeightOne()));
+		new HSSFCellHelper(row.createCell(4)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityVolumeOne()));
+		new HSSFCellHelper(row.createCell(5)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWorthOne()));
+		new HSSFCellHelper(row.createCell(6)).setCellStyle(cellStyle)
+				.setCellValue("运  费");
+		new HSSFCellHelper(row.createCell(7)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getTransportPrice()));
+		new HSSFCellHelper(row.createCell(8)).setCellStyle(cellStyle)
+				.setCellValue("装卸费");
+		new HSSFCellHelper(row.createCell(9)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getLoadUnloadPrice()));
+		r = 8;
+		row = sheet.createRow(r);
+		new HSSFCellHelper(row.createCell(0)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityNameTwo());
+		new HSSFCellHelper(row.createCell(1)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityPackageTwo());
+		new HSSFCellHelper(row.createCell(2)).setCellStyle(cellStyle)
+				.setCellValue(formatInteger(c.getCommodityPackageNumberTwo()));
+		new HSSFCellHelper(row.createCell(3)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWeightTwo()));
+		new HSSFCellHelper(row.createCell(4)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityVolumeTwo()));
+		new HSSFCellHelper(row.createCell(5)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWorthTwo()));
+		new HSSFCellHelper(row.createCell(6)).setCellStyle(cellStyle)
+				.setCellValue("取货费");
+		new HSSFCellHelper(row.createCell(7)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getTakeCargoPrice()));
+		new HSSFCellHelper(row.createCell(8)).setCellStyle(cellStyle)
+				.setCellValue("其他费");
+		new HSSFCellHelper(row.createCell(9)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getOtherPrice()));
+		r = 9;
+		row = sheet.createRow(r);
+		new HSSFCellHelper(row.createCell(0)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityNameThree());
+		new HSSFCellHelper(row.createCell(1)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityPackageThree());
+		new HSSFCellHelper(row.createCell(2))
+				.setCellStyle(cellStyle)
+				.setCellValue(formatInteger(c.getCommodityPackageNumberThree()));
+		new HSSFCellHelper(row.createCell(3)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWeightThree()));
+		new HSSFCellHelper(row.createCell(4)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityVolumeThree()));
+		new HSSFCellHelper(row.createCell(5)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWorthThree()));
+		new HSSFCellHelper(row.createCell(6)).setCellStyle(cellStyle)
+				.setCellValue("送货费");
+		new HSSFCellHelper(row.createCell(7)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCarryCargoPrice()));
+		new HSSFCellHelper(row.createCell(8)).setCellStyle(cellStyle)
+				.setCellValue("代收款");
+		new HSSFCellHelper(row.createCell(9)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCollectionMoney()));
+		r = 10;
+		row = sheet.createRow(r);
+		new HSSFCellHelper(row.createCell(0)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityNameFour());
+		new HSSFCellHelper(row.createCell(1)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityPackageFour());
+		new HSSFCellHelper(row.createCell(2)).setCellStyle(cellStyle)
+				.setCellValue(formatInteger(c.getCommodityPackageNumberFour()));
+		new HSSFCellHelper(row.createCell(3)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWeightFour()));
+		new HSSFCellHelper(row.createCell(4)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityVolumeFour()));
+		new HSSFCellHelper(row.createCell(5)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWorthFour()));
+		new HSSFCellHelper(row.createCell(6)).setCellStyle(cellStyle)
+				.setCellValue("保险费");
+		new HSSFCellHelper(row.createCell(7)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getInsurancePrice()));
+		HSSFCellStyle cellStyleTemp = wb.createCellStyle();
+		cellStyleTemp.cloneStyleFrom(cellStyle);
+		cellStyleTemp.setWrapText(true);
+		new HSSFCellHelper(row.createCell(8)).setCellStyle(cellStyleTemp)
+				.setCellValue("代收款\r\n手续费");
+		new HSSFCellHelper(row.createCell(9)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCollectionMoneyCharge()));
+		r = 11;
+		row = sheet.createRow(r);
+		new HSSFCellHelper(row.createCell(0)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityNameFive());
+		new HSSFCellHelper(row.createCell(1)).setCellStyle(cellStyle)
+				.setCellValue(c.getCommodityPackageFive());
+		new HSSFCellHelper(row.createCell(2)).setCellStyle(cellStyle)
+				.setCellValue(formatInteger(c.getCommodityPackageNumberFive()));
+		new HSSFCellHelper(row.createCell(3)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWeightFive()));
+		new HSSFCellHelper(row.createCell(4)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityVolumeFive()));
+		new HSSFCellHelper(row.createCell(5)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getCommodityWorthFive()));
+		new HSSFCellHelper(row.createCell(6)).setCellStyle(cellStyle)
+				.setCellValue("包装费");
+		new HSSFCellHelper(row.createCell(7)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getPackPrice()));
+		cellStyleTemp = wb.createCellStyle();
+		cellStyleTemp.cloneStyleFrom(cellStyle);
+		cellStyleTemp.setWrapText(true);
+		new HSSFCellHelper(row.createCell(8)).setCellStyle(cellStyleTemp)
+				.setCellValue("返    单\r\n手续费");
+		new HSSFCellHelper(row.createCell(9)).setCellStyle(cellStyle)
+				.setCellValue(formatDouble(c.getReturnPrice()));
+		r = 12;
+		row = sheet.createRow(r);
+		sheet.addMergedRegion(new CellRangeAddress(r, r, 0, 9));
+		BigDecimal bigDecimal = new BigDecimal(0);
+		if (c.getTransportPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTransportPrice()));
+		}
+		if (c.getTakeCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTakeCargoPrice()));
+		}
+		if (c.getCarryCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getCarryCargoPrice()));
+		}
+		if (c.getInsurancePrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getInsurancePrice()));
+		}
+		if (c.getPackPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getPackPrice()));
+		}
+		if (c.getLoadUnloadPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getLoadUnloadPrice()));
+		}
+		if (c.getOtherPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getOtherPrice()));
+		}
+		if (c.getCollectionMoneyCharge() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c
+					.getCollectionMoneyCharge()));
+		}
+		if (c.getReturnPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getReturnPrice()));
+		}
+		row.createCell(0)
+				.setCellValue(
+						"费用总计："
+								+ MoneyUtils.digitUppercase(bigDecimal
+										.doubleValue())
+								+ "                                                                         "
+								+ "￥"
+								+ String.format("%.2f",
+										bigDecimal.doubleValue()) + "元");
+		response.setHeader("Content-disposition", "attachment;filename="
+				+ URLEncoder.encode(c.getOrderNumber() + ".xls", "UTF-8"));
+		response.setContentType("application/msexcel;charset=UTF-8");
+		wb.write(response.getOutputStream());
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+	}
+
+	private String formatInteger(Integer value) {
+		return value == null ? "" : value + "";
+	}
+
+	private String formatDouble(Double value) {
+		return value == null ? "" : value + "";
 	}
 }

@@ -758,6 +758,46 @@ public class ConsignmentAction extends SimpleFormController {
 		response.getOutputStream().close();
 	}
 
+	@RequestMapping("printPreview")
+	public String printPreview(int id) {
+		ConsignmentEntity c = get(id);
+		BaseAction.getHttpServletRequest().setAttribute("consignment", c);
+		BigDecimal bigDecimal = new BigDecimal(0);
+		if (c.getTransportPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTransportPrice()));
+		}
+		if (c.getTakeCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getTakeCargoPrice()));
+		}
+		if (c.getCarryCargoPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getCarryCargoPrice()));
+		}
+		if (c.getInsurancePrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getInsurancePrice()));
+		}
+		if (c.getPackPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getPackPrice()));
+		}
+		if (c.getLoadUnloadPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getLoadUnloadPrice()));
+		}
+		if (c.getOtherPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getOtherPrice()));
+		}
+		if (c.getCollectionMoneyCharge() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c
+					.getCollectionMoneyCharge()));
+		}
+		if (c.getReturnPrice() != null) {
+			bigDecimal = bigDecimal.add(new BigDecimal(c.getReturnPrice()));
+		}
+		BaseAction.getHttpServletRequest().setAttribute("total",
+				String.format("%.2f", bigDecimal.doubleValue()));
+		BaseAction.getHttpServletRequest().setAttribute("capital",
+				MoneyUtils.digitUppercase(bigDecimal.doubleValue()));
+		return "consignment/printPreview";
+	}
+
 	private String formatInteger(Integer value) {
 		return value == null ? "" : value + "";
 	}

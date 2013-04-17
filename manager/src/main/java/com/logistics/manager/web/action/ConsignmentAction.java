@@ -355,7 +355,7 @@ public class ConsignmentAction extends SimpleFormController {
 			map.put("id", consignment.getId());
 			this.consignmentService.update("updateConsignment", map);
 		}
-		return "redirect：/consignment/list.htm";
+		return "redirect:/consignment/list.htm";
 	}
 
 	@RequestMapping("delete")
@@ -364,7 +364,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("enable", false);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect：/consignment/list.htm";
+		return "redirect:/consignment/list.htm";
 	}
 
 	@RequestMapping("recovery")
@@ -373,7 +373,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("enable", true);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect：/consignment/list.htm";
+		return "redirect:/consignment/list.htm";
 	}
 
 	@RequestMapping("look")
@@ -420,7 +420,7 @@ public class ConsignmentAction extends SimpleFormController {
 		map.put("id", id);
 		map.put("status", 1);
 		this.consignmentService.update("updateConsignmentByEnable", map);
-		return "redirect：/consignment/list.htm";
+		return "redirect:/consignment/list.htm";
 	}
 
 	@RequestMapping("ajaxCheck")

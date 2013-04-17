@@ -18,8 +18,4 @@
 	</bean>
 
     <mvc:resources location="/" mapping="/*"/>
-    
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        
-    </bean>
 </beans>

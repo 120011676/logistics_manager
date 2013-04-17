@@ -6,10 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新增货物托运受理单</title>
-<script type="text/javascript"
-	src="${path }/js/My97DatePicker/WdatePicker.js"></script>
-<link type="text/css" rel="sheetsytle"
-	href="${path }/js/My97DatePicker/skin/WdatePicker.css">
 <style type="text/css">
 .btn {
 	border: 0px;
@@ -96,7 +92,8 @@ body {
 					<div class="data">
 						<div style="text-align: right;">
 							<a href="${path }/consignment/download.htm?id=${consignment.id}">下载</a>
-							<a href="">打印</a>
+							<a
+								href="${path }/consignment/printPreview.htm?id=${consignment.id}">打印预览</a>
 						</div>
 						<div align="center">
 							<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font

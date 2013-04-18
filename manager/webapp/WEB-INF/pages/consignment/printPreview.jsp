@@ -51,7 +51,7 @@ body {
 <script>
 	$(document).ready(function() {
 		$("#p").click(function() {
-			$("div#print").printArea();
+			$("div#print").printArea({ mode : "popup", popClose : false });
 		});
 	});
 </script>

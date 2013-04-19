@@ -401,7 +401,7 @@ body {
 
 	function ways() {
 		var s = $("select[name='chargingWays']").val();
-		if (s == 1) {
+		if (s == '重量和') {
 			$("#transportPrice").val(
 					formatDouble(subDouble(accMul(accAdd(accAdd(accAdd(accAdd(
 							getDoubleByName("commodityWeightOne"),
@@ -415,7 +415,7 @@ body {
 			cleanByName("commodityVolumeThree");
 			cleanByName("commodityVolumeFour");
 			cleanByName("commodityVolumeFive");
-		} else if (s == 2) {
+		} else if (s == '体积和') {
 			$("#transportPrice").val(
 					formatDouble(subDouble(accMul(accAdd(accAdd(accAdd(accAdd(
 							getDoubleByName("commodityVolumeOne"),

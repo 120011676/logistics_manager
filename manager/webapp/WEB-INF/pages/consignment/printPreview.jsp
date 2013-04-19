@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>打印</title>
 <style type="text/css">
 .btn {
 	border: 0px;
@@ -45,13 +45,20 @@ body {
 .textLeft {
 	text-align: left;
 }
+
+#print table td {
+	height: 15px;
+}
 </style>
 <script type="text/javascript"
 	src="${path }/js/jquery/jquery.PrintArea.js"></script>
 <script>
 	$(document).ready(function() {
 		$("#p").click(function() {
-			$("div#print").printArea({ mode : "popup", popClose : false });
+			$("div#print").printArea({
+				mode : "popup",
+				popClose : true
+			});
 		});
 	});
 </script>
@@ -62,20 +69,18 @@ body {
 			<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 				size="2" style="font-weight: bold;">货物托运受理单</font>
 		</div>
-		<div id="print" style="width: 300px;">
-			<div style="margin-top: 10px;">
-				<table width="100%" style="margin-left: 30px;">
-					<tr>
-						<td><fmt:formatDate value="${consignment.datetime }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${consignment.startCity }</td>
-						<td>${consignment.arrivalCity }</td>
-						<td>${consignment.modeOfTransportation }</td>
-						<td>${consignment.serviceMode }</td>
-						<td>${consignment.payment }</td>
-					</tr>
-				</table>
-			</div>
+		<div id="print">
+			<table width="100%" style="margin-left: 20px;">
+				<tr>
+					<td width="140px"><fmt:formatDate
+							value="${consignment.datetime }" pattern="yy MM dd" /></td>
+					<td width="75px">${consignment.startCity }</td>
+					<td width="100px">${consignment.arrivalCity }</td>
+					<td width="100px">${consignment.modeOfTransportation }</td>
+					<td width="100px">${consignment.serviceMode }</td>
+					<td>${consignment.payment }</td>
+				</tr>
+			</table>
 			<table class="dataTable" style="margin-top: 5px; text-align: left;">
 				<tr>
 					<td rowspan="4" align="center" valign="middle" width="50px"></td>

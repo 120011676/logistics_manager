@@ -64,7 +64,7 @@ body {
 			<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 				size="2" style="font-weight: bold;">货物托运受理单</font>
 		</div>
-		<div id="print" style="font-size: 8px;">
+		<div id="print" style="font-size: 8px;width: 600px;">
 			<table class="title" width="100%" style="margin-left: 20px;">
 				<tr>
 					<td width="140px"><fmt:formatDate

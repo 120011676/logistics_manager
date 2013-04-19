@@ -64,7 +64,7 @@ body {
 			<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 				size="2" style="font-weight: bold;">货物托运受理单</font>
 		</div>
-		<div id="print" style="font-size: 8px;width: 600px;">
+		<div id="print" style="font-size: 8px; width: 600px;">
 			<table class="title" width="100%" style="margin-left: 20px;">
 				<tr>
 					<td width="140px"><fmt:formatDate
@@ -107,13 +107,16 @@ body {
 					<td colspan="3" align="left" width="250px"><div
 							style="margin-left: 90px; width: 100%;">${consignment.chargingWays
 							}</div></td>
-					<td align="left"><div
-							style="margin-left: 40px;">
+					<td align="left"><div style="margin-left: 40px;">
 							<fmt:formatNumber value="${consignment.unitPrice }"
-								pattern="0.00" /></div></td>
+								pattern="0.00" />
+						</div></td>
 				</tr>
 				<tr>
-					<td>${consignment.commodityNameOne }</td>
+					<td><c:choose>
+							<c:when test="${fn:length(consignment.commodityNameOne) > 0 }">${consignment.commodityNameOne }</c:when>
+							<c:otherwise>&nbsp;</c:otherwise>
+						</c:choose></td>
 					<td>${consignment.commodityPackageOne }</td>
 					<td>${consignment.commodityPackageNumberOne }</td>
 					<td><fmt:formatNumber
@@ -130,7 +133,10 @@ body {
 							value="${consignment.loadUnloadPrice }" pattern="0.00" /></td>
 				</tr>
 				<tr>
-					<td>${consignment.commodityNameTwo }</td>
+					<td><c:choose>
+							<c:when test="${fn:length(consignment.commodityNameTwo) > 0 }">${consignment.commodityNameTwo }</c:when>
+							<c:otherwise>&nbsp;</c:otherwise>
+						</c:choose></td>
 					<td>${consignment.commodityPackageTwo }</td>
 					<td>${consignment.commodityPackageNumberTwo }</td>
 					<td><fmt:formatNumber
@@ -147,7 +153,10 @@ body {
 							value="${consignment.otherPrice }" pattern="0.00" /></td>
 				</tr>
 				<tr>
-					<td>${consignment.commodityNameThree }</td>
+					<td><c:choose>
+							<c:when test="${fn:length(consignment.commodityNameThree) > 0 }">${consignment.commodityNameThree }</c:when>
+							<c:otherwise>&nbsp;</c:otherwise>
+						</c:choose></td>
 					<td>${consignment.commodityPackageThree }</td>
 					<td>${consignment.commodityPackageNumberThree }</td>
 					<td><fmt:formatNumber
@@ -164,7 +173,10 @@ body {
 							value="${consignment.collectionMoney }" pattern="0.00" /></td>
 				</tr>
 				<tr>
-					<td>${consignment.commodityNameFour }</td>
+					<td><c:choose>
+							<c:when test="${fn:length(consignment.commodityNameFour) > 0 }">${consignment.commodityNameFour }</c:when>
+							<c:otherwise>&nbsp;</c:otherwise>
+						</c:choose></td>
 					<td>${consignment.commodityPackageFour }</td>
 					<td>${consignment.commodityPackageNumberFour }</td>
 					<td><fmt:formatNumber
@@ -181,7 +193,10 @@ body {
 							value="${consignment.collectionMoneyCharge }" pattern="0.00" /></td>
 				</tr>
 				<tr>
-					<td>${consignment.commodityNameFive }</td>
+					<td><c:choose>
+							<c:when test="${fn:length(consignment.commodityNameFive) > 0 }">${consignment.commodityNameFive }</c:when>
+							<c:otherwise>&nbsp;</c:otherwise>
+						</c:choose></td>
 					<td>${consignment.commodityPackageFive }</td>
 					<td>${consignment.commodityPackageNumberFive }</td>
 					<td><fmt:formatNumber
@@ -198,8 +213,10 @@ body {
 							value="${consignment.returnPrice }" pattern="0.00" /></td>
 				</tr>
 				<tr height="40px">
-					<td colspan="6" align="left"><div style="margin-left: 90px;width: 300px;">${capital }</div></td>
-					<td colspan="4" align="left"><div style="margin-left: 20px;">${total }</div></td>
+					<td colspan="6" align="left"><div
+							style="margin-left: 90px; width: 300px;">${capital }</div></td>
+					<td colspan="4" align="left"><div style="margin-left: 20px;">${total
+							}</div></td>
 				</tr>
 			</table>
 		</div>

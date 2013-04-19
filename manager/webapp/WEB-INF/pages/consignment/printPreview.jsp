@@ -26,16 +26,7 @@
 .dataTable td {
 	border: 1px solid #bbb;
 	padding-left: 5px;
-	height: 25px;
-}
-
-.dataTableAddTd td {
-	border-top: 0px;
-}
-
-.dataTable p {
-	padding-top: 1px;
-	font-size: 8px;
+	height: 20px;
 }
 
 body {
@@ -46,8 +37,12 @@ body {
 	text-align: left;
 }
 
-#print table td {
+#print .title td {
 	height: 15px;
+}
+
+.scd td {
+	border-top: 0px;
 }
 </style>
 <script type="text/javascript"
@@ -69,8 +64,8 @@ body {
 			<font size="5" style="font-weight: bold;">成都道成物流有限公司</font>&nbsp;<font
 				size="2" style="font-weight: bold;">货物托运受理单</font>
 		</div>
-		<div id="print">
-			<table width="100%" style="margin-left: 20px;">
+		<div id="print" style="font-size: 8px;">
+			<table class="title" width="100%" style="margin-left: 20px;">
 				<tr>
 					<td width="140px"><fmt:formatDate
 							value="${consignment.datetime }" pattern="yy MM dd" /></td>
@@ -81,11 +76,11 @@ body {
 					<td>${consignment.payment }</td>
 				</tr>
 			</table>
-			<table class="dataTable" style="margin-top: 5px; text-align: left;">
+			<table class="dataTable" style="text-align: left;">
 				<tr>
-					<td rowspan="4" align="center" valign="middle" width="50px"></td>
-					<td width="400px">${consignment.shipper }</td>
-					<td rowspan="4" align="center" valign="middle" width="50px"></td>
+					<td rowspan="4" align="center" width="120px"></td>
+					<td width="100px">${consignment.shipper }</td>
+					<td rowspan="4" align="center" width="85px"></td>
 					<td>${consignment.consignee }</td>
 				</tr>
 				<tr>
@@ -102,17 +97,20 @@ body {
 				</tr>
 			</table>
 			<table class="dataTable">
-				<tr class="dataTableAddTd">
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td colspan="3" align="left" width="100px">
-						${consignment.chargingWays }</td>
-					<td align="left" width="200px"><fmt:formatNumber
-							value="${consignment.unitPrice }" pattern="0.00" /></td>
+				<tr class="scd">
+					<td width="51px"></td>
+					<td width="51px"></td>
+					<td width="51px"></td>
+					<td width="80px"></td>
+					<td width="80px"></td>
+					<td width="60px"></td>
+					<td colspan="3" align="left" width="250px"><div
+							style="margin-left: 90px; width: 100%;">${consignment.chargingWays
+							}</div></td>
+					<td align="left"><div
+							style="margin-left: 40px;">
+							<fmt:formatNumber value="${consignment.unitPrice }"
+								pattern="0.00" /></div></td>
 				</tr>
 				<tr>
 					<td>${consignment.commodityNameOne }</td>
@@ -124,10 +122,10 @@ body {
 							value="${consignment.commodityVolumeOne }" pattern="0.00" /></td>
 					<td><fmt:formatNumber
 							value="${consignment.commodityWorthOne }" pattern="0.00" /></td>
-					<td></td>
-					<td><fmt:formatNumber value="${consignment.transportPrice }"
-							pattern="0.00" /></td>
-					<td></td>
+					<td width="45px"></td>
+					<td width="60px"><fmt:formatNumber
+							value="${consignment.transportPrice }" pattern="0.00" /></td>
+					<td width="30px"></td>
 					<td class="textLeft"><fmt:formatNumber
 							value="${consignment.loadUnloadPrice }" pattern="0.00" /></td>
 				</tr>
@@ -199,9 +197,9 @@ body {
 					<td class="textLeft"><fmt:formatNumber
 							value="${consignment.returnPrice }" pattern="0.00" /></td>
 				</tr>
-				<tr>
-					<td colspan="6" align="left"><span id="sc">${capital }</span></td>
-					<td colspan="4" align="left"><span id="total">${total }</span></td>
+				<tr height="40px">
+					<td colspan="6" align="left"><div style="margin-left: 90px;width: 300px;">${capital }</div></td>
+					<td colspan="4" align="left"><div style="margin-left: 20px;">${total }</div></td>
 				</tr>
 			</table>
 		</div>
